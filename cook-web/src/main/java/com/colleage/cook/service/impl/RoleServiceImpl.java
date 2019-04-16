@@ -8,6 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @Classname RoleServiceImpl
+ * @Description 用户角色业务层实现
+ * @Date 2019\4\12 0012
+ * @Created by David
+ */
 @Service("roleSerivice")
 public class RoleServiceImpl implements RoleService {
 

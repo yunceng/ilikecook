@@ -10,7 +10,7 @@
 package com.colleage.cook.utils.upload.impl;
 
 
-import com.colleage.cook.exception.ConstumeException;
+import com.colleage.cook.exception.ConsumeException;
 import com.colleage.cook.utils.FileNameUtils;
 import com.colleage.cook.utils.ImageUtils;
 import com.colleage.cook.utils.upload.FileRepo;
@@ -38,11 +38,11 @@ public abstract class AbstractFileRepo implements FileRepo {
 
     protected void validateFile(MultipartFile file) {
         if (file == null || file.isEmpty()) {
-            throw new ConstumeException("文件不能为空");
+            throw new ConsumeException("文件不能为空");
         }
 
         if (!checkFileType(file.getOriginalFilename())) {
-            throw new ConstumeException("文件格式不支持");
+            throw new ConsumeException("文件格式不支持");
         }
     }
 

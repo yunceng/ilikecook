@@ -9,10 +9,10 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <module>cook-common</module>
+        <module>cook-util</module>
         <module>cook-admin</module>
         <module>cook-web</module>
-        <module>cook-util</module>
-        <module>cook-common</module>
     </modules>
 
     <properties>
@@ -31,6 +31,7 @@
         <jsoup.version>1.9.2</jsoup.version>
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
         <commons-codec>1.11</commons-codec>
+        <common.lang.version>2.6</common.lang.version>
         <thymeleaf.spring.version>3.0.9.RELEASE</thymeleaf.spring.version>
         <thymeleaf-layout-dialect.version>2.2.1</thymeleaf-layout-dialect.version>
 
@@ -130,6 +131,11 @@
                 <version>${thymeleaf.spring.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${common.lang.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>commons-codec</groupId>

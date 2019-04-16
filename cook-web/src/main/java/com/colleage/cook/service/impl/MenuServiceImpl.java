@@ -8,6 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @Classname MenuService
+ * @Description 菜单业务层实现
+ * @Date 2019\4\12 0012
+ * @Created by David
+ */
 @Service("menuService")
 public class MenuServiceImpl implements MenuService {
 

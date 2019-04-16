@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @Classname RoleInfoMapper
- * @Description TODO
+ * @Description 角色访问操作
  * @Date 2019\4\12 0012
  * @Created by David
  */

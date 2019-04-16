@@ -12,24 +12,39 @@
 		<result column="last_login" property="last_login" jdbcType="VARCHAR" />
 		<result column="mobile" property="mobile" jdbcType="INTEGER" />
 		<result column="status" property="status" jdbcType="INTEGER" />
-		<result column="name" property="name" jdbcType="VARCHAR" />
-		<result column="gender" property="gender" jdbcType="VARCHAR" />
+		<result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+		<result column="gender" property="gender" jdbcType="INTEGER"/>
 		<result column="favors" property="favors" jdbcType="INTEGER" />
 		<result column="follows" property="follows" jdbcType="INTEGER" />
 		<result column="signature" property="signature" jdbcType="VARCHAR" />
 		<result column="production" property="production" jdbcType="INTEGER" />
 		<result column="menus" property="menus" jdbcType="INTEGER" />
 		<result column="role_id" property="role_id" jdbcType="INTEGER" />
+		<result column="oauth_type" property="oauth_type" jdbcType="INTEGER"/>
 	</resultMap>
 
 	<sql id="column_list">
 		id, username, password, avatar, DATE_FORMAT(create_time, "%Y-%m-%d") create_time, email,
-		DATE_FORMAT(last_login, "%Y-%m-%d") last_login, mobile, status, name,
-		(CASE gender WHEN 1 THEN "男" WHEN 2 THEN "女" ELSE "未知" END) gender, favors, follows, signature, production,
-		menus, role_id
+		DATE_FORMAT(last_login, "%Y-%m-%d") last_login, mobile, status, nickname,
+		gender, favors, follows, signature, production,
+		menus, role_id, oauth_type
 	</sql>
 
 	<select id="findUserInfoByUsername" resultMap="BaseResultMap">
 		select <include refid="column_list"></include> FROM user_info where username = #{username}
 	</select>
+
+	<select id="findUserInfoByUserId" resultMap="BaseResultMap">
+		select <include refid="column_list"></include> FROM user_info where id = #{userId}
+	</select>
+
+	<insert id="register">
+		insert into user_info(username, password, avatar, create_time, last_login, nickname, gender, oauth_type, email)
+		values(#{userInfo.username}, #{userInfo.password}, #{userInfo.avatar}, now(), now(),
+		#{userInfo.nickname}, #{userInfo.gender}, #{userInfo.oauth_type}, #{userInfo.email});
+	</insert>
+
+	<update id="updateAvatar">
+		update user_info set avatar = #{avatar} where id = #{userId}
+	</update>
 </mapper>

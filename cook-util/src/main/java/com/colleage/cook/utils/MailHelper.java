@@ -1,9 +1,8 @@
 package com.colleage.cook.utils;
 
-import com.colleage.cook.exception.ConstumeException;
+import com.colleage.cook.exception.ConsumeException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -33,11 +32,9 @@ public class MailHelper {
     private JavaMailSender javaMailSender;
 
     public void sendEmail(String to, String title, HttpServletRequest request, HttpServletResponse response,
-                          ApplicationContext applicationContext, String templateName, Model model) {
+                          String templateName, Model model) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-
         try {
-
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
             helper.setFrom(env.getProperty("spring.mail.username"));
             helper.setTo(to);
@@ -48,7 +45,7 @@ public class MailHelper {
 
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            throw new ConstumeException("邮件发送失败", e);
+            throw new ConsumeException("邮件发送失败", e);
         }
     }
 
@@ -59,7 +56,7 @@ public class MailHelper {
 
             return thymeleafViewResolver.getTemplateEngine().process(templateName, ctx);
         } catch (Exception e) {
-            throw new ConstumeException(e.getMessage(), e);
+            throw new ConsumeException(e.getMessage(), e);
         }
     }
 }

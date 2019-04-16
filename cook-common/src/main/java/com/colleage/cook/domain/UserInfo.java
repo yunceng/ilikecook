@@ -30,9 +30,9 @@ public class UserInfo implements Serializable{
     //用户状态（0：正常，1：锁定，2：异常，3：注销）
     private int status;
     //昵称
-    private String name;
+    private String nickname;
     //性别（0：未知，1：男，2：女，）
-    private String gender;
+    private int gender;
     //关注数
     private int favors;
     //被关注数
@@ -45,6 +45,8 @@ public class UserInfo implements Serializable{
     private int menus;
     //用户拥有的角色的id
     private int role_id;
+    //认证类型
+    private int oauth_type;
 
 
     public int getId() {
@@ -119,19 +121,19 @@ public class UserInfo implements Serializable{
         this.status = status;
     }
 
-    public String getName() {
-        return name;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public String getGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
@@ -181,6 +183,14 @@ public class UserInfo implements Serializable{
 
     public void setRole_id(int role_id) {
         this.role_id = role_id;
+    }
+
+    public int getOauth_type() {
+        return oauth_type;
+    }
+
+    public void setOauth_type(int oauth_type) {
+        this.oauth_type = oauth_type;
     }
 
     @Override

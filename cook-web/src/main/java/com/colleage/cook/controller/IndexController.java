@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @Classname IndexController
- * @Description TODO
+ * @Description 首页访问链接
  * @Date 2019\4\12 0012
  * @Created by David
  */
 @Controller
 public class IndexController {
 
-    @RequestMapping(value = {"", "/"})
+    @RequestMapping(value = {"/", "index.html"})
     public String index(){
         return "index";
     }

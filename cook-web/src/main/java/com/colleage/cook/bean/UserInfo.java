@@ -7,7 +7,7 @@ import java.util.Collection;
 
 /**
  * @Classname UserInfo
- * @Description TODO
+ * @Description 权限控制的userInfo
  * @Date 2019\4\12 0012
  * @Created by David
  */

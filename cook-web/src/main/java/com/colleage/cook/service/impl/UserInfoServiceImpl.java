@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,9 +39,39 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (user == null) {
             throw new UsernameNotFoundException("用户:" + s + ",不存在!");
         }
+        return new com.colleage.cook.bean.UserInfo(user, true, true, getAuthorities(user.getUsername()));
+    }
 
+
+    @Override
+    public UserInfo getUserInfoByUsername(String username) {
+        return userInfoMapper.findUserInfoByUsername(username);
+    }
+
+    @Override
+    public UserInfo getUserInfoByUserId(int userId) {
+        return userInfoMapper.findUserInfoByUserId(userId);
+    }
+
+    @Override
+    public UserInfo register(UserInfo userInfo) {
+        userInfoMapper.register(userInfo);
+        return userInfo;
+    }
+
+    @Override
+    public boolean updateAvatar(int userId, String avatar) {
+        return userInfoMapper.updateAvatar(userId, avatar);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities(String username) {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        List<RoleInfo> roleValues = roleInfoMapper.getRoleValuesByRoleId(user.getRole_id());
+        UserInfo userInfo;
+        if ((userInfo = userInfoMapper.findUserInfoByUsername(username)) == null) {
+            return grantedAuthorities;
+        }
+        List<RoleInfo> roleValues = roleInfoMapper.getRoleValuesByRoleId(userInfo.getRole_id());
         for (RoleInfo role : roleValues){
             //角色必须是ROLE_开头，可以在数据库中设置
             GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_"+role.getValue());
@@ -52,7 +83,6 @@ public class UserInfoServiceImpl implements UserInfoService {
                 grantedAuthorities.add(authority);
             }
         }
-        return new com.colleage.cook.bean.UserInfo(user, true, true, grantedAuthorities);
+        return grantedAuthorities;
     }
-
 }

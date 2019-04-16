@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @Classname MenuInfoMapper
- * @Description TODO
+ * @Description 菜单操作映射
  * @Date 2019\4\12 0012
  * @Created by David
  */

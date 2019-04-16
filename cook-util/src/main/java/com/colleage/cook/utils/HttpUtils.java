@@ -9,15 +9,15 @@
 */
 package com.colleage.cook.utils;
 
-import java.io.IOException;
-import java.util.Map;
-
-import com.colleage.cook.exception.ConstumeException;
+import com.colleage.cook.exception.ConsumeException;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
+
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * @Classname HttpUtils
@@ -45,7 +45,7 @@ public class HttpUtils {
     	int status = client.executeMethod(post);
 
     	if (status != HttpStatus.SC_OK) {
-    		throw new ConstumeException("该地址请求失败");
+            throw new ConsumeException("该地址请求失败");
     	}
     	return post.getResponseBodyAsString();
 	}
