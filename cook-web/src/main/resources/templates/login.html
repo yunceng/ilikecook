@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,8 +50,7 @@
         //window.UEDITOR_HOME_URL = '/dist/vendors/ueditor/';
     </script>
 
-    <script type="text/javascript" src="http://localhost:8080/theme/default/js/sea.js"></script>
-    <script type="text/javascript" src="http://localhost:8080/theme/default/js/sea.config.js"></script>
+
 
     <!-- Favicons -->
     <link rel="apple-touch-icon-precomposed" href="http://mtons.com/dist/images/logo.png"/>
@@ -69,6 +68,7 @@
                 <h4 class="modal-title">请登录</h4>
             </div>
             <div class="modal-body">
+                <span th:if="${session.code < 0}" th:text="${session.message}"></span>
                 <form method="POST" action="/login.do" accept-charset="UTF-8">
                     <div class="form-group ">
                         <label class="control-label" for="username">账号</label>

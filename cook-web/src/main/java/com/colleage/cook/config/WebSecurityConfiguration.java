@@ -37,7 +37,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler(){
-        return new AccessDeniedHandlerImpl();
+        AccessDeniedHandlerImpl accessDeniedHandler = new AccessDeniedHandlerImpl();
+        accessDeniedHandler.setErrorPage("/e/403.html");
+        return accessDeniedHandler;
     }
 
     @Autowired
@@ -56,11 +58,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/oauth/**", "/e/**", "/", "/index.html", "/register**").permitAll()
+                .antMatchers("/", "/index.html", "/login**", "/oauth/**", "/e/**", "/register**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage("/login.html").loginProcessingUrl("/login.do")
-                .failureHandler(loginFailureHandler).failureUrl("/error.html").permitAll()
+                .failureHandler(loginFailureHandler).permitAll()
                 .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler)
                 .and().csrf().disable()
                 .httpBasic();

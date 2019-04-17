@@ -6,11 +6,11 @@ import com.colleage.cook.domain.UserOpenOauthInfo;
 import com.colleage.cook.exception.ConsumeException;
 import com.colleage.cook.oauth.bean.OauthQQ;
 import com.colleage.cook.oauth.bean.OpenOauthBean;
-import com.colleage.cook.oauth.bean.TokenUtil;
+import com.colleage.cook.oauth.utils.TokenUtil;
 import com.colleage.cook.service.OpenOauthService;
-import com.colleage.cook.utils.FilePathUtils;
 import com.colleage.cook.utils.ImageUtils;
 import com.colleage.cook.utils.upload.FileRepo;
+import com.colleage.cook.utils.upload.impl.FileRepoImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import static com.colleage.cook.constants.ViewConstants.OAUTH_REGISTERV;
 
 /**
  * @Classname ThirdPartyLoginController
@@ -97,7 +99,7 @@ public class ThirdPartyLoginController extends BaseLoginController {
 
         if (thirdToken == null) {
             model.put("open", openOauth);
-            return "register";
+            return OAUTH_REGISTERV;
         }
         String username = userInfoService.getUserInfoByUserId(thirdToken.getUser_id()).getUsername();
         return doLogin(request, username, thirdToken.getAccess_token());
@@ -126,9 +128,9 @@ public class ThirdPartyLoginController extends BaseLoginController {
                 UserInfo u = userInfoService.register(wrapUser(openOauth));
 
                 // ===将远程图片下载到本地===
-                String ava100 = SystemInfoConstants.AVADIR + getAvaPath(u.getId(), 100);
-                ImageUtils.download(openOauth.getAvatar(), fileRepo.getRoot() + ava100);
-                userInfoService.updateAvatar(u.getId(), ava100);
+                String avator = fileRepo.getRoot() + FileRepo.AVADIR + FileRepoImpl.getAvaPath(u.getId(), 100);
+                ImageUtils.download(openOauth.getAvatar(), avator);
+                userInfoService.updateAvatar(u.getId(), avator);
 
                 thirdToken = new UserOpenOauthInfo();
                 BeanUtils.copyProperties(openOauth, thirdToken);
@@ -155,10 +157,5 @@ public class ThirdPartyLoginController extends BaseLoginController {
             user.setAvatar(SystemInfoConstants.all_system_info.get(SystemInfoConstants.DEFAULT_USER_AVATAR));
         }
         return user;
-    }
-
-    public String getAvaPath(long uid, int size) {
-        String base = FilePathUtils.getAvatar(uid);
-        return String.format("/%s_%d.jpg", base, size);
     }
 }

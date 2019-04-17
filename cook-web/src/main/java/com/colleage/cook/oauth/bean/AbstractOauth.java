@@ -1,7 +1,7 @@
 package com.colleage.cook.oauth.bean;
 
 import com.alibaba.fastjson.JSONObject;
-import com.colleage.cook.oauth.utils.HttpKit;
+import com.colleage.cook.oauth.utils.HttpUtils;
 
 import java.io.IOException;
 import java.security.KeyManagementException;
@@ -22,19 +22,19 @@ public abstract class AbstractOauth {
     private String redirectUri;
 
     protected String getAuthorizeUrl(String authorize, Map<String, String> params) throws java.io.UnsupportedEncodingException {
-        return HttpKit.initParams(authorize, params);
+        return HttpUtils.initParams(authorize, params);
     }
 
     protected String doPost(String url, Map<String, String> params) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
-        return HttpKit.post(url, params);
+        return HttpUtils.post(url, params);
     }
 
     protected String doGet(String url, Map<String, String> params) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
-        return HttpKit.get(url, params);
+        return HttpUtils.get(url, params);
     }
 
     protected String doGetWithHeaders(String url, Map<String, String> headers) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
-        return HttpKit.get(url, null, headers);
+        return HttpUtils.get(url, null, headers);
     }
 
     public String getClientId() {

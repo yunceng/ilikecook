@@ -67,8 +67,4 @@ public class PreviewTextUtils {
         Element image = doc.select("img").first();
         return image == null ? null : image.attr("src");
     }
-
-    public static void main(String[] args) {
-        System.out.println(PreviewTextUtils.getText("<script>alert</script>testssssssss", 5));
-    }
 }

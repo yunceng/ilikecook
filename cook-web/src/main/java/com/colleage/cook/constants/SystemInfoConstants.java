@@ -11,31 +11,6 @@ import java.util.Map;
 public class SystemInfoConstants {
 
     /**
-     * 文件存储-根目录
-     */
-    public static final String ROOT = "/data/ilikecook";
-
-    /**
-     * 文件存储-原文件目录
-     */
-    public static final String ORIGDIR = "/store/orig";
-
-    /**
-     * 文件存储-压缩目录
-     */
-    public static final String THUMBSDIR = "/store/thumbs";
-
-    /**
-     * 文件存储-头像目录
-     */
-    public static final String AVADIR = "/store/ava";
-
-    /**
-     * 文件存储-临时文件目录
-     */
-    public static final String TEMPDIR = "/store/temp";
-
-    /**
      * 系统信息存放，只加载一次
      */
     public static Map<String, String> all_system_info;

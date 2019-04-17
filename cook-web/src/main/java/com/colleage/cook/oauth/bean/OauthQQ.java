@@ -3,6 +3,7 @@ package com.colleage.cook.oauth.bean;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.colleage.cook.constants.SystemInfoConstants;
+import com.colleage.cook.oauth.utils.TokenUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -125,7 +126,7 @@ public class OauthQQ extends AbstractOauth {
             openOauthBean.setAccessToken(accessToken);
             openOauthBean.setExpireIn("");
             openOauthBean.setOauthUserId(openid);
-            openOauthBean.setOauthType(EnumOauthTypeBean.TYPE_QQ.getValue());
+            openOauthBean.setOauthType(OauthTypeEnum.TYPE_QQ.getValue());
             openOauthBean.setUsername("QQ" + openid.getBytes().hashCode());
             openOauthBean.setNickname(nickname);
             openOauthBean.setAvatar(photoUrl);

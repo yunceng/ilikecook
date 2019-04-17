@@ -9,6 +9,7 @@
 */
 package com.colleage.cook.utils.upload.impl;
 
+import com.colleage.cook.utils.FilePathUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,6 +23,11 @@ public class FileRepoImpl extends AbstractFileRepo {
 
 	@Override
 	public String getRoot() {
-		return "/data/ilikecook";
+		return ROOT;
+	}
+
+	public static String getAvaPath(long uid, int size) {
+		String base = FilePathUtils.getAvatar(uid);
+		return String.format("/%s_%d.jpg", base, size);
 	}
 }

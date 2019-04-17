@@ -2,7 +2,7 @@ package com.colleage.cook.oauth.bean;
 
 /**
  * @Classname OpenOauthBean
- * @Description TODO
+ * @Description 负责封装从第三方返回来的用户信息
  * @Date 2019\4\16 0016
  * @Created by David
  */

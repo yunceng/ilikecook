@@ -31,7 +31,8 @@ import java.util.Iterator;
  * @Created by David
  */
 public abstract class AbstractFileRepo implements FileRepo {
-    private Logger log = Logger.getLogger(this.getClass());
+
+    private static final Logger log = Logger.getLogger(AbstractFileRepo.class);
 
     // 文件允许格式
     protected String[] allowFiles = {".gif", ".png", ".jpg", ".jpeg", ".bmp"};

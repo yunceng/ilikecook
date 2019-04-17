@@ -13,6 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.colleage.cook.constants.ViewConstants.LOGIN_VIEW;
+import static com.colleage.cook.constants.ViewConstants.REDIRECT_INDEX_REQUEST;
+
 /**
  * @Classname BaseLoginController
  * @Description TODO
@@ -47,8 +50,9 @@ public class BaseLoginController {
         } catch (AuthenticationException e) {
             responseData.setCode(WebResponseData.Code.LOGIN_ERROR);
             responseData.setMessage(WebResponseData.Message.USER_PASSWORD_ERROR);
+            return LOGIN_VIEW;
         }
-        return "redirect:/index.html";
+        return REDIRECT_INDEX_REQUEST;
     }
 
 }

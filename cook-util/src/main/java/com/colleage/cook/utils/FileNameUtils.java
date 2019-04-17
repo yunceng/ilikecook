@@ -21,10 +21,11 @@ import java.util.Date;
  * @Created by David
  */
 public class FileNameUtils {
-	private static String YYYYMM = "/yyyy/MMdd/";
-	private static String DDHHMMSS = "ddHHmmss";
-	
-	private static String YYYYMMDDHHMMSS = "/yyyy/MMdd/ddHHmmss";
+
+	private static final String YYYYMM = "/yyyy/MMdd/";
+	private static final String DDHHMMSS = "ddHHmmss";
+	private static final String YYYYMMDDHHMMSS = "/yyyy/MMdd/ddHHmmss";
+
 	private static RandomStringGenerator randomString = new RandomStringGenerator.Builder().withinRange('a', 'z').build();
 	
 	/**

@@ -3,17 +3,15 @@ package com.colleage.cook.utils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.*;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.security.GeneralSecurityException;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 /**
- * 加密相关公共方法
- *
- * @author zifangsky
- * @date 2018/7/31
- * @since 1.0.0
+ * @Classname EncryptUtils
+ * @Description 加密相关公共方法
+ * @Date 2019\4\15 0015
+ * @Created by David
  */
 public class EncryptUtils {
 
@@ -55,8 +53,8 @@ public class EncryptUtils {
      * Base64 decode
      * @throws UnsupportedEncodingException
      * */
-    public static String base64Decode(final String data) throws UnsupportedEncodingException {
-        return new String(Base64.decodeBase64(data.getBytes()),"utf-8");
+    public static String base64Decode(final String data) {
+        return new String(Base64.decodeBase64(data.getBytes()), StandardCharsets.UTF_8);
     }
 
     /**
@@ -186,7 +184,6 @@ public class EncryptUtils {
      */
     public static boolean checkSha512Crypt(final String value,final String encryptedStr){
         String newEncryptedStr = sha512Crypt(value,encryptedStr);
-
         return newEncryptedStr.equals(encryptedStr);
     }
 

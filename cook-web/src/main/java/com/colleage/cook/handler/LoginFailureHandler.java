@@ -1,13 +1,10 @@
 package com.colleage.cook.handler;
 
-import com.alibaba.fastjson.JSONObject;
 import com.colleage.cook.vo.WebResponseData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.authentication.AccountStatusException;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
@@ -32,24 +29,28 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("登录失败", exception);
         }
-        this.returnJson(response, exception);
+        request.getSession().setAttribute("code", WebResponseData.Code.LOGIN_ERROR);
+        request.getSession().setAttribute("message", exception.getLocalizedMessage());
+        request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, exception);
+        response.sendRedirect("/login.html");
     }
 
-    /**
-     * 直接返回需要返回的 json 数据
-     */
-    private void returnJson(HttpServletResponse response,
-                            AuthenticationException exception) throws IOException {
-        WebResponseData webResponseData = new WebResponseData();
-        webResponseData.setCode(WebResponseData.Code.LOGIN_ERROR);
-        if (exception instanceof UsernameNotFoundException || exception instanceof BadCredentialsException) {
-            webResponseData.setMessage(WebResponseData.Message.USER_PASSWORD_ERROR);
-        } else if (exception instanceof AccountStatusException) {
-            webResponseData.setMessage(WebResponseData.Message.USER_ACCOUNT_STATUS_ERROR);
-        }
-
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
-        response.getWriter().println(JSONObject.toJSONString(webResponseData));
-    }
+//    /**
+//     * 直接返回需要返回的 json 数据
+//     */
+//    private void returnJson(HttpServletResponse response,
+//                            AuthenticationException exception) throws IOException {
+//        WebResponseData webResponseData = new WebResponseData();
+//        webResponseData.setCode(WebResponseData.Code.LOGIN_ERROR);
+//        if (exception instanceof UsernameNotFoundException || exception instanceof BadCredentialsException || exception instanceof InsufficientAuthenticationException) {
+//            webResponseData.setMessage(WebResponseData.Message.USER_PASSWORD_ERROR);
+//        } else if (exception instanceof AccountStatusException) {
+//            webResponseData.setMessage(WebResponseData.Message.USER_ACCOUNT_STATUS_ERROR);
+//        }else{
+//            webResponseData.setMessage(WebResponseData.Message.USER_PASSWORD_ERROR);
+//        }
+//        response.setCharacterEncoding("UTF-8");
+//        response.setContentType("application/json");
+//        response.getWriter().write(JSONObject.toJSONString(webResponseData));
+//    }
 }

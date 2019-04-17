@@ -2,13 +2,19 @@ package com.colleage.cook.controller;
 
 import com.colleage.cook.constants.SystemInfoConstants;
 import com.colleage.cook.domain.UserInfo;
-import com.colleage.cook.oauth.bean.EnumOauthTypeBean;
+import com.colleage.cook.oauth.bean.OauthTypeEnum;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+
+import static com.colleage.cook.constants.ViewConstants.*;
 
 /**
  * @Classname LoginController
@@ -20,20 +26,19 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginController extends BaseLoginController {
 
     @GetMapping("login.html")
-    public String login(){
-        return "login";
-    }
+    public String login(HttpServletRequest request) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-    @PostMapping("login.do")
-    public String login(HttpServletRequest request, @RequestParam(required = false) String username,
-                        @RequestParam(required = false) String password,
-                        @RequestParam(required = false, defaultValue = "false") boolean remeberMe) {
-        return doLogin(request, username, password);
+        String referer = request.getHeader("Referer");
+        if (auth != null && !(auth instanceof AnonymousAuthenticationToken) && auth.isAuthenticated()) {
+            return "redirect:" + (StringUtils.isNotBlank(referer) ? referer : INDEX_REQUEST);
+        }
+        return LOGIN_VIEW;
     }
 
     @GetMapping("register.html")
     public String register() {
-        return "register";
+        return REGISTER_VIEW;
     }
 
     @PostMapping("register.do")
@@ -48,7 +53,7 @@ public class LoginController extends BaseLoginController {
         userInfo.setAvatar(avatar);
         userInfo.setNickname(nickname);
         userInfo.setGender(1);
-        userInfo.setOauth_type(EnumOauthTypeBean.TYPE_NULL.getValue());
+        userInfo.setOauth_type(OauthTypeEnum.TYPE_NULL.getValue());
         userInfo.setEmail(email);
 
         userInfoService.register(userInfo);

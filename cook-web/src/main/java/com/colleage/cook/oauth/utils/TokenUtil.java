@@ -1,4 +1,4 @@
-package com.colleage.cook.oauth.bean;
+package com.colleage.cook.oauth.utils;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -18,8 +18,9 @@ public class TokenUtil {
         String accessToken = "";
         try {
             JSONObject json = JSONObject.parseObject(string);
-            if (json != null)
+            if (json != null) {
                 accessToken = json.getString("access_token");
+            }
         } catch (Exception e) {
             Matcher m = java.util.regex.Pattern.compile("^access_token=(\\w+)&expires_in=(\\w+)&refresh_token=(\\w+)$").matcher(string);
             if (m.find()) {
@@ -44,7 +45,10 @@ public class TokenUtil {
 
     public static String getUid(String string) {
         JSONObject json = JSONObject.parseObject(string);
-        return json.getString("uid");
+        if (json != null && json.containsKey("uid")) {
+            return json.getString("uid");
+        }
+        return "";
     }
 
     public static String randomState() {

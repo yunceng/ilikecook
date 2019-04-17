@@ -9,6 +9,7 @@ import com.colleage.cook.mapper.RoleInfoMapper;
 import com.colleage.cook.mapper.UserInfoMapper;
 import com.colleage.cook.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,7 +38,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         /*模拟数据库操作*/
         UserInfo user = userInfoMapper.findUserInfoByUsername(s);
         if (user == null) {
-            throw new UsernameNotFoundException("用户:" + s + ",不存在!");
+            throw new InsufficientAuthenticationException("用户:" + s + ",不存在!");
         }
         return new com.colleage.cook.bean.UserInfo(user, true, true, getAuthorities(user.getUsername()));
     }

@@ -6,12 +6,12 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * @Classname FileKit
+ * @Classname FileUtils
  * @Description 文件工具类
  * @Date 2019\4\11 0011
  * @Created by David
  */
-public class FileKit {
+public class FileUtils {
     // 文件允许格式
     private static List<String> allowFiles = Arrays.asList(".gif", ".png", ".jpg", ".jpeg", ".bmp");
     private final static String PREFIX_VIDEO="video/";

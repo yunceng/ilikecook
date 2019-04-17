@@ -28,10 +28,5 @@ public class FilePathUtils {
 		}
         return buf.toString();
 	}
-	
-	public static void main(String[] args) {
-		String base = FilePathUtils.getAvatar(50);
-		System.out.println(String.format("/%s_%d.jpg", base, 100));
-	}
-	
+
 }

@@ -1,12 +1,14 @@
 package com.colleage.cook.oauth.bean;
 
+import com.colleage.cook.exception.ConsumeException;
+
 /**
- * @Classname EnumOauthTypeBean
+ * @Classname OauthTypeEnum
  * @Description TODO
  * @Date 2019\4\16 0016
  * @Created by David
  */
-public enum EnumOauthTypeBean {
+public enum OauthTypeEnum {
 
     TYPE_DOUBAN("豆瓣登录", 3),
     TYPE_QQ("QQ登录", 2),
@@ -16,7 +18,7 @@ public enum EnumOauthTypeBean {
     private String description;
     private int value;
 
-    private EnumOauthTypeBean(String desc, int value) {
+    private OauthTypeEnum(String desc, int value) {
         this.description = desc;
         this.value = value;
     }
@@ -29,14 +31,13 @@ public enum EnumOauthTypeBean {
         return this.value;
     }
 
-    public static EnumOauthTypeBean getEnumStatus(int type) throws Exception {
-        EnumOauthTypeBean[] status = values();
+    public static OauthTypeEnum getEnumStatus(int type) throws Exception {
+        OauthTypeEnum[] status = values();
         for (int i = 0; i < status.length; i++) {
             if (status[i].getValue() == type) {
                 return status[i];
             }
         }
-
-        throw new Exception();
+        throw new ConsumeException("不存在该第三方登录");
     }
 }

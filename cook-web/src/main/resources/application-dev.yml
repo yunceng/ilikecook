@@ -4,6 +4,11 @@ server:
 spring:
   devtools:
     enabled: true
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
   ## thymeleaf模板配置
   thymeleaf:
     prefix:
@@ -49,6 +54,9 @@ spring:
     port: 25
     properties:
         mail.smtp.auth: true
+  servlet:
+    multipart:
+      max-file-size: 5MB
 ## Mybatis 配置
 mybatis:
   # 配置类型别名

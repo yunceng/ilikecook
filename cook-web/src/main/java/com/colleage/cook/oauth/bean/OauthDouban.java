@@ -3,6 +3,7 @@ package com.colleage.cook.oauth.bean;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.colleage.cook.constants.SystemInfoConstants;
+import com.colleage.cook.oauth.utils.TokenUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -106,7 +107,7 @@ public class OauthDouban extends AbstractOauth {
         openOauthBean.setAccessToken(accessToken);
         openOauthBean.setExpireIn("");
         openOauthBean.setOauthUserId(openid);
-        openOauthBean.setOauthType(EnumOauthTypeBean.TYPE_DOUBAN.getValue());
+        openOauthBean.setOauthType(OauthTypeEnum.TYPE_DOUBAN.getValue());
         openOauthBean.setUsername("DB" + openid.getBytes().hashCode());
         openOauthBean.setNickname(nickname);
         openOauthBean.setAvatar(photoUrl);

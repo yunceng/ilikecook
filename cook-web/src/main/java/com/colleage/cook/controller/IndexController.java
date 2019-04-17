@@ -3,6 +3,8 @@ package com.colleage.cook.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import static com.colleage.cook.constants.ViewConstants.INDEX_VIEW;
+
 /**
  * @Classname IndexController
  * @Description 首页访问链接
@@ -14,7 +16,7 @@ public class IndexController {
 
     @RequestMapping(value = {"/", "index.html"})
     public String index(){
-        return "index";
+        return INDEX_VIEW;
     }
 
 }

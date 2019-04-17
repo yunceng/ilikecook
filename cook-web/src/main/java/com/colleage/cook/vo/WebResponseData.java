@@ -52,6 +52,8 @@ public class WebResponseData implements Serializable {
 
         public static final int LOGIN_ERROR = -2;
 
+        public static final int NO_PRIVILEGES = -3;
+
     }
 
     /**
@@ -68,5 +70,7 @@ public class WebResponseData implements Serializable {
         public static final String USER_PASSWORD_NOT_NULL = "用户名和密码不能为空";
 
         public static final String USER_ACCOUNT_STATUS_ERROR = "用户账户异常";
+
+        public static final String NO_PRIVILEGES = "用户无权限";
     }
 }
