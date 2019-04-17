@@ -16,6 +16,8 @@ public class ViewConstants {
 
     public static final String LOGIN_VIEW = "login";
 
+    public static final String LOGIN_REQUEST = "/login.html";
+
     public static final String REGISTER_VIEW = "register";
 
     public static final String OAUTH_REGISTERV = "oauth_register";
