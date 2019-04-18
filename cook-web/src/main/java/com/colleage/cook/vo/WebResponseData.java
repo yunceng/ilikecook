@@ -1,5 +1,7 @@
 package com.colleage.cook.vo;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -41,6 +43,10 @@ public class WebResponseData implements Serializable {
         this.data = data;
     }
 
+    public String toJSONString() {
+        return JSONObject.toJSONString(this);
+    }
+
     /**
      * 返回消息的状态码常量
      */
@@ -48,11 +54,13 @@ public class WebResponseData implements Serializable {
 
         public static final int SUCCESS = 0;
 
+        public static final int LOGOUT_SUCCESS = 0;
+
         public static final int ERROR = -1;
 
-        public static final int LOGIN_ERROR = -2;
+        public static final int NO_PRIVILEGES = -2;
 
-        public static final int NO_PRIVILEGES = -3;
+        public static final int LOGIN_ERROR = -3;
 
     }
 
@@ -63,14 +71,20 @@ public class WebResponseData implements Serializable {
 
         public static final String SUCCESS = "success";
 
+        public static final String LOGOUT_SUCCESS = "login_success";
+
         public static final String ERROR = "error";
 
-        public static final String USER_PASSWORD_ERROR = "用户名或者密码错误";
+        public static final String NO_PRIVILEGES = "用户无权限";
 
-        public static final String USER_PASSWORD_NOT_NULL = "用户名和密码不能为空";
+        public static final String LOGIN_ERROR_DISABLE = "账户登录失败";
+
+        public static final String LOGIN_PARAMS_ERROR = "用户名或密码输入错误，登录失败";
+
+        public static final String LOGIN_PARAMS_NOT_NULL = "用户名和密码不能为空";
 
         public static final String USER_ACCOUNT_STATUS_ERROR = "用户账户异常";
 
-        public static final String NO_PRIVILEGES = "用户无权限";
+
     }
 }

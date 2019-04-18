@@ -15,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 
 import javax.sql.DataSource;
@@ -35,6 +37,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private AuthenticationFailureHandler loginFailureHandler;
+
+    @Autowired
+    private AuthenticationSuccessHandler loginSuccessHandler;
+
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -59,9 +70,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private AccessDeniedHandler accessDeniedHandler;
 
     @Autowired
-    private AuthenticationFailureHandler loginFailureHandler;
-
-    @Autowired
     private JdbcTokenRepositoryImpl tokenRepository;
 
     @Override
@@ -78,8 +86,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage("/login.html").loginProcessingUrl("/login.do")
+                .successHandler(loginSuccessHandler)
                 .failureHandler(loginFailureHandler).permitAll()
-                .and().logout().permitAll().invalidateHttpSession(true).clearAuthentication(true).deleteCookies("JSESSIONID").logoutSuccessUrl("/login.html")
+                .and().logout().permitAll().invalidateHttpSession(true).clearAuthentication(true).deleteCookies("JSESSIONID").logoutSuccessHandler(logoutSuccessHandler)
                 .and().rememberMe().tokenValiditySeconds(3600 * 24).tokenRepository(tokenRepository)
                 .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler)
                 .and().csrf().disable()
