@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @Classname ExceptionHandlerController
- * @Description TODO
+ * @Description 异常处理器
  * @Date 2019\4\17 0017
  * @Created by David
  */
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ExceptionHandlerController {
 
     @GetMapping(value = "403.html")
-    public String no_privileges(ModelMap modelMap) {
+    public String noPrivileges(ModelMap modelMap) {
         modelMap.put("code", WebResponseData.Code.NO_PRIVILEGES);
         modelMap.put("message", WebResponseData.Message.NO_PRIVILEGES);
         return "/e/no_privileges";

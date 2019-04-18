@@ -1,6 +1,5 @@
 package com.colleage.cook.config;
 
-import com.colleage.cook.constants.ViewConstants;
 import com.colleage.cook.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,10 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.logout.*;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.csrf.CsrfLogoutHandler;
-import sun.rmi.log.LogHandler;
 
 import javax.sql.DataSource;
 

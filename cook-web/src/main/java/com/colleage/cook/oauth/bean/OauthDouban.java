@@ -94,7 +94,7 @@ public class OauthDouban extends AbstractOauth {
     }
 
     public OpenOauthBean getUserBeanByCode(String code)
-            throws KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException, IOException {
+            throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
         OpenOauthBean openOauthBean = new OpenOauthBean();
         JSONObject userInfo = getOauthInstance().getUserInfoByCode(code);
 

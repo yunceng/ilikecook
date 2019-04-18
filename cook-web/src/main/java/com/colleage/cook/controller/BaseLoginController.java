@@ -18,7 +18,7 @@ import static com.colleage.cook.constants.ViewConstants.REDIRECT_INDEX_REQUEST;
 
 /**
  * @Classname BaseLoginController
- * @Description TODO
+ * @Description 登录请求的共用方法
  * @Date 2019\4\16 0016
  * @Created by David
  */

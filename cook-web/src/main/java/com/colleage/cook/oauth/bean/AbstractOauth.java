@@ -25,15 +25,15 @@ public abstract class AbstractOauth {
         return HttpUtils.initParams(authorize, params);
     }
 
-    protected String doPost(String url, Map<String, String> params) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
+    protected String doPost(String url, Map<String, String> params) throws IOException {
         return HttpUtils.post(url, params);
     }
 
-    protected String doGet(String url, Map<String, String> params) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
+    protected String doGet(String url, Map<String, String> params) {
         return HttpUtils.get(url, params);
     }
 
-    protected String doGetWithHeaders(String url, Map<String, String> headers) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
+    protected String doGetWithHeaders(String url, Map<String, String> headers) {
         return HttpUtils.get(url, null, headers);
     }
 
@@ -73,5 +73,5 @@ public abstract class AbstractOauth {
     public abstract JSONObject getUserInfoByCode(String code)
             throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException;
 
-    public abstract OpenOauthBean getUserBeanByCode(String code) throws Exception;
+    public abstract OpenOauthBean getUserBeanByCode(String code) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException;
 }

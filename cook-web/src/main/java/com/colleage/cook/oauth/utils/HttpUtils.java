@@ -164,7 +164,7 @@ public class HttpUtils {
                     http.disconnect();
                 }
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
         return null;
