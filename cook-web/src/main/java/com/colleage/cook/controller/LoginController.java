@@ -28,7 +28,6 @@ public class LoginController extends BaseLoginController {
     @GetMapping("login.html")
     public String login(HttpServletRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
         String referer = request.getHeader("Referer");
         if (auth != null && !(auth instanceof AnonymousAuthenticationToken) && auth.isAuthenticated()) {
             return "redirect:" + (StringUtils.isNotBlank(referer) ? referer : INDEX_REQUEST);

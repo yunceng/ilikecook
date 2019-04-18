@@ -1,5 +1,7 @@
 package com.colleage.cook.config;
 
+import com.colleage.cook.constants.HeaderConst;
+import com.colleage.cook.constants.ViewConstants;
 import com.colleage.cook.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,10 +14,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 
@@ -47,16 +50,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
 
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
+
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public LoginUrlAuthenticationEntryPoint authenticationEntryPoint() {
+        return new LoginUrlAuthenticationEntryPoint(ViewConstants.LOGIN_REQUEST);
     }
 
     @Bean
-    public AccessDeniedHandler accessDeniedHandler() {
-        AccessDeniedHandlerImpl accessDeniedHandler = new AccessDeniedHandlerImpl();
-        accessDeniedHandler.setErrorPage("/e/403.html");
-        return accessDeniedHandler;
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -67,10 +71,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    private AccessDeniedHandler accessDeniedHandler;
+    private JdbcTokenRepositoryImpl tokenRepository;
 
     @Autowired
-    private JdbcTokenRepositoryImpl tokenRepository;
+    private AuthenticationEntryPoint authenticationEntryPoint;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -85,14 +89,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/index.html", "/login**", "/oauth/**", "/e/**", "/register**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
-                .loginPage("/login.html").loginProcessingUrl("/login.do")
+                .loginPage(ViewConstants.LOGIN_REQUEST).loginProcessingUrl("/login.do")
                 .successHandler(loginSuccessHandler)
                 .failureHandler(loginFailureHandler).permitAll()
-                .and().logout().permitAll().invalidateHttpSession(true).clearAuthentication(true).deleteCookies("JSESSIONID").logoutSuccessHandler(logoutSuccessHandler)
+                .and().logout().permitAll().invalidateHttpSession(true).clearAuthentication(true)
+                .deleteCookies(HeaderConst.JESSIONID).logoutSuccessHandler(logoutSuccessHandler)
                 .and().rememberMe().tokenValiditySeconds(3600 * 24).tokenRepository(tokenRepository)
-                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler)
-                .and().csrf().disable()
-                .httpBasic();
+                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler).authenticationEntryPoint(authenticationEntryPoint)
+                .and().csrf().disable().httpBasic();
     }
 
     @Override

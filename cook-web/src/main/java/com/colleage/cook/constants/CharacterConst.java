@@ -2,7 +2,7 @@ package com.colleage.cook.constants;
 
 /**
  * @Classname CharacterConst
- * @Description TODO
+ * @Description 字符常量
  * @Date 2019\4\18 0018
  * @Created by David
  */

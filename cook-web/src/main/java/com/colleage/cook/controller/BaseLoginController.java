@@ -37,7 +37,7 @@ public class BaseLoginController {
         WebResponseData responseData = new WebResponseData();
         if (StringUtils.isNullOrEmpty(username) || StringUtils.isNullOrEmpty(password)) {
             responseData.setCode(WebResponseData.Code.LOGIN_ERROR);
-            responseData.setMessage(WebResponseData.Message.USER_PASSWORD_NOT_NULL);
+            responseData.setMessage(WebResponseData.Message.LOGIN_PARAMS_NOT_NULL);
         }
 
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username,
@@ -49,7 +49,7 @@ public class BaseLoginController {
             request.getSession().setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
         } catch (AuthenticationException e) {
             responseData.setCode(WebResponseData.Code.LOGIN_ERROR);
-            responseData.setMessage(WebResponseData.Message.USER_PASSWORD_ERROR);
+            responseData.setMessage(WebResponseData.Message.LOGIN_PARAMS_ERROR);
             return LOGIN_VIEW;
         }
         return REDIRECT_INDEX_REQUEST;

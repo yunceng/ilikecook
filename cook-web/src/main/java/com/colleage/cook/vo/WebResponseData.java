@@ -71,11 +71,11 @@ public class WebResponseData implements Serializable {
 
         public static final String SUCCESS = "success";
 
-        public static final String LOGOUT_SUCCESS = "login_success";
+        public static final String LOGOUT_SUCCESS = "登出系统成功";
 
         public static final String ERROR = "error";
 
-        public static final String NO_PRIVILEGES = "用户无权限";
+        public static final String NO_PRIVILEGES = "用户无权限,请联系管理员";
 
         public static final String LOGIN_ERROR_DISABLE = "账户登录失败";
 
