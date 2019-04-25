@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.colleage.cook.mapper.SearchWordInfoMapper">
+
+    <select id="getSearchWords" resultType="String">
+        select name from search_word
+        where word like concat('%', #{word}) order by query_num desc limit #{start}, #{limit}
+    </select>
+
+    <insert id="insertOrUpdate">
+        insert into search_word(word) values(#{word})
+        ON DUPLICATE KEY UPDATE
+        query_num = query_num + 1
+    </insert>
+
+</mapper>

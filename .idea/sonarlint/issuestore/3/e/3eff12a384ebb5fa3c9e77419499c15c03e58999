@@ -1,0 +1,18 @@
+
+vsquid:S1149\"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(Å¼£³
+~squid:S1149½"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(¨¢â8ì–×¢-
+jsquid:S3027²"FPut single-quotes around '?' to use the faster "indexOf(char)" method.(²ÔÃøûÿÿÿÿ8ì–×¢-
+~squid:S1149†"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(Å¼£³8ì–×¢-
+ysquid:S1192–"UUse already-defined constant 'DEFAULT_CHARSET' instead of duplicating its value here.(ç¦°Âûÿÿÿÿ8ì–×¢-
+Nsquid:S2093Š"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8ì–×¢-
+rsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(»ƒ™¦
+nsquid:S00117!"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßÙûÿÿÿÿ
+Fsquid:S1148w"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ì–×¢-
+Gsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ì–×¢-
+Msquid:S2093`"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ8Øî–×¢-
+Qsquid:S1118":Add a private constructor to hide the implicit public one.(„–Û
+nsquid:S00117<"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßÙûÿÿÿÿ
+Csquid:S44238",Change this code to use a stronger protocol.(ØÄóÊ
+Fsquid:S1148m"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ì–×¢-
+rsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Áæå‘
+Gsquid:S1148§"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8ßÉĞğ¢-

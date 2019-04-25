@@ -9,6 +9,7 @@ import com.colleage.cook.oauth.bean.OpenOauthBean;
 import com.colleage.cook.oauth.utils.TokenUtil;
 import com.colleage.cook.service.OpenOauthService;
 import com.colleage.cook.utils.ImageUtils;
+import com.colleage.cook.utils.constants.FileStorePathConstants;
 import com.colleage.cook.utils.upload.FileRepo;
 import com.colleage.cook.utils.upload.impl.FileRepoImpl;
 import org.apache.commons.lang3.StringUtils;
@@ -128,7 +129,7 @@ public class ThirdPartyLoginController extends BaseLoginController {
                 UserInfo u = userInfoService.register(wrapUser(openOauth));
 
                 // ===将远程图片下载到本地===
-                String avator = fileRepo.getRoot() + FileRepo.AVADIR + FileRepoImpl.getAvaPath(u.getId(), 100);
+                String avator = fileRepo.getRoot() + FileStorePathConstants.AVADIR + FileRepoImpl.getAvaPath(u.getId(), 100);
                 ImageUtils.download(openOauth.getAvatar(), avator);
                 userInfoService.updateAvatar(u.getId(), avator);
 

@@ -42,9 +42,9 @@ public class LoginController extends BaseLoginController {
 
     @PostMapping("register.do")
     public String register(HttpServletRequest request, @RequestParam(required = false) String username,
-                           @RequestParam(required = false) String password,
                            @RequestParam(required = false) String nickname,
-                           @RequestParam(required = false) String email) {
+                           @RequestParam(required = false) String email,
+                           @RequestParam(required = false) String password) {
         UserInfo userInfo = new UserInfo();
         userInfo.setUsername(username);
         userInfo.setPassword(passwordEncoder.encode(password));

@@ -1,0 +1,5 @@
+
+Ž"squid:ClassVariableVisibilityCheck"[Make all_system_info a static final constant or non-public and provide accessors if needed.(ÃÝêþúÿÿÿÿ
+vsquid:S3008"ZRename this field "all_system_info" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÃÝêþúÿÿÿÿ
+Qsquid:S1444"5Make this "public static all_system_info" field final(ÃÝêþúÿÿÿÿ
+Qsquid:S1118":Add a private constructor to hide the implicit public one.(Þ“ÖÙ

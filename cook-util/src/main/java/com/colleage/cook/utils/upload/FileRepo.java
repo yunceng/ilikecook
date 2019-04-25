@@ -22,31 +22,6 @@ import java.io.IOException;
 public interface FileRepo {
 
 	/**
-	 * 文件存储-根目录
-	 */
-	public static final String ROOT = "/data/ilikecook";
-
-	/**
-	 * 文件存储-原文件目录
-	 */
-	public static final String ORIGDIR = "/store/orig";
-
-	/**
-	 * 文件存储-压缩目录
-	 */
-	public static final String THUMBSDIR = "/store/thumbs";
-
-	/**
-	 * 文件存储-头像目录
-	 */
-	public static final String AVADIR = "/store/ava";
-
-	/**
-	 * 文件存储-临时文件目录
-	 */
-	public static final String TEMPDIR = "/store/temp";
-
-	/**
 	 * 存储图片
 	 * @param file
 	 * @param basePath

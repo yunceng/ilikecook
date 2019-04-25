@@ -86,7 +86,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index.html", "/login**", "/oauth/**", "/e/**", "/register**").permitAll()
+                .antMatchers("/", "/index.html", "/login**",
+                        "/oauth/**", "/register**", "/f/**", "/m/**", "/w/**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage(ViewConstants.LOGIN_REQUEST).loginProcessingUrl("/login.do")
@@ -94,13 +95,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureHandler(loginFailureHandler).permitAll()
                 .and().logout().permitAll().invalidateHttpSession(true).clearAuthentication(true)
                 .deleteCookies(HeaderConst.JESSIONID).logoutSuccessHandler(logoutSuccessHandler)
-                .and().rememberMe().tokenValiditySeconds(3600 * 24).tokenRepository(tokenRepository)
+                .and().rememberMe().rememberMeParameter("remember").tokenValiditySeconds(3600 * 24).tokenRepository(tokenRepository)
                 .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler).authenticationEntryPoint(authenticationEntryPoint)
                 .and().csrf().disable().httpBasic();
     }
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/favor.ioc");
+        web.ignoring().antMatchers("/favicon.ico", "/static/**");
     }
 }

@@ -44,7 +44,7 @@ public class MailHelper {
             javaMailSender.send(mimeMessage);
 
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            e.printStackTrace();
             throw new ConsumeException("邮件发送失败", e);
         }
     }

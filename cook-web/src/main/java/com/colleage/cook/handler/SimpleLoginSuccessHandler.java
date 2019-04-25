@@ -24,12 +24,14 @@ public class SimpleLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+
         httpServletResponse.setContentType(HeaderConst.CONTENT_TYPE);
         httpServletResponse.setHeader(HeaderConst.ACCESS_CONTROL_ALLOW_ORIGIN, CharacterConst.CHARACTER_ARBITRARILY);
+        httpServletResponse.setHeader(HeaderConst.ACCESS_CONTROL_EXPOSE_HEADERS, HeaderConst.AUTHORIZATION);
+        httpServletResponse.setHeader(HeaderConst.AUTHORIZATION, httpServletRequest.getSession().getId());
         PrintWriter out = httpServletResponse.getWriter();
-        WebResponseData response = new WebResponseData();
-        response.setCode(WebResponseData.Code.SUCCESS);
-        response.setMessage(WebResponseData.Message.SUCCESS);
+
+        WebResponseData response = new WebResponseData(WebResponseData.Code.SUCCESS, WebResponseData.Message.SUCCESS);
         out.write(response.toJSONString());
         out.flush();
         out.close();

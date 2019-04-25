@@ -10,7 +10,8 @@
 package com.colleage.cook.utils.upload.impl;
 
 import com.colleage.cook.utils.FilePathUtils;
-import org.springframework.stereotype.Service;
+import com.colleage.cook.utils.constants.FileStorePathConstants;
+import org.springframework.stereotype.Component;
 
 /**
  * @Classname FileRepoImpl
@@ -18,12 +19,12 @@ import org.springframework.stereotype.Service;
  * @Date 2019\4\11 0011
  * @Created by David
  */
-@Service
+@Component
 public class FileRepoImpl extends AbstractFileRepo {
 
 	@Override
 	public String getRoot() {
-		return ROOT;
+        return FileStorePathConstants.ROOT;
 	}
 
 	public static String getAvaPath(long uid, int size) {

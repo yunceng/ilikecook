@@ -19,6 +19,24 @@ public class WebResponseData implements Serializable {
     //返回的数据
     private Object data;
 
+    public WebResponseData() {
+    }
+
+    public WebResponseData(int code) {
+        this.code = code;
+    }
+
+    public WebResponseData(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public WebResponseData(int code, String message, Object data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+
     public int getCode() {
         return code;
     }
@@ -56,11 +74,19 @@ public class WebResponseData implements Serializable {
 
         public static final int LOGOUT_SUCCESS = 0;
 
+        /**
+         * 业务级别的错误码全部大于-10000，且小于0
+         */
         public static final int ERROR = -1;
 
         public static final int NO_PRIVILEGES = -2;
 
         public static final int LOGIN_ERROR = -3;
+
+        /**
+         * 业务级别的错误码全部小于-10000
+         */
+        public static final int PARAM_NOT_NULL = -10001;
 
     }
 
@@ -85,6 +111,7 @@ public class WebResponseData implements Serializable {
 
         public static final String USER_ACCOUNT_STATUS_ERROR = "用户账户异常";
 
+        public static final String PARAM_NOT_NULL = "参数不能为空";
 
     }
 }

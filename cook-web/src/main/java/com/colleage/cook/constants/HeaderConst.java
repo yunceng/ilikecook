@@ -25,4 +25,13 @@ public class HeaderConst {
      */
     public static final String ACCESS_CONTROL_ALLOW_ORIGIN = "Access-Control-Allow-Origin";
 
+    /**
+     * 自定义的header信息
+     */
+    public static final String ACCESS_CONTROL_EXPOSE_HEADERS = "Access-Control-Expose-Headers";
+    /**
+     * 认证信息
+     */
+    public static final String AUTHORIZATION = "Authorization";
+
 }

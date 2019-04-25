@@ -27,9 +27,7 @@ public class SimpleAccessDeniedHandler implements AccessDeniedHandler {
         httpServletResponse.setContentType(HeaderConst.CONTENT_TYPE);
         httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
         PrintWriter writer = httpServletResponse.getWriter();
-        WebResponseData webResponseData = new WebResponseData();
-        webResponseData.setCode(WebResponseData.Code.NO_PRIVILEGES);
-        webResponseData.setMessage(WebResponseData.Message.NO_PRIVILEGES);
+        WebResponseData webResponseData = new WebResponseData(WebResponseData.Code.NO_PRIVILEGES, WebResponseData.Message.NO_PRIVILEGES);
         writer.print(webResponseData.toJSONString());
         writer.flush();
         writer.close();

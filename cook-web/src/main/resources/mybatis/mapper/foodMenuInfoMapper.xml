@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.colleage.cook.mapper.FoodMenuInfoMapper">
+
+    <resultMap id="SummaryResultMap" type="com.colleage.cook.domain.MenuSummaryInfo">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="cover_img" property="cover_img" jdbcType="VARCHAR"/>
+        <result column="userId" property="userId" jdbcType="INTEGER"/>
+        <result column="description" property="desc" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="FoodResultMap" type="com.colleage.cook.domain.MenuFoodInfo">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="menu_id" property="menu_id" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="num" property="num" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="StepResultMap" type="com.colleage.cook.domain.MenuStepInfo">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="menu_id" property="menu_id" jdbcType="VARCHAR"/>
+        <result column="description" property="desc" jdbcType="VARCHAR"/>
+        <result column="img" property="img" jdbcType="VARCHAR"/>
+        <result column="orderI" property="order" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Summary_Base_Column_List">
+           id, uuid, name, cover_img, userId, description, create_time, score
+    </sql>
+
+    <sql id="Food_Base_Column_List">
+           id, menu_id, name, num
+    </sql>
+
+    <sql id="Step_Base_Column_List">
+           id, menu_id, description, img, orderI
+    </sql>
+
+    <select id="getMenuByLikeWord" resultMap="SummaryResultMap">
+        select <include refid="Summary_Base_Column_List"></include> from menu_summary
+        where name like concat(concat(#{word}, '%'), '%') order by score desc
+    </select>
+
+    <select id="getMostPopularInDaysCount" resultType="Integer">
+        select count(1) from menu_summary
+        where date_sub(curdate(), INTERVAL #{recentDays} DAY) &lt;= create_time
+    </select>
+
+    <select id="getMostPopularInDays" resultMap="SummaryResultMap">
+        select <include refid="Summary_Base_Column_List"></include> from menu_summary
+        where date_sub(curdate(), INTERVAL #{recentDays} DAY) &lt;= create_time order by score desc limit #{start},
+        #{limit}
+    </select>
+
+    <select id="getLastMonthPopularCount" resultType="Integer">
+        select count(1) from menu_summary
+        where MONTH(create_time) = MONTH(now()) - #{months}
+    </select>
+
+    <select id="getLastMonthPopular" resultMap="SummaryResultMap">
+        select <include refid="Summary_Base_Column_List"></include> from menu_summary
+        where MONTH(create_time) = MONTH(now()) - #{months} order by score desc limit #{start}, #{limit}
+    </select>
+
+    <select id="getLastCreateCount" resultType="Integer">
+        select count(1) from menu_summary
+        where date_sub(curdate(), INTERVAL #{recentDays} DAY) &lt;= create_time
+    </select>
+
+    <select id="getLastCreate" resultMap="SummaryResultMap">
+        select <include refid="Summary_Base_Column_List"></include> from menu_summary
+        where date_sub(curdate(), INTERVAL #{recentDays} DAY) &lt;= create_time order by create_time desc limit
+        #{start}, #{limit}
+    </select>
+
+    <select id="getPopularMenuCount" resultType="Integer">
+        select count(1) from menu_summary where YEAR(create_time) = YEAR(now())
+    </select>
+
+    <select id="getPopularMenu" resultMap="SummaryResultMap">
+        select <include refid="Summary_Base_Column_List"></include> from menu_summary
+        where YEAR(create_time) = YEAR(now())
+        order by score desc limit #{start}, #{limit}
+    </select>
+
+    <select id="getSimpleFoods" resultType="String">
+        select name from menu_food where menu_id = #{uuid}
+    </select>
+
+    <select id="getMenuSummaryInfo" resultMap="SummaryResultMap">
+        select <include refid="Summary_Base_Column_List"></include> from menu_summary where uuid = #{uuid}
+    </select>
+
+    <select id="getMenuFoodInfos" resultMap="FoodResultMap">
+        select <include refid="Food_Base_Column_List"></include> from menu_food where menu_id = #{uuid}
+    </select>
+
+    <select id="getMenuStepInfos" resultMap="StepResultMap">
+        select <include refid="Step_Base_Column_List"></include> from menu_step
+        where menu_id = #{uuid} order by orderI ASC
+    </select>
+
+
+</mapper>

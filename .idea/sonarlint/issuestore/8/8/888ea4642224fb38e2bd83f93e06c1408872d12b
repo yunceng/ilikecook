@@ -1,0 +1,7 @@
+
+fsquid:S2445%"O"oauthSina" is not "private final", and should not be used for synchronization.(Ùá¨¹
+Psquid:S2168%"9Remove this dangerous instance of double-checked locking.(Ùá¨¹
+isquid:S1192N"MDefine a constant instead of duplicating this literal "access_token" 4 times.(ÏåÒøÿÿÿÿ
+Hsquid:S1135"2Complete the task associated to this TODO comment.(£°§\
+ysquid:UselessImportCheck"IRemove this unused import 'com.colleage.cook.exception.ConsumeException'.(»¦£İıÿÿÿÿ8ÖÛ‹×¢-
+Asquid:S2116~"%Use "Arrays.hashCode(array)" instead.(Æ¤öşÿÿÿÿ

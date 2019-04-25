@@ -47,8 +47,7 @@ public class SimpleLoginFailureHandler implements AuthenticationFailureHandler {
         response.setContentType(HeaderConst.CONTENT_TYPE);
         response.setHeader(HeaderConst.ACCESS_CONTROL_ALLOW_ORIGIN, CharacterConst.CHARACTER_ARBITRARILY);
         PrintWriter out = response.getWriter();
-        WebResponseData responseData = new WebResponseData();
-        responseData.setCode(WebResponseData.Code.LOGIN_ERROR);
+        WebResponseData responseData = new WebResponseData(WebResponseData.Code.LOGIN_ERROR);
         if (exception instanceof UsernameNotFoundException || exception instanceof BadCredentialsException) {
             responseData.setMessage(WebResponseData.Message.LOGIN_PARAMS_ERROR);
         } else if (exception instanceof DisabledException) {
@@ -56,7 +55,7 @@ public class SimpleLoginFailureHandler implements AuthenticationFailureHandler {
         } else if (exception instanceof AccountStatusException) {
             responseData.setMessage(WebResponseData.Message.USER_ACCOUNT_STATUS_ERROR);
         }
-        out.write(response.toString());
+        out.write(responseData.toJSONString());
         out.flush();
         out.close();
     }

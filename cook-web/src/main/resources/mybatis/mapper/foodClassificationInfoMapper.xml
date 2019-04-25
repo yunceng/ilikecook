@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.colleage.cook.mapper.FoodClassificationInfoMapper">
+    <resultMap id="BigResultMap" type="com.colleage.cook.domain.BigFoodClassificationInfo">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="category" property="category" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="SmallResultMap" type="com.colleage.cook.domain.SmallFoodClassificationInfo">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="category" property="category" jdbcType="INTEGER"/>
+        <result column="is_href" property="isHref" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="TinyResultMap" type="com.colleage.cook.domain.TinyFoodClassificationInfo">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="category" property="category" jdbcType="INTEGER"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Big_Base_Column_List">
+           id, name, category
+    </sql>
+
+    <sql id="Small_Base_Column_List">
+           id, name, category, is_href
+    </sql>
+
+    <sql id="Tiny_Base_Column_List">
+           id, name, category, score
+    </sql>
+
+    <select id="getAllBig" resultMap="BigResultMap">
+        select <include refid="Big_Base_Column_List"></include> from big_category where status = 0
+    </select>
+
+    <select id="getAllSmallByCategory" resultMap="SmallResultMap">
+        select <include refid="Small_Base_Column_List"></include> from small_category where status = 0 and big_id =
+        #{bigId}
+    </select>
+
+    <select id="getAllTinyByCategory" resultMap="TinyResultMap">
+        select <include refid="Tiny_Base_Column_List"></include> from tiny_category where status = 0 and small_id =
+        #{smallId}
+    </select>
+
+    <select id="getCategoryNameByMenu" resultType="String">
+        select name from tiny_category c where c.category in (select r.category_id from category_menu_rel r where r.menu_id = #{uuid})
+    </select>
+
+    <select id="getCategorysByMenu" resultMap="TinyResultMap">
+        select <include refid="Tiny_Base_Column_List"></include> from tiny_category c where c.category in (select
+        r.category_id from category_menu_rel r where r.menu_id = #{uuid})
+    </select>
+
+</mapper>

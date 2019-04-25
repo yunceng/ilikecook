@@ -27,9 +27,7 @@ public class SimpleLogoutSuccessHandler implements LogoutSuccessHandler {
         httpServletResponse.setContentType(HeaderConst.CONTENT_TYPE);
         httpServletResponse.setHeader(HeaderConst.ACCESS_CONTROL_ALLOW_ORIGIN, CharacterConst.CHARACTER_ARBITRARILY);
         PrintWriter out = httpServletResponse.getWriter();
-        WebResponseData response = new WebResponseData();
-        response.setCode(WebResponseData.Code.LOGOUT_SUCCESS);
-        response.setMessage(WebResponseData.Message.LOGOUT_SUCCESS);
+        WebResponseData response = new WebResponseData(WebResponseData.Code.LOGOUT_SUCCESS, WebResponseData.Message.LOGOUT_SUCCESS);
         out.write(response.toJSONString());
         out.flush();
         out.close();

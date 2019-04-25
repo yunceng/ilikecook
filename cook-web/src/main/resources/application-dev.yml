@@ -1,6 +1,6 @@
 #更改springboot端口号(默认是8080)
 server:
-  port: 80
+  port: 8080
 spring:
   devtools:
     enabled: true
@@ -48,8 +48,8 @@ spring:
     ##资源文件访问路径
     static-path-pattern: /static/**
   mail:
-    host: smtp.exmail.qq.com
-    username: 18435186275@163.com
+    host: smtp.163.com
+    username: 17600645272@163.com
     password: as940610
     port: 25
     properties:
@@ -66,7 +66,7 @@ mybatis:
   mapper-locations: classpath:mybatis/mapper/*Mapper.xml
 
 logging:
-  level: com.strawberry.dao=debug
+  level: com.colleage.cook.mapper=debug
   path: log
 
 
