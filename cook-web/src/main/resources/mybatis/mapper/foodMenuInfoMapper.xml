@@ -40,9 +40,19 @@
            id, menu_id, description, img, orderI
     </sql>
 
+    <select id="getMenuByLikeWordCount" resultType="Integer">
+        select count(1) from menu_summary
+        where name like concat(concat(#{word}, '%'), '%')
+    </select>
+
     <select id="getMenuByLikeWord" resultMap="SummaryResultMap">
         select <include refid="Summary_Base_Column_List"></include> from menu_summary
         where name like concat(concat(#{word}, '%'), '%') order by score desc
+    </select>
+
+    <select id="getRecommendMenu" resultMap="SummaryResultMap">
+        select <include refid="Summary_Base_Column_List"></include> from menu_summary
+        where recommend_num > #{mixScore} order by recommend_num desc, score desc limit #{start}, #{limit}
     </select>
 
     <select id="getMostPopularInDaysCount" resultType="Integer">
@@ -103,6 +113,26 @@
         select <include refid="Step_Base_Column_List"></include> from menu_step
         where menu_id = #{uuid} order by orderI ASC
     </select>
+
+    <select id="menuIsCollected">
+        select count(1) from menu_user_rel where user_id = #{userId} and menu_id = #{uuid}
+    </select>
+
+    <insert id="insertUserMenuRel">
+        insert into menu_user_rel(user_id, menu_id) values(#{userId}, #{uuid})
+    </insert>
+
+    <update id="updateMenuCollected">
+        update menu_summary set collect_num = collect_num + 1 where uuid = #{uuid}
+    </update>
+
+    <update id="updateMenuBrowsed">
+        update menu_summary set browse_num = browse_num + #{nums} where uuid = #{uuid}
+    </update>
+
+    <update id="updateMenuRecommend">
+        update menu_summary set recommend_num = (score + browse_num/collect_num)/2
+    </update>
 
 
 </mapper>

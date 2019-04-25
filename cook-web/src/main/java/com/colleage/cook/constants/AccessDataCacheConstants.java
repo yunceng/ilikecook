@@ -1,0 +1,24 @@
+package com.colleage.cook.constants;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * @Classname AccessDataCacheConstants
+ * @Description 频繁访问的数据
+ * @Date 2019\4\25 0025
+ * @Created by David
+ */
+public class AccessDataCacheConstants {
+
+    /**
+     * 搜索词的数量统计，每天更新数据库
+     */
+    public static Map<String, Integer> SEARCH_WORD_NUMS = new ConcurrentHashMap<>();
+
+    /**
+     * 菜谱被浏览的次数统计，每天更新数据库
+     */
+    public static Map<String, Integer> MENU_BROWSE_NUMS = new ConcurrentHashMap<>();
+
+}

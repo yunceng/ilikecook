@@ -113,5 +113,7 @@ public class WebResponseData implements Serializable {
 
         public static final String PARAM_NOT_NULL = "参数不能为空";
 
+        public static final String COLLECT_MENU_ERROR = "您可能已经收藏过该菜谱";
+
     }
 }

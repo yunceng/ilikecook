@@ -44,6 +44,8 @@ public class MenuSummaryInfo implements Serializable {
      */
     private float score;
 
+    private boolean isCollected;
+
     public int getId() {
         return id;
     }
@@ -106,5 +108,13 @@ public class MenuSummaryInfo implements Serializable {
 
     public void setScore(float score) {
         this.score = score;
+    }
+
+    public boolean isCollected() {
+        return isCollected;
+    }
+
+    public void isCollected(boolean collected) {
+        isCollected = collected;
     }
 }

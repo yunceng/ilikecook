@@ -1,7 +1,6 @@
 package com.colleage.cook.utils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 
 /**
  * @Classname WebUtils
@@ -46,11 +45,6 @@ public class WebUtils {
             return true;
         }
         return false;
-    }
-
-    public static String getView(HttpServletRequest request, String view) {
-        String theme = request.getSession().getAttribute(THEME).toString();
-        return theme + File.separator + view;
     }
 
 }

@@ -2,10 +2,12 @@ package com.colleage.cook.service.impl;
 
 import com.colleage.cook.mapper.SearchWordInfoMapper;
 import com.colleage.cook.service.SearchWordInfoService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname SearchWordInfoServiceImpl
@@ -25,7 +27,11 @@ public class SearchWordInfoServiceImpl implements SearchWordInfoService {
     }
 
     @Override
-    public void insertOrUpdate(String word) {
-        searchWordInfoMapper.insertOrUpdate(word);
+    public void insertOrUpdate(Map<String, Integer> search_word_nums) {
+        search_word_nums.forEach((word, nums) -> {
+            if (StringUtils.isNotBlank(word) && nums > 0) {
+                searchWordInfoMapper.insertOrUpdate(word, nums);
+            }
+        });
     }
 }

@@ -1,5 +1,7 @@
 package com.colleage.cook.handler;
 
+import com.colleage.cook.bean.SimpleUserInfo;
+import com.colleage.cook.bean.UserInfo;
 import com.colleage.cook.constants.CharacterConst;
 import com.colleage.cook.constants.HeaderConst;
 import com.colleage.cook.vo.WebResponseData;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import static com.colleage.cook.constants.WebServiceConstants.SESSION_USER;
 
 /**
  * @Classname SimpleLoginSuccessHandler
@@ -29,6 +33,10 @@ public class SimpleLoginSuccessHandler implements AuthenticationSuccessHandler {
         httpServletResponse.setHeader(HeaderConst.ACCESS_CONTROL_ALLOW_ORIGIN, CharacterConst.CHARACTER_ARBITRARILY);
         httpServletResponse.setHeader(HeaderConst.ACCESS_CONTROL_EXPOSE_HEADERS, HeaderConst.AUTHORIZATION);
         httpServletResponse.setHeader(HeaderConst.AUTHORIZATION, httpServletRequest.getSession().getId());
+
+        SimpleUserInfo userInfo = new SimpleUserInfo(((UserInfo) authentication.getPrincipal()).getUser());
+        httpServletRequest.getSession().setAttribute(SESSION_USER, userInfo);
+
         PrintWriter out = httpServletResponse.getWriter();
 
         WebResponseData response = new WebResponseData(WebResponseData.Code.SUCCESS, WebResponseData.Message.SUCCESS);

@@ -16,12 +16,29 @@ import java.util.List;
 public interface FoodMenuInfoMapper {
 
     /**
+     * 根据关键词获得相应的菜谱数量
+     *
+     * @param word
+     * @return
+     */
+    Integer getMenuByLikeWordCount(@Param("word") String word);
+
+    /**
      * 根据关键词获得相应的菜谱
      *
      * @param word
      * @return
      */
-    List<MenuSummaryInfo> getMenuByLikeWord(@Param("word") String word);
+    List<MenuSummaryInfo> getMenuByLikeWord(@Param("word") String word, @Param("start") int start, @Param("limit") int limit);
+
+    /**
+     * 获取推荐的菜谱
+     *
+     * @param start
+     * @param limit
+     * @return
+     */
+    List<MenuSummaryInfo> getRecommendMenu(@Param("mixScore") float mixScore, @Param("start") int start, @Param("limit") int limit);
 
     /**
      * 获取最近几天最受欢迎的菜谱的总量
@@ -123,4 +140,30 @@ public interface FoodMenuInfoMapper {
      */
     List<MenuStepInfo> getMenuStepInfos(@Param("uuid") String uuid);
 
+    /**
+     * 更新菜谱的收藏数量
+     *
+     * @param uuid
+     * @return
+     */
+    boolean updateMenuCollected(@Param("uuid") String uuid);
+
+    /**
+     * 更新菜谱的浏览数量
+     *
+     * @param uuid
+     * @return
+     */
+    boolean updateMenuBrowsed(@Param("uuid") String uuid, @Param("nums") int nums);
+
+    /**
+     * 更新菜谱的推荐指数
+     *
+     * @return
+     */
+    boolean updateMenuRecommend();
+
+    boolean insertUserMenuRel(@Param("uuid") String uuid, @Param("userId") int userId);
+
+    boolean menuIsCollected(@Param("uuid") String uuid, @Param("userId") int userId);
 }

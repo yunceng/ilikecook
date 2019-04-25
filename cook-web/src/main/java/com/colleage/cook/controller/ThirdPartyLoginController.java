@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static com.colleage.cook.constants.ViewConstants.OAUTH_REGISTERV;
+import static com.colleage.cook.constants.WebServiceConstants.SESSION_STATE;
 
 /**
  * @Classname ThirdPartyLoginController
@@ -33,8 +34,6 @@ import static com.colleage.cook.constants.ViewConstants.OAUTH_REGISTERV;
 @RequestMapping("oauth")
 @Controller
 public class ThirdPartyLoginController extends BaseLoginController {
-
-    private static final String SESSION_STATE = "_SESSION_STATE_";
 
     @Autowired
     private OpenOauthService openOauthService;

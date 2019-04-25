@@ -10,7 +10,7 @@
     <insert id="insertOrUpdate">
         insert into search_word(word) values(#{word})
         ON DUPLICATE KEY UPDATE
-        query_num = query_num + 1
+        query_num = query_num + #{nums}
     </insert>
 
 </mapper>

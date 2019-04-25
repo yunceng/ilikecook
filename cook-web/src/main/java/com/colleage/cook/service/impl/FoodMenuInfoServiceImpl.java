@@ -6,7 +6,6 @@ import com.colleage.cook.bean.SimpleUserInfo;
 import com.colleage.cook.domain.*;
 import com.colleage.cook.mapper.FoodClassificationInfoMapper;
 import com.colleage.cook.mapper.FoodMenuInfoMapper;
-import com.colleage.cook.mapper.SearchWordInfoMapper;
 import com.colleage.cook.mapper.UserInfoMapper;
 import com.colleage.cook.service.FoodMenuInfoService;
 import com.colleage.cook.utils.PageUtils;
@@ -17,6 +16,9 @@ import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import static com.colleage.cook.constants.AccessDataCacheConstants.SEARCH_WORD_NUMS;
 
 /**
  * @Classname FoodMenuInfoServiceImpl
@@ -36,13 +38,26 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
     @Autowired
     private FoodClassificationInfoMapper foodClassificationInfoMapper;
 
-    @Autowired
-    private SearchWordInfoMapper searchWordInfoMapper;
 
     @Override
-    public List<MenuSummaryInfo> getMenuByLikeWord(String word) {
-        searchWordInfoMapper.insertOrUpdate(word);
-        return foodMenuInfoMapper.getMenuByLikeWord(word);
+    public PageInfo getMenuByLikeWord(String word, int pageNo, int pageSize) {
+        SEARCH_WORD_NUMS.put(word, SEARCH_WORD_NUMS.getOrDefault(word, 0) + 1);
+        PageInfo pageInfo = new PageInfo(pageNo, pageSize);
+        int start = PageUtils.getStart(pageInfo.getCurrentPage(), pageInfo.getPageSize());
+
+        int count = foodMenuInfoMapper.getMenuByLikeWordCount(word);
+        List<MenuSummaryInfo> menus = foodMenuInfoMapper.getMenuByLikeWord(word, start, pageInfo.getPageSize());
+        pageInfo.setCount(count);
+        pageInfo.setData(getSimpleMenuInfoList(menus));
+
+        return pageInfo;
+    }
+
+    @Override
+    public List<SimpleMenuInfo> getRecommendMenu(int pageNo, int pageSize) {
+        PageInfo pageInfo = new PageInfo(pageNo, pageSize);
+        int start = PageUtils.getStart(pageInfo.getCurrentPage(), pageInfo.getPageSize());
+        return getSimpleMenuInfoList(foodMenuInfoMapper.getRecommendMenu(3.5f, start, pageInfo.getPageSize()));
     }
 
     @Override
@@ -102,7 +117,7 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
     }
 
     @Override
-    public DetailMenuInfo getDetailMenuInfo(String uuid) {
+    public DetailMenuInfo getDetailMenuInfo(int userId, String uuid) {
         if (StringUtils.isEmptyOrWhitespace(uuid)) {
             return null;
         }
@@ -110,11 +125,26 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
         if (menuSummaryInfo == null) {
             return null;
         }
+        menuSummaryInfo.isCollected(userId > 0 ? foodMenuInfoMapper.menuIsCollected(uuid, userId) : false);
         List<TinyFoodClassificationInfo> categorys = foodClassificationInfoMapper.getCategorysByMenu(uuid);
         List<MenuFoodInfo> menuFoodInfos = foodMenuInfoMapper.getMenuFoodInfos(uuid);
         List<MenuStepInfo> menuStepInfos = foodMenuInfoMapper.getMenuStepInfos(uuid);
         UserInfo userInfo = userInfoMapper.findUserInfoByUserId(menuSummaryInfo.getUserId());
         return new DetailMenuInfo(new SimpleUserInfo(userInfo), menuSummaryInfo, categorys, menuFoodInfos, menuStepInfos);
+    }
+
+    @Override
+    public boolean updateMenuCollectNum(int userId, String uuid) {
+        return foodMenuInfoMapper.insertUserMenuRel(uuid, userId) && foodMenuInfoMapper.updateMenuCollected(uuid);
+    }
+
+    @Override
+    public boolean updateMenuBrowseAndRecommend(Map<String, Integer> data) {
+        data.forEach((uuid, nums) -> {
+            foodMenuInfoMapper.updateMenuBrowsed(uuid, nums);
+        });
+        foodMenuInfoMapper.updateMenuRecommend();
+        return true;
     }
 
 

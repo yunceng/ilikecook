@@ -1,6 +1,11 @@
 package com.colleage.cook.service;
 
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname SearchWordInfoService
@@ -21,7 +26,9 @@ public interface SearchWordInfoService {
     /**
      * 插入或者更新关键词
      *
-     * @param word
+     * @param search_word_nums
      */
-    void insertOrUpdate(String word);
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT,
+            timeout = 3600, rollbackFor = Exception.class)
+    void insertOrUpdate(Map<String, Integer> search_word_nums);
 }

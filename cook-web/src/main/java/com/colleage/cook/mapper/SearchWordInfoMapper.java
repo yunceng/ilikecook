@@ -25,6 +25,6 @@ public interface SearchWordInfoMapper {
      *
      * @param word
      */
-    void insertOrUpdate(@Param("word") String word);
+    void insertOrUpdate(@Param("word") String word, @Param("nums") int nums);
 
 }

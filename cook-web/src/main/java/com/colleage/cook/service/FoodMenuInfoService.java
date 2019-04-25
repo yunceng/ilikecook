@@ -1,10 +1,15 @@
 package com.colleage.cook.service;
 
 import com.colleage.cook.bean.DetailMenuInfo;
-import com.colleage.cook.domain.MenuSummaryInfo;
+import com.colleage.cook.bean.SimpleMenuInfo;
 import com.colleage.cook.utils.page.PageInfo;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname FoodMenuInfoService
@@ -20,7 +25,16 @@ public interface FoodMenuInfoService {
      * @param word
      * @return
      */
-    List<MenuSummaryInfo> getMenuByLikeWord(String word);
+    PageInfo getMenuByLikeWord(String word, int pageNo, int pageSize);
+
+    /**
+     * 获取推荐的菜谱
+     *
+     * @return
+     * @Param pageNo
+     * @Param pageSize
+     */
+    List<SimpleMenuInfo> getRecommendMenu(int pageNo, int pageSize);
 
     /**
      * 获取最近几天最受欢迎的菜谱
@@ -65,6 +79,13 @@ public interface FoodMenuInfoService {
      * @param uuid
      * @return
      */
-    DetailMenuInfo getDetailMenuInfo(String uuid);
+    DetailMenuInfo getDetailMenuInfo(int userId, String uuid);
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT,
+            timeout = 3600, rollbackFor = Exception.class)
+    boolean updateMenuCollectNum(@Param("userId") int userId, @Param("uuid") String uuid);
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT,
+            timeout = 3600, rollbackFor = Exception.class)
+    boolean updateMenuBrowseAndRecommend(Map<String, Integer> data);
 }
