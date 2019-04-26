@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.colleage.cook.mapper.OpenOauthInfoMapper">
+    <resultMap id="BaseResultMap" type="com.colleage.cook.domain.UserOpenOauthInfo">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="access_token" property="access_token" jdbcType="VARCHAR"/>
+        <result column="expire_in" property="expire_in" jdbcType="VARCHAR"/>
+        <result column="oauth_code" property="oauth_code" jdbcType="VARCHAR"/>
+        <result column="oauth_type" property="oauth_type" jdbcType="INTEGER"/>
+        <result column="oauth_user_id" property="oauth_user_id" jdbcType="VARCHAR"/>
+        <result column="refresh_token" property="refresh_token" jdbcType="VARCHAR"/>
+        <result column="user_id" property="user_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+           id, access_token, expire_in, oauth_code, oauth_type, oauth_user_id, refresh_token, user_id
+    </sql>
+
+    <select id="getOauthByOauthUserId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"></include> from user_open_oauth
+        where oauth_user_id = ${oauth_user_id}
+    </select>
+
+    <insert id="saveOauthToken">
+        insert into user_open_oauth(access_token, expire_in, oauth_code, oauth_type, oauth_user_id, refresh_token, user_id)
+        values(#{oauth.access_token}, #{oauth.expire_in}, #{oauth.oauth_code}, #{oauth.oauth_type}, #{oauth.oauth_user_id},
+         #{oauth.refresh_token}, #{oauth.user_id})
+    </insert>
+
+</mapper>

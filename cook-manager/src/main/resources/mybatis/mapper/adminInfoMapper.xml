@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
+<mapper namespace="com.colleage.cook.manager.mapper.AdminInfoMapper">
+
+	<resultMap type="com.colleage.cook.domain.AdminInfo" id="BaseResultMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="avatar" property="avatar" jdbcType="VARCHAR" />
+		<result column="create_time" property="create_time" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="last_login" property="last_login" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+		<result column="gender" property="gender" jdbcType="INTEGER"/>
+		<result column="role_id" property="role_id" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="column_list">
+		id, username, password, avatar, DATE_FORMAT(create_time, "%Y-%m-%d") create_time, email,
+		DATE_FORMAT(last_login, "%Y-%m-%d") last_login, mobile, status, nickname,
+		gender, role_id
+	</sql>
+
+	<select id="findAdminInfoByUsername" resultMap="BaseResultMap">
+		select <include refid="column_list"></include> FROM admin_info where username = #{username}
+        and role_id &gt;= 2
+	</select>
+
+	<select id="getBeManagedAdminsCount"  resultType="Integer">
+		select count(1) FROM admin_info where role_id = #{role_id}
+	</select>
+
+	<select id="getBeManagedAdmins"  resultMap="BaseResultMap">
+		select <include refid="column_list"></include> FROM admin_info where role_id = #{role_id} limit #{start}, #{limit}
+	</select>
+
+	<insert id="createAdmin">
+		insert into admin_info(username, password, avatar, create_time, last_login, mobile, nickname, gender, email, role_id)
+		values(#{adminInfo.username}, #{adminInfo.password}, #{adminInfo.avatar}, now(), now(),
+		#{adminInfo.mobile}, #{adminInfo.nickname}, #{adminInfo.gender}, #{adminInfo.email}, #{adminInfo.role_id});
+	</insert>
+
+	<update id="updateAdminInfo">
+		update admin_info
+		set avatar = #{adminInfo.avatar}, mobile = #{adminInfo.mobile}, nickname = #{adminInfo.nickname},
+		gender = #{adminInfo.gender}, email = #{adminInfo.email}
+		where username = #{adminInfo.username}
+	</update>
+
+	<update id="updateAdminStatus">
+		update admin_info set status = #{status} where username = #{username}
+	</update>
+
+</mapper>
