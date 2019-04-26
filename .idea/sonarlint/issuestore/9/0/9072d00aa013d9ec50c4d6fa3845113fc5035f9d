@@ -1,0 +1,9 @@
+
+csquid:S3027("FPut single-quotes around '_' to use the faster "indexOf(char)" method.(¥ä©o8åû¶É¥-
+csquid:S3027("FPut single-quotes around '_' to use the faster "indexOf(char)" method.(¥ä©o8åû¶É¥-
+gsquid:S3027("JPut single-quotes around '.' to use the faster "lastIndexOf(char)" method.(¥ä©o8åû¶É¥-
+isquid:S3027)"FPut single-quotes around '_' to use the faster "indexOf(char)" method.(Ñ›—·ùÿÿÿÿ8åû¶É¥-
+dsquid:S3027+"FPut single-quotes around '.' to use the faster "indexOf(char)" method.(¿«×8åû¶É¥-
+nsquid:CommentedOutCodeLine;"<This block of commented-out lines of code should be removed.(şÂ úÿÿÿÿ8åû¶É¥-
+nsquid:CommentedOutCodeLineD"<This block of commented-out lines of code should be removed.(ü£©Çÿÿÿÿÿ8åû¶É¥-
+Nsquid:S2692("10 is a valid index, but is ignored by this check.(¥ä©o8åû¶É¥-

@@ -1,0 +1,5 @@
+
+ysquid:S14506"VRemove the "isFirst" field and declare it as a local variable in the relevant methods.(°Ëé²úÿÿÿÿ8èû¶É¥-
+ssquid:S1450;"URemove the "isLast" field and declare it as a local variable in the relevant methods.(¢²‰Ò8èû¶É¥-
+d$squid:AssignmentInSubExpressionChecky".Extract the assignment out of this expression.(µŒŽN8èû¶É¥-
+e$squid:AssignmentInSubExpressionCheck}".Extract the assignment out of this expression.(»´¬ç8èû¶É¥-

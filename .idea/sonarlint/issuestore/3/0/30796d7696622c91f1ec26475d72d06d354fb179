@@ -1,12 +1,11 @@
 
-Isquid:S1068"-Remove this unused "TOKEN_URL" private field.(•´Ü©ùÿÿÿÿ
-msquid:S2445*"Q"oauthDouban" is not "private final", and should not be used for synchronization.(ØëÖ¦üÿÿÿÿ
-fsquid:S1192F"OUse already-defined constant 'TOKEN_URL' instead of duplicating its value here.(îÂ†ø
-ysquid:UselessImportCheck"IRemove this unused import 'com.colleage.cook.exception.ConsumeException'.(»¦£Ýýÿÿÿÿ8º“‹×¢-
-jsquid:S1192;"NUse already-defined constant 'AUTH_URL' instead of duplicating its value here.(€¾÷Éÿÿÿÿÿ
-Hsquid:S1135"2Complete the task associated to this TODO comment.(£°§\
-<squid:S2116p"%Use "Arrays.hashCode(array)" instead.(…¹ýÔ
-Hsquid:S1068",Remove this unused "AUTH_URL" private field.(Àš‚ïûÿÿÿÿ
-Usquid:S2168*"9Remove this dangerous instance of double-checked locking.(ØëÖ¦üÿÿÿÿ
-jsquid:S1192O"SUse already-defined constant 'USER_INFO_URL' instead of duplicating its value here.(àÅŒÑ
-Hsquid:S1068"1Remove this unused "USER_INFO_URL" private field.(…îÊŒ
+qsquid:S1192O"SUse already-defined constant 'USER_INFO_URL' instead of duplicating its value here.(àÅŒÑ8çû¶É¥-
+qsquid:S1192;"NUse already-defined constant 'AUTH_URL' instead of duplicating its value here.(€¾÷Éÿÿÿÿÿ8çû¶É¥-
+msquid:S1192F"OUse already-defined constant 'TOKEN_URL' instead of duplicating its value here.(îÂ†ø8çû¶É¥-
+Osquid:S1068",Remove this unused "AUTH_URL" private field.(Àš‚ïûÿÿÿÿ8çû¶É¥-
+Psquid:S1068"-Remove this unused "TOKEN_URL" private field.(•´Ü©ùÿÿÿÿ8çû¶É¥-
+Osquid:S1068"1Remove this unused "USER_INFO_URL" private field.(…îÊŒ8çû¶É¥-
+\squid:S2168*"9Remove this dangerous instance of double-checked locking.(ØëÖ¦üÿÿÿÿ8çû¶É¥-
+Osquid:S1135"2Complete the task associated to this TODO comment.(£°§\8çû¶É¥-
+tsquid:S2445*"Q"oauthDouban" is not "private final", and should not be used for synchronization.(ØëÖ¦üÿÿÿÿ8çû¶É¥-
+Csquid:S2116p"%Use "Arrays.hashCode(array)" instead.(…¹ýÔ8çû¶É¥-

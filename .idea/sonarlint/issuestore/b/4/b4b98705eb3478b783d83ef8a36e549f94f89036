@@ -1,5 +1,5 @@
 
-^squid:S1192Z"GDefine a constant instead of duplicating this literal "openid" 3 times.(úÙ­ş
-isquid:S1192O"MDefine a constant instead of duplicating this literal "access_token" 4 times.(ÏåÒøÿÿÿÿ
-Psquid:S2168&"9Remove this dangerous instance of double-checked locking.(ƒ×äé
-=squid:S2116ƒ"%Use "Arrays.hashCode(array)" instead.(ãÙÈÂ
+esquid:S1192["GDefine a constant instead of duplicating this literal "openid" 3 times.(úÙ­ş8çû¶É¥-
+psquid:S1192P"MDefine a constant instead of duplicating this literal "access_token" 4 times.(ÏåÒøÿÿÿÿ8çû¶É¥-
+Wsquid:S2168'"9Remove this dangerous instance of double-checked locking.(ƒ×äé8çû¶É¥-
+Dsquid:S2116„"%Use "Arrays.hashCode(array)" instead.(ãÙÈÂ8çû¶É¥-

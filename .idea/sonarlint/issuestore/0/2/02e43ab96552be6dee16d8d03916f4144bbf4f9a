@@ -1,0 +1,7 @@
+
+…%squid:RedundantThrowsDeclarationCheck"íRemove the declaration of thrown exception 'org.springframework.security.core.userdetails.UsernameNotFoundException' which is a runtime exception.(ûÃ√ü8≥ê∑«•-
+Dsquid:S1125"(Remove the literal "true" boolean value.(£˙øÎ8≥ê∑«•-
+Ksquid:S1481"*Remove this unused "count" local variable.(¥»Õ°˚ˇˇˇˇ8≥ê∑«•-
+nsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(à¸˛Ç8≥ê∑«•-
+msquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˙§ÿ8≥ê∑«•-
+gsquid:UselessImportCheck">Remove this unused import 'com.colleage.cook.domain.UserInfo'.(Î‰åΩ8≥ê∑«•-

@@ -1,2 +1,5 @@
 
-Ä%squid:RedundantThrowsDeclarationCheck%"’Remove the declaration of thrown exception 'org.springframework.security.core.userdetails.UsernameNotFoundException' which is a runtime exception.(É­½Ô
+Ë%squid:RedundantThrowsDeclarationCheck&"’Remove the declaration of thrown exception 'org.springframework.security.core.userdetails.UsernameNotFoundException' which is a runtime exception.(É­½Ô8åû¶É¥-
+Isquid:S1452F"&Remove usage of generic wildcard type.(¨üÀæýÿÿÿÿ8åû¶É¥-
+Ksquid:S1125-"(Remove the literal "true" boolean value.(¤Áè¨ýÿÿÿÿ8åû¶É¥-
+usquid:S00117F"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨üÀæýÿÿÿÿ8åû¶É¥-
