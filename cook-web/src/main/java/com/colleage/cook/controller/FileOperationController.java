@@ -1,9 +1,9 @@
 package com.colleage.cook.controller;
 
-import com.colleage.cook.bean.SimpleUserInfo;
-import com.colleage.cook.constants.WebServiceConstants;
+import com.colleage.cook.constants.SessionAttributeKeyConstants;
 import com.colleage.cook.utils.constants.FileStorePathConstants;
 import com.colleage.cook.utils.upload.impl.FileRepoImpl;
+import com.colleage.cook.vo.SimpleUserInfo;
 import com.colleage.cook.vo.WebResponseData;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +28,7 @@ public class FileOperationController {
 
     @RequestMapping("uploadAvatar.do")
     public WebResponseData uploadAvatar(HttpServletRequest request, @RequestParam(value = "img") MultipartFile file) {
-        int userId = ((SimpleUserInfo) request.getSession().getAttribute(WebServiceConstants.SESSION_USER)).getId();
+        int userId = ((SimpleUserInfo) request.getSession().getAttribute(SessionAttributeKeyConstants.SESSION_USER)).getId();
         String savePath = FileStorePathConstants.AVADIR + FileRepoImpl.getAvaPath(userId, 100);
         return doUpload(file, savePath);
     }

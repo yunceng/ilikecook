@@ -1,7 +1,6 @@
 package com.colleage.cook.task;
 
 import com.colleage.cook.constants.AccessDataCacheConstants;
-import com.colleage.cook.constants.SystemInfoConstants;
 import com.colleage.cook.domain.BigFoodClassificationInfo;
 import com.colleage.cook.service.FoodClassificationInfoService;
 import com.colleage.cook.service.FoodMenuInfoService;
@@ -52,18 +51,17 @@ public class Task {
     @PostConstruct
     public void getSysteInfo(){
         try {
-            SystemInfoConstants.all_system_info = systemInfoService.getSystemInfo();
+            AccessDataCacheConstants.all_system_info = systemInfoService.getSystemInfo();
         } catch (Exception e) {
             LOGGER.warn("系统获取分类信息出现异常，请检查");
-            while ((SystemInfoConstants.all_system_info = systemInfoService.getSystemInfo()) == null) ;
+            while ((AccessDataCacheConstants.all_system_info = systemInfoService.getSystemInfo()) == null) ;
         }
-        ;
     }
 
     /**
      * 定时将关键词的搜索次数保存到数据库中
      */
-    @Scheduled(cron = "0 0 * * * ?")
+    @Scheduled(cron = "0 0 0 * * ?")
     public void saveSearchWordNums() {
         Map<String, Integer> data = new ConcurrentHashMap<>(SEARCH_WORD_NUMS);
         try {
@@ -76,7 +74,7 @@ public class Task {
         }
     }
 
-    @Scheduled(cron = "15 0 * * * ?")
+    @Scheduled(cron = "0 15 0 * * ?")
     public void saveMenuBrowseNums() {
         Map<String, Integer> data = new ConcurrentHashMap<>(MENU_BROWSE_NUMS);
         try {
@@ -89,7 +87,7 @@ public class Task {
     }
 
     @PostConstruct
-    @Scheduled(cron = "25 0 * * * ?")
+    @Scheduled(cron = "0 25 0 * * ?")
     public void getClassification() {
         List<BigFoodClassificationInfo> newData = AccessDataCacheConstants.ALL_CLASSIFICATION_DATA;
         try {

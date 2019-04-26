@@ -1,4 +1,4 @@
-package com.colleage.cook.bean;
+package com.colleage.cook.vo;
 
 import java.io.Serializable;
 import java.util.List;

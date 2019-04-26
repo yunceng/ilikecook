@@ -1,8 +1,5 @@
 package com.colleage.cook.service.impl;
 
-import com.colleage.cook.bean.DetailMenuInfo;
-import com.colleage.cook.bean.SimpleMenuInfo;
-import com.colleage.cook.bean.SimpleUserInfo;
 import com.colleage.cook.domain.MenuFoodInfo;
 import com.colleage.cook.domain.MenuStepInfo;
 import com.colleage.cook.domain.MenuSummaryInfo;
@@ -11,8 +8,10 @@ import com.colleage.cook.mapper.FoodClassificationInfoMapper;
 import com.colleage.cook.mapper.FoodMenuInfoMapper;
 import com.colleage.cook.mapper.UserInfoMapper;
 import com.colleage.cook.service.FoodMenuInfoService;
-import com.colleage.cook.utils.PageUtils;
 import com.colleage.cook.utils.page.PageInfo;
+import com.colleage.cook.vo.DetailMenuInfo;
+import com.colleage.cook.vo.SimpleMenuInfo;
+import com.colleage.cook.vo.SimpleUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
@@ -45,9 +44,8 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
     @Override
     public PageInfo getMenuByCategoryId(int category, int pageNo, int pageSize) {
         PageInfo pageInfo = new PageInfo(pageNo, pageSize);
-        int start = PageUtils.getStart(pageInfo.getCurrentPage(), pageInfo.getPageSize());
         Integer count = foodMenuInfoMapper.getMenuByCategoryIdCount(category);
-        List<MenuSummaryInfo> menus = foodMenuInfoMapper.getMenuByCategoryId(category, start, pageInfo.getPageSize());
+        List<MenuSummaryInfo> menus = foodMenuInfoMapper.getMenuByCategoryId(category, pageInfo.getStart(), pageInfo.getPageSize());
         pageInfo.setCount(count);
         pageInfo.setData(getSimpleMenuInfoList(menus));
         return pageInfo;
@@ -57,10 +55,8 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
     public PageInfo getMenuByLikeWord(String word, int pageNo, int pageSize) {
         SEARCH_WORD_NUMS.put(word, SEARCH_WORD_NUMS.getOrDefault(word, 0) + 1);
         PageInfo pageInfo = new PageInfo(pageNo, pageSize);
-        int start = PageUtils.getStart(pageInfo.getCurrentPage(), pageInfo.getPageSize());
-
         int count = foodMenuInfoMapper.getMenuByLikeWordCount(word);
-        List<MenuSummaryInfo> menus = foodMenuInfoMapper.getMenuByLikeWord(word, start, pageInfo.getPageSize());
+        List<MenuSummaryInfo> menus = foodMenuInfoMapper.getMenuByLikeWord(word, pageInfo.getStart(), pageInfo.getPageSize());
         pageInfo.setCount(count);
         pageInfo.setData(getSimpleMenuInfoList(menus));
 
@@ -70,17 +66,15 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
     @Override
     public List<SimpleMenuInfo> getRecommendMenu(int pageNo, int pageSize) {
         PageInfo pageInfo = new PageInfo(pageNo, pageSize);
-        int start = PageUtils.getStart(pageInfo.getCurrentPage(), pageInfo.getPageSize());
-        return getSimpleMenuInfoList(foodMenuInfoMapper.getRecommendMenu(3.5f, start, pageInfo.getPageSize()));
+        return getSimpleMenuInfoList(foodMenuInfoMapper.getRecommendMenu(3.5f, pageInfo.getStart(), pageInfo.getPageSize()));
     }
 
     @Override
     public PageInfo getCurrentWeekPopular(int pageNo, int pageSize) {
 
         PageInfo pageInfo = new PageInfo(pageNo, pageSize);
-        int start = PageUtils.getStart(pageInfo.getCurrentPage(), pageInfo.getPageSize());
         List<MenuSummaryInfo> menuSummaryInfos =
-                foodMenuInfoMapper.getMostPopularInDays(7, start, pageInfo.getPageSize());
+                foodMenuInfoMapper.getMostPopularInDays(7, pageInfo.getStart(), pageInfo.getPageSize());
         int count = foodMenuInfoMapper.getMostPopularInDaysCount(7);
         pageInfo.setCount(count);
         pageInfo.setData(getSimpleMenuInfoList(menuSummaryInfos));
@@ -92,9 +86,8 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
     public PageInfo getLastMonthPopular(int pageNo, int pageSize) {
 
         PageInfo pageInfo = new PageInfo(pageNo, pageSize);
-        int start = PageUtils.getStart(pageInfo.getCurrentPage(), pageInfo.getPageSize());
         List<MenuSummaryInfo> lastMonthPopular = foodMenuInfoMapper.
-                getLastMonthPopular(1, start, pageInfo.getPageSize());
+                getLastMonthPopular(1, pageInfo.getStart(), pageInfo.getPageSize());
         int count = foodMenuInfoMapper.getLastMonthPopularCount(1);
         pageInfo.setCount(count);
         pageInfo.setData(getSimpleMenuInfoList(lastMonthPopular));
@@ -106,9 +99,8 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
     public PageInfo getLastCreate(int pageNo, int pageSize) {
 
         PageInfo pageInfo = new PageInfo(pageNo, pageSize);
-        int start = PageUtils.getStart(pageInfo.getCurrentPage(), pageInfo.getPageSize());
         List<MenuSummaryInfo> lastCreate = foodMenuInfoMapper.
-                getLastCreate(30, start, pageInfo.getPageSize());
+                getLastCreate(30, pageInfo.getStart(), pageInfo.getPageSize());
         int count = foodMenuInfoMapper.getLastCreateCount();
         pageInfo.setCount(count);
         pageInfo.setData(getSimpleMenuInfoList(lastCreate));
@@ -120,8 +112,7 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
     public PageInfo getPopularMenu(int pageNo, int pageSize) {
 
         PageInfo pageInfo = new PageInfo(pageNo, pageSize);
-        int start = PageUtils.getStart(pageInfo.getCurrentPage(), pageInfo.getPageSize());
-        List<MenuSummaryInfo> popularMenu = foodMenuInfoMapper.getPopularMenu(start,
+        List<MenuSummaryInfo> popularMenu = foodMenuInfoMapper.getPopularMenu(pageInfo.getStart(),
                 pageInfo.getPageSize());
         int count = foodMenuInfoMapper.getPopularMenuCount();
         pageInfo.setCount(count);

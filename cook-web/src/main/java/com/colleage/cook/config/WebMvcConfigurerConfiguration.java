@@ -19,7 +19,7 @@ public class WebMvcConfigurerConfiguration extends WebMvcConfigurerAdapter {
                 .allowCredentials(true)
                 .allowedHeaders("*")
                 .allowedOrigins("http://localhost/")
-                .allowedMethods("GET");
+                .allowedMethods("GET", "POST");
 
     }
 }

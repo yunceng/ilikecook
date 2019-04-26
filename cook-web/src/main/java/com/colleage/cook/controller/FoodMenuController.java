@@ -1,8 +1,8 @@
 package com.colleage.cook.controller;
 
-import com.colleage.cook.bean.SimpleUserInfo;
 import com.colleage.cook.service.FoodMenuInfoService;
 import com.colleage.cook.utils.page.PageConstants;
+import com.colleage.cook.vo.SimpleUserInfo;
 import com.colleage.cook.vo.WebResponseData;
 import com.mysql.jdbc.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 import static com.colleage.cook.constants.AccessDataCacheConstants.MENU_BROWSE_NUMS;
-import static com.colleage.cook.constants.WebServiceConstants.SESSION_USER;
+import static com.colleage.cook.constants.SessionAttributeKeyConstants.SESSION_USER;
 
 /**
  * @Classname FoodMenuController

@@ -2,6 +2,7 @@ package com.colleage.cook.oauth.bean;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.colleage.cook.constants.AccessDataCacheConstants;
 import com.colleage.cook.constants.SystemInfoConstants;
 import com.colleage.cook.oauth.utils.TokenUtil;
 import org.apache.commons.lang.StringUtils;
@@ -31,9 +32,9 @@ public class OauthDouban extends AbstractOauth {
     private static OauthDouban oauthDouban = null;
 
     private OauthDouban() {
-        setClientId(SystemInfoConstants.all_system_info.get(SystemInfoConstants.DOUBAN_API_KEY));
-        setClientSecret(SystemInfoConstants.all_system_info.get(SystemInfoConstants.DOUBAN_SECRET_KEY));
-        setRedirectUri(SystemInfoConstants.all_system_info.get(SystemInfoConstants.SITE_OAUTH_DOUBAN));
+        setClientId(AccessDataCacheConstants.all_system_info.get(SystemInfoConstants.DOUBAN_API_KEY));
+        setClientSecret(AccessDataCacheConstants.all_system_info.get(SystemInfoConstants.DOUBAN_SECRET_KEY));
+        setRedirectUri(AccessDataCacheConstants.all_system_info.get(SystemInfoConstants.SITE_OAUTH_DOUBAN));
     }
 
     public static AbstractOauth getOauthInstance() {

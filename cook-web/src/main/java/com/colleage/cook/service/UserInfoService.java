@@ -1,12 +1,9 @@
 package com.colleage.cook.service;
 
-import com.colleage.cook.bean.SimpleUserInfo;
 import com.colleage.cook.domain.UserInfo;
+import com.colleage.cook.vo.SimpleUserInfo;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
-import java.util.Collection;
 
 public interface UserInfoService extends UserDetailsService {
 
@@ -15,8 +12,6 @@ public interface UserInfoService extends UserDetailsService {
     SimpleUserInfo getUserInfoByUserId(int userId);
 
     UserInfo register(UserInfo userInfo);
-
-    Collection<? extends GrantedAuthority> getAuthorities(String username);
 
     @PreAuthorize("principal.username.equals(#username)")
     boolean updateAvatar(String username, String avatar);

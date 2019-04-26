@@ -1,11 +1,11 @@
 package com.colleage.cook.controller;
 
-import com.colleage.cook.bean.DetailMenuInfo;
-import com.colleage.cook.bean.SimpleUserInfo;
-import com.colleage.cook.constants.WebServiceConstants;
+import com.colleage.cook.constants.SessionAttributeKeyConstants;
 import com.colleage.cook.domain.UserInfo;
 import com.colleage.cook.service.FoodMenuInfoService;
 import com.colleage.cook.service.UserInfoService;
+import com.colleage.cook.vo.DetailMenuInfo;
+import com.colleage.cook.vo.SimpleUserInfo;
 import com.colleage.cook.vo.WebResponseData;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.colleage.cook.constants.WebServiceConstants.SESSION_USER;
+import static com.colleage.cook.constants.SessionAttributeKeyConstants.SESSION_USER;
 
 /**
  * @Classname UserController
@@ -57,7 +57,7 @@ public class UserController {
     public WebResponseData getUserInfo(HttpServletRequest request) {
         WebResponseData webResponseData = new WebResponseData();
         try {
-            SimpleUserInfo simpleUserInfo = ((SimpleUserInfo) request.getSession().getAttribute(WebServiceConstants.SESSION_USER));
+            SimpleUserInfo simpleUserInfo = ((SimpleUserInfo) request.getSession().getAttribute(SessionAttributeKeyConstants.SESSION_USER));
             UserInfo userInfo = userInfoService.getUserInfoByUsername(simpleUserInfo.getUsername());
             webResponseData.setCode(WebResponseData.Code.SUCCESS);
             webResponseData.setMessage(WebResponseData.Message.SUCCESS);
@@ -95,7 +95,7 @@ public class UserController {
             return new WebResponseData(WebResponseData.Code.PARAM_NOINVALID, WebResponseData.Message.PARAM_NOINVALID);
         }
         try {
-            SimpleUserInfo userInfo = ((SimpleUserInfo) request.getSession().getAttribute(WebServiceConstants.SESSION_USER));
+            SimpleUserInfo userInfo = ((SimpleUserInfo) request.getSession().getAttribute(SessionAttributeKeyConstants.SESSION_USER));
             menuInfo.setUser(userInfo);
             foodMenuInfoService.createMenu(menuInfo);
             return new WebResponseData(WebResponseData.Code.SUCCESS, WebResponseData.Message.SUCCESS);

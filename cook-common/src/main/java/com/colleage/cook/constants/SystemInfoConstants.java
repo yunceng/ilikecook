@@ -18,7 +18,12 @@ public class SystemInfoConstants {
     /**
      * 用户默认的头像
      */
-    public static final String DEFAULT_USER_AVATAR = "default_user_avatar";
+    public static final String DEFAULT_USER_AVATAR = "default_user_avatar.jpg";
+
+    /**
+     * 管理员默认的头像
+     */
+    public static final String DEFAULT_ADMIN_AVATAR = "default_user_avatar.jpg";
 
     /**
      * 站点名称

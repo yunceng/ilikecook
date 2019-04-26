@@ -133,4 +133,12 @@ public class PageInfo {
         this.data = data;
     }
 
+    /**
+     * 获得分页的起始行
+     *
+     * @return
+     */
+    public int getStart() {
+        return (currentPage - 1) * pageSize;
+    }
 }

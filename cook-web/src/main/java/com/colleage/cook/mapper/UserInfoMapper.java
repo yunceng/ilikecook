@@ -1,7 +1,7 @@
 package com.colleage.cook.mapper;
 
-import com.colleage.cook.bean.SimpleUserInfo;
 import com.colleage.cook.domain.UserInfo;
+import com.colleage.cook.vo.SimpleUserInfo;
 import org.apache.ibatis.annotations.Param;
 
 /**

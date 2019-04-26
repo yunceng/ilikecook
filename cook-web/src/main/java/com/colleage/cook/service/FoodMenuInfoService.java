@@ -1,8 +1,8 @@
 package com.colleage.cook.service;
 
-import com.colleage.cook.bean.DetailMenuInfo;
-import com.colleage.cook.bean.SimpleMenuInfo;
 import com.colleage.cook.utils.page.PageInfo;
+import com.colleage.cook.vo.DetailMenuInfo;
+import com.colleage.cook.vo.SimpleMenuInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;

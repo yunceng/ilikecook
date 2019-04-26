@@ -3,14 +3,12 @@ package com.colleage.cook.domain;
 import java.io.Serializable;
 
 /**
- * 用户信息存储类
- *
- * @author david
- * @since 2019.04.11
- * @version 1.0
- *
+ * @Classname AdminInfo
+ * @Description 管理员信息
+ * @Date 2019\4\26 0026
+ * @Created by David
  */
-public class UserInfo implements Serializable{
+public class AdminInfo implements Serializable {
 
     private int id;
     //用户名，具有唯一性
@@ -33,21 +31,8 @@ public class UserInfo implements Serializable{
     private String nickname;
     //性别（0：未知，1：男，2：女，）
     private int gender;
-    //关注数
-    private int favors;
-    //被关注数
-    private int follows;
-    //签名
-    private String signature;
-    //作品数量
-    private int production;
-    //发布的菜谱数量
-    private int menus;
-    //用户拥有的角色的id
+    //角色组
     private int role_id;
-    //认证类型
-    private int oauth_type;
-
 
     public int getId() {
         return id;
@@ -137,65 +122,12 @@ public class UserInfo implements Serializable{
         this.gender = gender;
     }
 
-    public int getFavors() {
-        return favors;
-    }
-
-    public void setFavors(int favors) {
-        this.favors = favors;
-    }
-
-    public int getFollows() {
-        return follows;
-    }
-
-    public void setFollows(int follows) {
-        this.follows = follows;
-    }
-
-    public String getSignature() {
-        return signature;
-    }
-
-    public void setSignature(String signature) {
-        this.signature = signature;
-    }
-
-    public int getProduction() {
-        return production;
-    }
-
-    public void setProduction(int production) {
-        this.production = production;
-    }
-
-    public int getMenus() {
-        return menus;
-    }
-
-    public void setMenus(int menus) {
-        this.menus = menus;
-    }
-
     public int getRole_id() {
         return role_id;
     }
 
     public void setRole_id(int role_id) {
         this.role_id = role_id;
-    }
-
-    public int getOauth_type() {
-        return oauth_type;
-    }
-
-    public void setOauth_type(int oauth_type) {
-        this.oauth_type = oauth_type;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s, username: %s, status: %d", getClass(), username, status);
     }
 
     public enum Status {

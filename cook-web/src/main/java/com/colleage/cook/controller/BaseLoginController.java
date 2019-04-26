@@ -41,7 +41,7 @@ public class BaseLoginController {
         }
 
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username,
-                password, userInfoService.getAuthorities(username));
+                password);
 
         try {
             Authentication authenticate = authenticationManager.authenticate(authRequest);

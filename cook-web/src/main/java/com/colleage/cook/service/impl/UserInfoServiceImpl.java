@@ -1,7 +1,6 @@
 package com.colleage.cook.service.impl;
 
 
-import com.colleage.cook.bean.SimpleUserInfo;
 import com.colleage.cook.domain.MenuInfo;
 import com.colleage.cook.domain.RoleInfo;
 import com.colleage.cook.domain.UserInfo;
@@ -9,6 +8,7 @@ import com.colleage.cook.mapper.MenuInfoMapper;
 import com.colleage.cook.mapper.RoleInfoMapper;
 import com.colleage.cook.mapper.UserInfoMapper;
 import com.colleage.cook.service.UserInfoService;
+import com.colleage.cook.vo.SimpleUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,7 +41,8 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (user == null) {
             throw new InsufficientAuthenticationException("用户:" + s + ",不存在!");
         }
-        return new com.colleage.cook.bean.UserInfo(user, true, true, getAuthorities(user.getUsername()));
+        return new com.colleage.cook.vo.UserInfo(user, true,
+                user.getStatus() == com.colleage.cook.domain.UserInfo.Status.NORMAL.getCode() ? true : false, getAuthorities(user.getRole_id()));
     }
 
 
@@ -66,14 +67,9 @@ public class UserInfoServiceImpl implements UserInfoService {
         return userInfoMapper.updateAvatar(username, avatar);
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities(String username) {
+    public Collection<? extends GrantedAuthority> getAuthorities(int role_id) {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        UserInfo userInfo;
-        if ((userInfo = userInfoMapper.findUserInfoByUsername(username)) == null) {
-            return grantedAuthorities;
-        }
-        List<RoleInfo> roleValues = roleInfoMapper.getRoleValuesByRoleId(userInfo.getRole_id());
+        List<RoleInfo> roleValues = roleInfoMapper.getRoleValuesByRoleId(role_id);
         for (RoleInfo role : roleValues){
             //角色必须是ROLE_开头，可以在数据库中设置
             GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_"+role.getValue());

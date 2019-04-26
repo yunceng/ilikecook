@@ -1,5 +1,6 @@
 package com.colleage.cook.controller;
 
+import com.colleage.cook.constants.AccessDataCacheConstants;
 import com.colleage.cook.constants.SystemInfoConstants;
 import com.colleage.cook.domain.UserInfo;
 import com.colleage.cook.domain.UserOpenOauthInfo;
@@ -22,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import static com.colleage.cook.constants.SessionAttributeKeyConstants.SESSION_STATE;
 import static com.colleage.cook.constants.ViewConstants.OAUTH_REGISTERV;
-import static com.colleage.cook.constants.WebServiceConstants.SESSION_STATE;
 
 /**
  * @Classname ThirdPartyLoginController
@@ -154,7 +155,7 @@ public class ThirdPartyLoginController extends BaseLoginController {
             //FIXME: 这里使用网络路径，前端应做对应处理
             user.setAvatar(openOauth.getAvatar());
         } else {
-            user.setAvatar(SystemInfoConstants.all_system_info.get(SystemInfoConstants.DEFAULT_USER_AVATAR));
+            user.setAvatar(AccessDataCacheConstants.all_system_info.get(SystemInfoConstants.DEFAULT_USER_AVATAR));
         }
         return user;
     }

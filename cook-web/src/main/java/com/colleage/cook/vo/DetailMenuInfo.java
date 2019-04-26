@@ -1,4 +1,4 @@
-package com.colleage.cook.bean;
+package com.colleage.cook.vo;
 
 import com.colleage.cook.domain.MenuFoodInfo;
 import com.colleage.cook.domain.MenuStepInfo;

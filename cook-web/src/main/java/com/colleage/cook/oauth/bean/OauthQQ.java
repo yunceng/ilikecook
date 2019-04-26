@@ -2,6 +2,7 @@ package com.colleage.cook.oauth.bean;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.colleage.cook.constants.AccessDataCacheConstants;
 import com.colleage.cook.constants.SystemInfoConstants;
 import com.colleage.cook.exception.ConsumeException;
 import com.colleage.cook.oauth.utils.TokenUtil;
@@ -45,9 +46,9 @@ public class OauthQQ extends AbstractOauth {
     }
 
     private OauthQQ() {
-        setClientId(SystemInfoConstants.all_system_info.get(SystemInfoConstants.QQ_APP_ID));
-        setClientSecret(SystemInfoConstants.all_system_info.get(SystemInfoConstants.QQ_APP_KEY));
-        setRedirectUri(SystemInfoConstants.all_system_info.get(SystemInfoConstants.SITE_OAUTH_QQ));
+        setClientId(AccessDataCacheConstants.all_system_info.get(SystemInfoConstants.QQ_APP_ID));
+        setClientSecret(AccessDataCacheConstants.all_system_info.get(SystemInfoConstants.QQ_APP_KEY));
+        setRedirectUri(AccessDataCacheConstants.all_system_info.get(SystemInfoConstants.SITE_OAUTH_QQ));
     }
 
     public String getAuthorizeUrl(String state) throws UnsupportedEncodingException {

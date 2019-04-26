@@ -15,6 +15,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AccessDataCacheConstants {
 
     /**
+     * 系统信息存放，只加载一次
+     */
+    public static Map<String, String> all_system_info;
+
+    /**
      * 搜索词的数量统计，每天更新数据库
      */
     public static Map<String, Integer> SEARCH_WORD_NUMS = new ConcurrentHashMap<>();

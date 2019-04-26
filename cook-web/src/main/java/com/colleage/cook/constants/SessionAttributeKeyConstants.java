@@ -1,12 +1,12 @@
 package com.colleage.cook.constants;
 
 /**
- * @Classname WebServiceConstants
+ * @Classname SessionAttributeKeyConstants
  * @Description web服务中的常量
  * @Date 2019\4\25 0025
  * @Created by David
  */
-public class WebServiceConstants {
+public class SessionAttributeKeyConstants {
 
     /**
      * 第三方登录保存状态

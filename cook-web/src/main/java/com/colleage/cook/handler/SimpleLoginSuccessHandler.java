@@ -1,9 +1,9 @@
 package com.colleage.cook.handler;
 
-import com.colleage.cook.bean.SimpleUserInfo;
-import com.colleage.cook.bean.UserInfo;
 import com.colleage.cook.constants.CharacterConst;
 import com.colleage.cook.constants.HeaderConst;
+import com.colleage.cook.vo.SimpleUserInfo;
+import com.colleage.cook.vo.UserInfo;
 import com.colleage.cook.vo.WebResponseData;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static com.colleage.cook.constants.WebServiceConstants.SESSION_USER;
+import static com.colleage.cook.constants.SessionAttributeKeyConstants.SESSION_USER;
 
 /**
  * @Classname SimpleLoginSuccessHandler

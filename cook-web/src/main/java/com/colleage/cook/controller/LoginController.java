@@ -1,8 +1,10 @@
 package com.colleage.cook.controller;
 
+import com.colleage.cook.constants.AccessDataCacheConstants;
 import com.colleage.cook.constants.SystemInfoConstants;
 import com.colleage.cook.domain.UserInfo;
 import com.colleage.cook.oauth.bean.OauthTypeEnum;
+import com.colleage.cook.utils.constants.FileStorePathConstants;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 
 import static com.colleage.cook.constants.ViewConstants.*;
 
@@ -48,7 +51,8 @@ public class LoginController extends BaseLoginController {
         UserInfo userInfo = new UserInfo();
         userInfo.setUsername(username);
         userInfo.setPassword(passwordEncoder.encode(password));
-        String avatar = SystemInfoConstants.all_system_info.get(SystemInfoConstants.DEFAULT_USER_AVATAR);
+        String avatar = AccessDataCacheConstants.all_system_info.get(FileStorePathConstants.APP_CONTEXT_IMG
+                + File.separator + SystemInfoConstants.DEFAULT_USER_AVATAR);
         userInfo.setAvatar(avatar);
         userInfo.setNickname(nickname);
         userInfo.setGender(1);

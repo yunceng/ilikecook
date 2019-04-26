@@ -1,4 +1,4 @@
-package com.colleage.cook.bean;
+package com.colleage.cook.vo;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
