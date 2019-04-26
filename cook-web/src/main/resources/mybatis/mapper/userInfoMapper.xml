@@ -58,7 +58,7 @@
 	<update id="updateUserInfo">
 		update user_info set avatar = #{userInfo.avatar}, email = #{userInfo.email},
 		mobile = #{userInfo.mobile}, nickname = #{userInfo.nickname}, gender = #{userInfo.gender},
-		 where username = #{username}
+		 where username = #{userInfo.username}
 	</update>
 
 	<update id="updateUserStatus">
