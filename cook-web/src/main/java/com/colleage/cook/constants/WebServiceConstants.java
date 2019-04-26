@@ -16,5 +16,5 @@ public class WebServiceConstants {
     /**
      * 用户信息
      */
-    public static final String SESSION_USER = "_SESSION_USERNAME_";
+    public static final String SESSION_USER = "_SESSION_USER_";
 }
