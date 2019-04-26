@@ -38,7 +38,7 @@
 	</sql>
 
 	<select id="findUserInfoByUsername" resultMap="BaseResultMap">
-		select <include refid="column_list"></include> FROM user_info where username = #{username}
+        select <include refid="column_list"></include> FROM user_info where username = #{username} and role_id = 1
 	</select>
 
 	<select id="findUserInfoByUserId" resultMap="simpleUserInfo">
