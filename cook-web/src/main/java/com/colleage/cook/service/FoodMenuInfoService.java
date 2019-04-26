@@ -20,6 +20,16 @@ import java.util.Map;
 public interface FoodMenuInfoService {
 
     /**
+     * 根据分类查找菜谱
+     *
+     * @param category
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    PageInfo getMenuByCategoryId(int category, int pageNo, int pageSize);
+
+    /**
      * 根据关键词获得相应的菜谱
      *
      * @param word
@@ -48,12 +58,11 @@ public interface FoodMenuInfoService {
     /**
      * 获取最近哪个月最受欢迎的菜谱
      *
-     * @param months 从当前月份开始，1为上个月，2为上上个月
      * @return
      * @Param pageNo
      * @Param pageSize
      */
-    PageInfo getLastMonthPopular(int months, int pageNo, int pageSize);
+    PageInfo getLastMonthPopular(int pageNo, int pageSize);
 
     /**
      * 获取最近创建的菜谱
@@ -81,11 +90,33 @@ public interface FoodMenuInfoService {
      */
     DetailMenuInfo getDetailMenuInfo(int userId, String uuid);
 
+    /**
+     * 修改菜谱收藏数量
+     *
+     * @param userId
+     * @param uuid
+     * @return
+     */
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT,
             timeout = 3600, rollbackFor = Exception.class)
     boolean updateMenuCollectNum(@Param("userId") int userId, @Param("uuid") String uuid);
 
+    /**
+     * 修改菜谱浏览数和推荐指数
+     * @param data
+     * @return
+     */
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT,
             timeout = 3600, rollbackFor = Exception.class)
     boolean updateMenuBrowseAndRecommend(Map<String, Integer> data);
+
+    /**
+     * 创建菜谱
+     *
+     * @param menu
+     * @return
+     */
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT,
+            timeout = 3600, rollbackFor = Exception.class)
+    boolean createMenu(DetailMenuInfo menu);
 }

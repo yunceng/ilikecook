@@ -28,6 +28,22 @@ public class FoodMenuController {
     @Autowired
     private FoodMenuInfoService foodMenuInfoService;
 
+    @RequestMapping("getMenuByCategory.do")
+    public WebResponseData getMenuByCategoryId(int category,
+                                               @RequestParam(required = false, defaultValue = "1") int pageNo,
+                                               @RequestParam(required = false,
+                                                       defaultValue = PageConstants.DEFAULT_PAGE_SIZE + "") int pageSize) {
+        WebResponseData webResponseData = new WebResponseData();
+        if (category < 101 || category > 9999) {
+            webResponseData.setCode(WebResponseData.Code.PARAM_NOINVALID);
+            webResponseData.setMessage(WebResponseData.Message.PARAM_NOINVALID);
+        }
+        webResponseData.setCode(WebResponseData.Code.SUCCESS);
+        webResponseData.setMessage(WebResponseData.Message.SUCCESS);
+        webResponseData.setData(foodMenuInfoService.getMenuByCategoryId(category, pageNo, pageSize));
+        return webResponseData;
+    }
+
     @RequestMapping("getRecommendMenus.do")
     public WebResponseData getRecommendMenus() {
         WebResponseData webResponseData = new WebResponseData();
@@ -69,7 +85,7 @@ public class FoodMenuController {
                                                @RequestParam(required = false,
                                                        defaultValue = PageConstants.DEFAULT_PAGE_SIZE + "") int pageSize) {
         WebResponseData webResponseData = new WebResponseData(WebResponseData.Code.SUCCESS,
-                WebResponseData.Message.SUCCESS, foodMenuInfoService.getLastMonthPopular(1, pageNo, pageSize));
+                WebResponseData.Message.SUCCESS, foodMenuInfoService.getLastMonthPopular(pageNo, pageSize));
         return webResponseData;
     }
 

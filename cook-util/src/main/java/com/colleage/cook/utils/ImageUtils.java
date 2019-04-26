@@ -205,7 +205,7 @@ public class ImageUtils {
             Image image = ImageIO.read(new File(imgPath));
             int x = image.getWidth(null) - text.getBytes().length;
             int y = image.getHeight(null);
-            mark(imgPath, outImgPath, text, Font.getFont(Font.SANS_SERIF), Color.BLUE, x, y);
+            mark(imgPath, outImgPath, text, Font.getFont(Font.SANS_SERIF), Color.BLACK, x, y);
         }catch (IOException e){
             e.printStackTrace();
         }

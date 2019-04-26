@@ -130,7 +130,7 @@ public class ThirdPartyLoginController extends BaseLoginController {
                 // ===将远程图片下载到本地===
                 String avator = fileRepo.getRoot() + FileStorePathConstants.AVADIR + FileRepoImpl.getAvaPath(u.getId(), 100);
                 ImageUtils.download(openOauth.getAvatar(), avator);
-                userInfoService.updateAvatar(u.getId(), avator);
+                userInfoService.updateAvatar(u.getUsername(), avator);
 
                 thirdToken = new UserOpenOauthInfo();
                 BeanUtils.copyProperties(openOauth, thirdToken);

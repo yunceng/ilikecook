@@ -13,23 +13,20 @@ public class SimpleUserInfo implements Serializable {
     public SimpleUserInfo() {
     }
 
-    public SimpleUserInfo(int id, String username, String avator) {
+    public SimpleUserInfo(int id, String username, String nickname, String avatar) {
         this.id = id;
         this.username = username;
-        this.avator = avator;
-    }
-
-    public SimpleUserInfo(com.colleage.cook.domain.UserInfo userInfo) {
-        this.id = userInfo.getId();
-        this.username = userInfo.getUsername();
-        this.avator = userInfo.getAvatar();
+        this.nickname = nickname;
+        this.avatar = avatar;
     }
 
     private int id;
 
     private String username;
 
-    private String avator;
+    private String nickname;
+
+    private String avatar;
 
     public int getId() {
         return id;
@@ -47,11 +44,19 @@ public class SimpleUserInfo implements Serializable {
         this.username = username;
     }
 
-    public String getAvator() {
-        return avator;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setAvator(String avator) {
-        this.avator = avator;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

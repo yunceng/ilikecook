@@ -14,9 +14,32 @@ import java.util.List;
  */
 public interface FoodClassificationInfoService {
 
+    /**
+     * 获得所有的分类信息
+     *
+     * @return
+     */
+    List<BigFoodClassificationInfo> getAllClassification();
+
+    /**
+     * 获得一级分类信息
+     *
+     * @return
+     */
     List<BigFoodClassificationInfo> getAllBig();
 
+    /**
+     * 获得二级分类信息
+     *
+     * @param bigId
+     * @return
+     */
     List<SmallFoodClassificationInfo> getAllSmallByCategory(int bigId);
 
+    /**
+     * 获得三级分类信息
+     * @param smallId
+     * @return
+     */
     List<TinyFoodClassificationInfo> getAllTinyByCategory(int smallId);
 }

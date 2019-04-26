@@ -31,7 +31,7 @@ public class FileStorePathConstants {
     /**
      * 文件存储-头像目录
      */
-    public static final String AVADIR = "/static/store/ava";
+    public static final String AVADIR = "/static/images/ava";
 
     /**
      * 文件存储-临时文件目录

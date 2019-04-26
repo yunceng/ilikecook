@@ -88,6 +88,8 @@ public class WebResponseData implements Serializable {
          */
         public static final int PARAM_NOT_NULL = -10001;
 
+        public static final int PARAM_NOINVALID = -10002;
+
     }
 
     /**
@@ -113,7 +115,13 @@ public class WebResponseData implements Serializable {
 
         public static final String PARAM_NOT_NULL = "参数不能为空";
 
+        public static final String PARAM_NOINVALID = "参数不合法";
+
         public static final String COLLECT_MENU_ERROR = "您可能已经收藏过该菜谱";
+
+        public static final String UPLOAD_FILE_NOT_NULL = "上传的文件不能为空";
+
+        public static final String TRANSFER_FILE_ERROR = "文件传输失败";
 
     }
 }

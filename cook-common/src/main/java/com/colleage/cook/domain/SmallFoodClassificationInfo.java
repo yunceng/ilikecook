@@ -1,16 +1,15 @@
 package com.colleage.cook.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Classname SmallFoodClassificationInfo
- * @Description TODO
+ * @Description 食材分类的二级分类信息
  * @Date 2019\4\22 0022
  * @Created by David
  */
 public class SmallFoodClassificationInfo implements Serializable {
-
-    private int id;
 
     private String name;
 
@@ -18,13 +17,7 @@ public class SmallFoodClassificationInfo implements Serializable {
 
     private int isHref;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    private List<TinyFoodClassificationInfo> tinyFoodClassificationInfos;
 
     public String getName() {
         return name;
@@ -49,4 +42,20 @@ public class SmallFoodClassificationInfo implements Serializable {
     public void setIsHref(int isHref) {
         this.isHref = isHref;
     }
+
+    public List<TinyFoodClassificationInfo> getTinyFoodClassificationInfos() {
+        return tinyFoodClassificationInfos;
+    }
+
+    public void setTinyFoodClassificationInfos(List<TinyFoodClassificationInfo> tinyFoodClassificationInfos) {
+        this.tinyFoodClassificationInfos = tinyFoodClassificationInfos;
+    }
+
+//    public BigFoodClassificationInfo getBigFoodClassificationInfo() {
+//        return bigFoodClassificationInfo;
+//    }
+//
+//    public void setBigFoodClassificationInfo(BigFoodClassificationInfo bigFoodClassificationInfo) {
+//        this.bigFoodClassificationInfo = bigFoodClassificationInfo;
+//    }
 }

@@ -8,12 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="cookcommon" />
+        <module name="cookmanager" />
         <module name="cookutil" />
         <module name="cookweb" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8">
-      <module name="cookadmin" target="1.7" />
+      <module name="cookadmin" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

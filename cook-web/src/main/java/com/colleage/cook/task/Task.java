@@ -1,6 +1,9 @@
 package com.colleage.cook.task;
 
+import com.colleage.cook.constants.AccessDataCacheConstants;
 import com.colleage.cook.constants.SystemInfoConstants;
+import com.colleage.cook.domain.BigFoodClassificationInfo;
+import com.colleage.cook.service.FoodClassificationInfoService;
 import com.colleage.cook.service.FoodMenuInfoService;
 import com.colleage.cook.service.SearchWordInfoService;
 import com.colleage.cook.service.SystemInfoService;
@@ -12,6 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -39,12 +43,21 @@ public class Task {
     @Autowired
     private FoodMenuInfoService foodMenuInfoService;
 
+    @Autowired
+    private FoodClassificationInfoService foodClassificationInfoService;
+
     /**
      * 系统启动时获取系统信息并加载
      */
     @PostConstruct
     public void getSysteInfo(){
-        SystemInfoConstants.all_system_info = systemInfoService.getSystemInfo();
+        try {
+            SystemInfoConstants.all_system_info = systemInfoService.getSystemInfo();
+        } catch (Exception e) {
+            LOGGER.warn("系统获取分类信息出现异常，请检查");
+            while ((SystemInfoConstants.all_system_info = systemInfoService.getSystemInfo()) == null) ;
+        }
+        ;
     }
 
     /**
@@ -59,7 +72,7 @@ public class Task {
             data = null;
         } catch (Exception e) {
             SEARCH_WORD_NUMS.putAll(data);
-            LOGGER.warn("数据库出现异常，请检查");
+            LOGGER.warn("保存搜索词搜索次数出现异常，请检查");
         }
     }
 
@@ -71,7 +84,24 @@ public class Task {
             foodMenuInfoService.updateMenuBrowseAndRecommend(data);
         } catch (Exception e) {
             SEARCH_WORD_NUMS.putAll(data);
-            LOGGER.warn("数据库出现异常，请检查");
+            LOGGER.warn("保存菜单浏览数出现异常，请检查");
+        }
+    }
+
+    @PostConstruct
+    @Scheduled(cron = "25 0 * * * ?")
+    public void getClassification() {
+        List<BigFoodClassificationInfo> newData = AccessDataCacheConstants.ALL_CLASSIFICATION_DATA;
+        try {
+            AccessDataCacheConstants.ALL_CLASSIFICATION_DATA = foodClassificationInfoService.getAllClassification();
+        } catch (Exception e) {
+            LOGGER.warn("系统获取分类信息出现异常，请检查");
+            if (newData == null) {
+                while ((AccessDataCacheConstants.ALL_CLASSIFICATION_DATA = foodClassificationInfoService.getAllClassification()) == null)
+                    ;
+            } else {
+                AccessDataCacheConstants.ALL_CLASSIFICATION_DATA = newData;
+            }
         }
     }
 

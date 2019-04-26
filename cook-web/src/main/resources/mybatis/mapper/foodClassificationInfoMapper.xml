@@ -2,36 +2,64 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.colleage.cook.mapper.FoodClassificationInfoMapper">
     <resultMap id="BigResultMap" type="com.colleage.cook.domain.BigFoodClassificationInfo">
-        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <!--<id column="id" property="id" jdbcType="INTEGER"></id>-->
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="category" property="category" jdbcType="INTEGER"/>
     </resultMap>
 
     <resultMap id="SmallResultMap" type="com.colleage.cook.domain.SmallFoodClassificationInfo">
-        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <!--<id column="id" property="id" jdbcType="INTEGER"></id>-->
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="category" property="category" jdbcType="INTEGER"/>
         <result column="is_href" property="isHref" jdbcType="INTEGER"/>
     </resultMap>
 
     <resultMap id="TinyResultMap" type="com.colleage.cook.domain.TinyFoodClassificationInfo">
-        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <!--<id column="id" property="id" jdbcType="INTEGER"></id>-->
         <result column="name" property="name" jdbcType="VARCHAR"/>
         <result column="category" property="category" jdbcType="INTEGER"/>
         <result column="score" property="score" jdbcType="INTEGER"/>
     </resultMap>
 
+    <resultMap id="allMap" type="com.colleage.cook.domain.BigFoodClassificationInfo">
+        <!--<id column="id" property="id"/>-->
+        <result column="bname" property="name"/>
+        <result column="bcategory" property="category" jdbcType="INTEGER"/>
+        <collection column="smallFoodClassificationInfos" property="smallFoodClassificationInfos"
+                    ofType="com.colleage.cook.domain.SmallFoodClassificationInfo">
+            <!--<id column="id" property="id" jdbcType="INTEGER"></id>-->
+            <result column="sname" property="name" jdbcType="VARCHAR"/>
+            <result column="scategory" property="category" jdbcType="INTEGER"/>
+            <result column="sishref" property="isHref" jdbcType="INTEGER"/>
+            <collection column="tinyFoodClassificationInfos" property="tinyFoodClassificationInfos"
+                        ofType="com.colleage.cook.domain.TinyFoodClassificationInfo">
+                <!--<id column="id" property="id" jdbcType="INTEGER"></id>-->
+                <result column="tname" property="name" jdbcType="VARCHAR"/>
+                <result column="tcategory" property="category" jdbcType="INTEGER"/>
+                <result column="tscore" property="score" jdbcType="INTEGER"/>
+            </collection>
+        </collection>
+    </resultMap>
+
     <sql id="Big_Base_Column_List">
-           id, name, category
+           name, category
     </sql>
 
     <sql id="Small_Base_Column_List">
-           id, name, category, is_href
+           name, category, is_href
     </sql>
 
     <sql id="Tiny_Base_Column_List">
-           id, name, category, score
+          name, category, score
     </sql>
+
+    <select id="getAllClassification" resultMap="allMap">
+        SELECT b.name bname, b.category bcategory, s.name sname, s.category scategory, s.is_href sishref, t.name tname,
+        t.category tcategory, t.score tscore FROM big_category b
+        LEFT JOIN small_category s ON b.category = s.big_id
+        LEFT JOIN tiny_category t ON s.category = t.small_id
+        WHERE b.status = 0
+    </select>
 
     <select id="getAllBig" resultMap="BigResultMap">
         select <include refid="Big_Base_Column_List"></include> from big_category where status = 0

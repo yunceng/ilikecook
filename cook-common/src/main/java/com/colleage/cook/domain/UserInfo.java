@@ -197,4 +197,18 @@ public class UserInfo implements Serializable{
     public String toString() {
         return String.format("%s, username: %s, status: %d", getClass(), username, status);
     }
+
+    public static enum Status {
+        NORMAL(0), ACCOUNT_LOCK(1), ACCOUNT_BLACK(2);
+
+        private int code;
+
+        private Status(int code) {
+            this.code = code;
+        }
+
+        public int getCode() {
+            return code;
+        }
+    }
 }

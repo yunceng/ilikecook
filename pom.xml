@@ -12,6 +12,7 @@
         <module>cook-common</module>
         <module>cook-util</module>
         <module>cook-web</module>
+        <module>cook-manager</module>
     </modules>
 
     <properties>

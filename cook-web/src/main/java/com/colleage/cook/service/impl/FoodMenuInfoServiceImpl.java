@@ -3,7 +3,10 @@ package com.colleage.cook.service.impl;
 import com.colleage.cook.bean.DetailMenuInfo;
 import com.colleage.cook.bean.SimpleMenuInfo;
 import com.colleage.cook.bean.SimpleUserInfo;
-import com.colleage.cook.domain.*;
+import com.colleage.cook.domain.MenuFoodInfo;
+import com.colleage.cook.domain.MenuStepInfo;
+import com.colleage.cook.domain.MenuSummaryInfo;
+import com.colleage.cook.domain.TinyFoodClassificationInfo;
 import com.colleage.cook.mapper.FoodClassificationInfoMapper;
 import com.colleage.cook.mapper.FoodMenuInfoMapper;
 import com.colleage.cook.mapper.UserInfoMapper;
@@ -17,6 +20,7 @@ import org.thymeleaf.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import static com.colleage.cook.constants.AccessDataCacheConstants.SEARCH_WORD_NUMS;
 
@@ -38,6 +42,16 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
     @Autowired
     private FoodClassificationInfoMapper foodClassificationInfoMapper;
 
+    @Override
+    public PageInfo getMenuByCategoryId(int category, int pageNo, int pageSize) {
+        PageInfo pageInfo = new PageInfo(pageNo, pageSize);
+        int start = PageUtils.getStart(pageInfo.getCurrentPage(), pageInfo.getPageSize());
+        Integer count = foodMenuInfoMapper.getMenuByCategoryIdCount(category);
+        List<MenuSummaryInfo> menus = foodMenuInfoMapper.getMenuByCategoryId(category, start, pageInfo.getPageSize());
+        pageInfo.setCount(count);
+        pageInfo.setData(getSimpleMenuInfoList(menus));
+        return pageInfo;
+    }
 
     @Override
     public PageInfo getMenuByLikeWord(String word, int pageNo, int pageSize) {
@@ -75,13 +89,13 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
     }
 
     @Override
-    public PageInfo getLastMonthPopular(int months, int pageNo, int pageSize) {
+    public PageInfo getLastMonthPopular(int pageNo, int pageSize) {
 
         PageInfo pageInfo = new PageInfo(pageNo, pageSize);
         int start = PageUtils.getStart(pageInfo.getCurrentPage(), pageInfo.getPageSize());
         List<MenuSummaryInfo> lastMonthPopular = foodMenuInfoMapper.
-                getLastMonthPopular(months, start, pageInfo.getPageSize());
-        int count = foodMenuInfoMapper.getLastMonthPopularCount(months);
+                getLastMonthPopular(1, start, pageInfo.getPageSize());
+        int count = foodMenuInfoMapper.getLastMonthPopularCount(1);
         pageInfo.setCount(count);
         pageInfo.setData(getSimpleMenuInfoList(lastMonthPopular));
 
@@ -129,8 +143,8 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
         List<TinyFoodClassificationInfo> categorys = foodClassificationInfoMapper.getCategorysByMenu(uuid);
         List<MenuFoodInfo> menuFoodInfos = foodMenuInfoMapper.getMenuFoodInfos(uuid);
         List<MenuStepInfo> menuStepInfos = foodMenuInfoMapper.getMenuStepInfos(uuid);
-        UserInfo userInfo = userInfoMapper.findUserInfoByUserId(menuSummaryInfo.getUserId());
-        return new DetailMenuInfo(new SimpleUserInfo(userInfo), menuSummaryInfo, categorys, menuFoodInfos, menuStepInfos);
+        SimpleUserInfo userInfo = userInfoMapper.findUserInfoByUserId(menuSummaryInfo.getUserId());
+        return new DetailMenuInfo(userInfo, menuSummaryInfo, categorys, menuFoodInfos, menuStepInfos);
     }
 
     @Override
@@ -144,6 +158,17 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
             foodMenuInfoMapper.updateMenuBrowsed(uuid, nums);
         });
         foodMenuInfoMapper.updateMenuRecommend();
+        return true;
+    }
+
+    @Override
+    public boolean createMenu(DetailMenuInfo menu) {
+        String menu_uuid = UUID.randomUUID().toString().replace("-", "");
+        menu.getSummaryInfo().setUuid(menu_uuid);
+        foodMenuInfoMapper.insertMenuCategoryRel(menu.getSummaryInfo().getUuid(), menu.getCategorys());
+        foodMenuInfoMapper.insertMenuSummary(menu.getSummaryInfo(), menu.getUser().getId());
+        foodMenuInfoMapper.insertMenuFoods(menu.getSummaryInfo().getUuid(), menu.getMenuFoodInfoList());
+        foodMenuInfoMapper.insertMenuSteps(menu.getSummaryInfo().getUuid(), menu.getMenuStepInfoList());
         return true;
     }
 

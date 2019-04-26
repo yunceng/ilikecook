@@ -23,6 +23,13 @@
 		<result column="oauth_type" property="oauth_type" jdbcType="INTEGER"/>
 	</resultMap>
 
+	<resultMap id="simpleUserInfo" type="com.colleage.cook.bean.SimpleUserInfo">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="username" property="username" jdbcType="VARCHAR"/>
+		<result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+		<result column="avatar" property="avatar" jdbcType="VARCHAR"/>
+	</resultMap>
+
 	<sql id="column_list">
 		id, username, password, avatar, DATE_FORMAT(create_time, "%Y-%m-%d") create_time, email,
 		DATE_FORMAT(last_login, "%Y-%m-%d") last_login, mobile, status, nickname,
@@ -34,8 +41,8 @@
 		select <include refid="column_list"></include> FROM user_info where username = #{username}
 	</select>
 
-	<select id="findUserInfoByUserId" resultMap="BaseResultMap">
-		select <include refid="column_list"></include> FROM user_info where id = #{userId}
+	<select id="findUserInfoByUserId" resultMap="simpleUserInfo">
+		select id, username, nickname, avatar FROM user_info where id = #{userId}
 	</select>
 
 	<insert id="register">
@@ -45,6 +52,17 @@
 	</insert>
 
 	<update id="updateAvatar">
-		update user_info set avatar = #{avatar} where id = #{userId}
+		update user_info set avatar = #{avatar} where username = #{username}
 	</update>
+
+	<update id="updateUserInfo">
+		update user_info set avatar = #{userInfo.avatar}, email = #{userInfo.email},
+		mobile = #{userInfo.mobile}, nickname = #{userInfo.nickname}, gender = #{userInfo.gender},
+		 where username = #{username}
+	</update>
+
+	<update id="updateUserStatus">
+		update user_info set status = #{status} where username = #{username}
+	</update>
+
 </mapper>

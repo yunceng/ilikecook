@@ -1,5 +1,8 @@
 package com.colleage.cook.constants;
 
+import com.colleage.cook.domain.BigFoodClassificationInfo;
+
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -20,5 +23,10 @@ public class AccessDataCacheConstants {
      * 菜谱被浏览的次数统计，每天更新数据库
      */
     public static Map<String, Integer> MENU_BROWSE_NUMS = new ConcurrentHashMap<>();
+
+    /**
+     * 所有的分类信息，每天更新数据库
+     */
+    public static List<BigFoodClassificationInfo> ALL_CLASSIFICATION_DATA;
 
 }

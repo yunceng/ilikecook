@@ -34,7 +34,8 @@ public class SimpleLoginSuccessHandler implements AuthenticationSuccessHandler {
         httpServletResponse.setHeader(HeaderConst.ACCESS_CONTROL_EXPOSE_HEADERS, HeaderConst.AUTHORIZATION);
         httpServletResponse.setHeader(HeaderConst.AUTHORIZATION, httpServletRequest.getSession().getId());
 
-        SimpleUserInfo userInfo = new SimpleUserInfo(((UserInfo) authentication.getPrincipal()).getUser());
+        com.colleage.cook.domain.UserInfo user = ((UserInfo) authentication.getPrincipal()).getUser();
+        SimpleUserInfo userInfo = new SimpleUserInfo(user.getId(), user.getUsername(), user.getNickname(), user.getAvatar());
         httpServletRequest.getSession().setAttribute(SESSION_USER, userInfo);
 
         PrintWriter out = httpServletResponse.getWriter();

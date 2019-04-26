@@ -1,6 +1,7 @@
 package com.colleage.cook.service.impl;
 
 
+import com.colleage.cook.bean.SimpleUserInfo;
 import com.colleage.cook.domain.MenuInfo;
 import com.colleage.cook.domain.RoleInfo;
 import com.colleage.cook.domain.UserInfo;
@@ -50,7 +51,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public UserInfo getUserInfoByUserId(int userId) {
+    public SimpleUserInfo getUserInfoByUserId(int userId) {
         return userInfoMapper.findUserInfoByUserId(userId);
     }
 
@@ -61,8 +62,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public boolean updateAvatar(int userId, String avatar) {
-        return userInfoMapper.updateAvatar(userId, avatar);
+    public boolean updateAvatar(String username, String avatar) {
+        return userInfoMapper.updateAvatar(username, avatar);
     }
 
     @Override
@@ -85,5 +86,25 @@ public class UserInfoServiceImpl implements UserInfoService {
             }
         }
         return grantedAuthorities;
+    }
+
+    @Override
+    public boolean updateUserInfo(UserInfo userInfo) {
+        return userInfoMapper.updateUserInfo(userInfo);
+    }
+
+    @Override
+    public boolean lockUserAccount(String username) {
+        return userInfoMapper.updateUserStatus(username, UserInfo.Status.ACCOUNT_LOCK.getCode());
+    }
+
+    @Override
+    public boolean blackUserAccount(String username) {
+        return userInfoMapper.updateUserStatus(username, UserInfo.Status.ACCOUNT_BLACK.getCode());
+    }
+
+    @Override
+    public boolean recoverNormalAccount(String username) {
+        return userInfoMapper.updateUserStatus(username, UserInfo.Status.NORMAL.getCode());
     }
 }

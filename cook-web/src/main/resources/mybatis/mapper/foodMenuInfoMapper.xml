@@ -97,6 +97,17 @@
         order by score desc limit #{start}, #{limit}
     </select>
 
+    <select id="getMenuByCategoryIdCount" resultType="Integer">
+        select <include refid="Summary_Base_Column_List"></include> from menu_summary
+        where uuid in (select menu_id from category_menu_rel r where r.category_id = #{category})
+    </select>
+
+    <select id="getMenuByCategoryId" resultMap="SummaryResultMap">
+        select <include refid="Summary_Base_Column_List"></include> from menu_summary
+        where uuid in (select menu_id from category_menu_rel r where r.category_id = #{category})
+        order by recommend_num desc limit #{start}, #{limit}
+    </select>
+
     <select id="getSimpleFoods" resultType="String">
         select name from menu_food where menu_id = #{uuid}
     </select>
@@ -115,11 +126,11 @@
     </select>
 
     <select id="menuIsCollected">
-        select count(1) from menu_user_rel where user_id = #{userId} and menu_id = #{uuid}
+        select count(1) from menu_other_user_rel where user_id = #{userId} and menu_id = #{uuid}
     </select>
 
     <insert id="insertUserMenuRel">
-        insert into menu_user_rel(user_id, menu_id) values(#{userId}, #{uuid})
+        insert into menu_other_user_rel(user_id, menu_id) values(#{userId}, #{uuid})
     </insert>
 
     <update id="updateMenuCollected">
@@ -134,5 +145,30 @@
         update menu_summary set recommend_num = (score + browse_num/collect_num)/2
     </update>
 
+    <insert id="insertMenuSummary">
+        insert into menu_summary(uuid, name, cover_img, userId, description)
+        values(#{summaryInfo.uuid},#{summaryInfo.name}, #{summaryInfo.cover_img}, #{userId}, #{summaryInfo.desc})
+    </insert>
+
+    <insert id="insertMenuCategoryRel">
+        insert into category_menu_rel(category_id, menu_id) values
+        <foreach item="category" collection="categorys" separator=",">
+            (#{category}, #{uuid})
+        </foreach>
+    </insert>
+
+    <insert id="insertMenuFoods">
+        insert into menu_food(menu_id, name, num) values
+        <foreach item="food" collection="menuFoods" separator=",">
+            (#{uuid}, #{food.name}, #{food.num})
+        </foreach>
+    </insert>
+
+    <insert id="insertMenuSteps">
+        insert into menu_step(menu_id, description, img, orderI) values
+        <foreach item="step" collection="menuSteps" separator=",">
+            (#{uuid}, #{step.desc}, #{step.img}, #{step.order})
+        </foreach>
+    </insert>
 
 </mapper>

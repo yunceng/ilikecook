@@ -3,7 +3,7 @@
 <mapper namespace="com.colleage.cook.mapper.SearchWordInfoMapper">
 
     <select id="getSearchWords" resultType="String">
-        select name from search_word
+        select word from search_word
         where word like concat('%', #{word}) order by query_num desc limit #{start}, #{limit}
     </select>
 

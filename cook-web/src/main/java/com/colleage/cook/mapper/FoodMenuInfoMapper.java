@@ -16,6 +16,24 @@ import java.util.List;
 public interface FoodMenuInfoMapper {
 
     /**
+     * 根据分类查找菜谱数量
+     *
+     * @param category
+     * @return
+     */
+    Integer getMenuByCategoryIdCount(@Param("category") int category);
+
+    /**
+     * 根据分类查找菜谱
+     *
+     * @param category
+     * @param start
+     * @param limit
+     * @return
+     */
+    List<MenuSummaryInfo> getMenuByCategoryId(@Param("category") int category, @Param("start") int start, @Param("limit") int limit);
+
+    /**
      * 根据关键词获得相应的菜谱数量
      *
      * @param word
@@ -163,7 +181,55 @@ public interface FoodMenuInfoMapper {
      */
     boolean updateMenuRecommend();
 
+    /**
+     * 创建菜谱与用户的关系
+     * @param uuid
+     * @param userId
+     * @return
+     */
     boolean insertUserMenuRel(@Param("uuid") String uuid, @Param("userId") int userId);
 
+    /**
+     * 判断菜谱是否被用户收藏
+     * @param uuid
+     * @param userId
+     * @return
+     */
     boolean menuIsCollected(@Param("uuid") String uuid, @Param("userId") int userId);
+
+    /**
+     * 创建菜谱与分类的关系
+     *
+     * @param uuid
+     * @param categorys
+     * @return
+     */
+    boolean insertMenuCategoryRel(@Param("uuid") String uuid, @Param("categorys") List categorys);
+
+    /**
+     * 创建菜谱信息
+     *
+     * @param summaryInfo
+     * @param userId
+     * @return
+     */
+    boolean insertMenuSummary(@Param("summaryInfo") MenuSummaryInfo summaryInfo, @Param("userId") int userId);
+
+    /**
+     * 插入菜谱的原材料信息
+     *
+     * @param uuid
+     * @param menuFoodInfoList
+     * @return
+     */
+    boolean insertMenuFoods(@Param("uuid") String uuid, @Param("menuFoods") List<MenuFoodInfo> menuFoodInfoList);
+
+    /**
+     * 插入菜谱的步骤信息
+     *
+     * @param uuid
+     * @param menuStepInfoList
+     * @return
+     */
+    boolean insertMenuSteps(@Param("uuid") String uuid, @Param("menuSteps") List<MenuStepInfo> menuStepInfoList);
 }

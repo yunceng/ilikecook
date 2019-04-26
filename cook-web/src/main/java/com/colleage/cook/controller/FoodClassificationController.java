@@ -1,5 +1,6 @@
 package com.colleage.cook.controller;
 
+import com.colleage.cook.constants.AccessDataCacheConstants;
 import com.colleage.cook.service.FoodClassificationInfoService;
 import com.colleage.cook.vo.WebResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,13 @@ public class FoodClassificationController {
 
     @Autowired
     private FoodClassificationInfoService foodClassificationInfoService;
+
+    @GetMapping("getClassification.do")
+    public WebResponseData getClassification() {
+        WebResponseData webResponseData = new WebResponseData(WebResponseData.Code.SUCCESS,
+                WebResponseData.Message.SUCCESS, AccessDataCacheConstants.ALL_CLASSIFICATION_DATA);
+        return webResponseData;
+    }
 
     @GetMapping("getBig.do")
     public WebResponseData getBig() {

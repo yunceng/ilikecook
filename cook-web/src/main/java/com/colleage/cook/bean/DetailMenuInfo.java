@@ -3,8 +3,8 @@ package com.colleage.cook.bean;
 import com.colleage.cook.domain.MenuFoodInfo;
 import com.colleage.cook.domain.MenuStepInfo;
 import com.colleage.cook.domain.MenuSummaryInfo;
-import com.colleage.cook.domain.TinyFoodClassificationInfo;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,12 +13,12 @@ import java.util.List;
  * @Date 2019\4\23 0023
  * @Created by David
  */
-public class DetailMenuInfo {
+public class DetailMenuInfo implements Serializable {
 
     public DetailMenuInfo() {
     }
 
-    public DetailMenuInfo(SimpleUserInfo user, MenuSummaryInfo summaryInfo, List<TinyFoodClassificationInfo> categorys,
+    public DetailMenuInfo(SimpleUserInfo user, MenuSummaryInfo summaryInfo, List categorys,
                           List<MenuFoodInfo> menuFoodInfoList, List<MenuStepInfo> menuStepInfoList) {
         this.user = user;
         this.summaryInfo = summaryInfo;
@@ -40,7 +40,7 @@ public class DetailMenuInfo {
     /**
      * 所属分类信息
      */
-    private List<TinyFoodClassificationInfo> categorys;
+    private List categorys;
 
     /**
      * 菜单材料
@@ -68,11 +68,11 @@ public class DetailMenuInfo {
         this.summaryInfo = summaryInfo;
     }
 
-    public List<TinyFoodClassificationInfo> getCategorys() {
+    public List getCategorys() {
         return categorys;
     }
 
-    public void setCategorys(List<TinyFoodClassificationInfo> categorys) {
+    public void setCategorys(List categorys) {
         this.categorys = categorys;
     }
 

@@ -23,6 +23,11 @@ public class FoodClassificationInfoServiceImpl implements FoodClassificationInfo
     private FoodClassificationInfoMapper foodClassificationInfoMapper;
 
     @Override
+    public List<BigFoodClassificationInfo> getAllClassification() {
+        return foodClassificationInfoMapper.getAllClassification();
+    }
+
+    @Override
     public List<BigFoodClassificationInfo> getAllBig() {
         return foodClassificationInfoMapper.getAllBig();
     }

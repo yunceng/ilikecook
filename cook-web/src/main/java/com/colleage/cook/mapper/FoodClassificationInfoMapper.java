@@ -16,6 +16,13 @@ import java.util.List;
 public interface FoodClassificationInfoMapper {
 
     /**
+     * 获得所有的分类信息
+     *
+     * @return
+     */
+    List<BigFoodClassificationInfo> getAllClassification();
+
+    /**
      * 获取第一级分类
      *
      * @return
