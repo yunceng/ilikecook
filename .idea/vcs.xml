@@ -2,9 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/cook-common" vcs="svn" />
-    <mapping directory="$PROJECT_DIR$/cook-manager" vcs="svn" />
-    <mapping directory="$PROJECT_DIR$/cook-util" vcs="svn" />
-    <mapping directory="$PROJECT_DIR$/cook-web" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/cook-common" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cook-manager" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cook-util" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cook-web" vcs="Git" />
   </component>
 </project>
