@@ -1,17 +1,0 @@
-
-rsquid:S00100T"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸûíÙúÿÿÿÿ8æû¶É¥-
-rsquid:S00100X"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åˆáÏùÿÿÿÿ8æû¶É¥-
-rsquid:S00100d"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ùÀŒ±øÿÿÿÿ8æû¶É¥-
-msquid:S00100h"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–˜—Š8æû¶É¥-
-nsquid:S00100´"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(£×¯û8æû¶É¥-
-ssquid:S00100¸"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢ö—ºûÿÿÿÿ8æû¶É¥-
-nsquid:S00100¼"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ò©éÆ8æû¶É¥-
-ssquid:S00100À"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒœªõùÿÿÿÿ8æû¶É¥-
-zsquid:S00116"VRename this field "create_time" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ù‡¥™úÿÿÿÿ8æû¶É¥-
-ssquid:S00116"URename this field "last_login" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÃþÈ8æû¶É¥-
-vsquid:S00116/"RRename this field "role_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßÊ…¥úÿÿÿÿ8æû¶É¥-
-tsquid:S001161"URename this field "oauth_type" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(â©öï8æû¶É¥-
-usquid:S00117X"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åˆáÏùÿÿÿÿ8æû¶É¥-
-psquid:S00117h"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–˜—Š8æû¶É¥-
-vsquid:S00117¸"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢ö—ºûÿÿÿÿ8æû¶É¥-
-vsquid:S00117À"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒœªõùÿÿÿÿ8æû¶É¥-

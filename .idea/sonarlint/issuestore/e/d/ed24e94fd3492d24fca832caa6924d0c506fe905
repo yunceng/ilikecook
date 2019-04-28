@@ -1,16 +1,0 @@
-
-­%squid:RedundantThrowsDeclarationCheck"wRemove the declaration of thrown exception 'java.lang.InterruptedException', as it cannot be thrown from method's body.( ½¬¿8À—èÃ¥-
-wsquid:S1192"VDefine a constant instead of duplicating this literal "scaled with/height : " 4 times.(®÷ê…øÿÿÿÿ8À—èÃ¥-
-usquid:S1192"TDefine a constant instead of duplicating this literal "origin with/height " 3 times.(äˆØªûÿÿÿÿ8À—èÃ¥-
-Ksquid:S1066"/Merge this if statement with the enclosing one.(Ã©àÃ8À—èÃ¥-
-osquid:S2095"NUse try-with-resources or close this "FileOutputStream" in a "finally" clause.(ÃÜ§şÿÿÿÿ8À—èÃ¥-
-Esquid:S1125")Remove the literal "false" boolean value.(ê§®¤8À—èÃ¥-
-Esquid:S1125")Remove the literal "false" boolean value.(Ã©àÃ8À—èÃ¥-
-Bsquid:S1905"&Remove this unnecessary cast to "int".(àš€8À—èÃ¥-
-Vsquid:S1118":Add a private constructor to hide the implicit public one.(ò’çÎ8À—èÃ¥-
-]squid:S2259"AA "NullPointerException" could be thrown; "img" is nullable here.(ÈÖÍÎ8À—èÃ¥-
-]squid:S2259"AA "NullPointerException" could be thrown; "img" is nullable here.(ÈÖÍÎ8À—èÃ¥-
-hsquid:S00112"FDefine and throw a dedicated exception instead of using a generic one.(Áùäüúÿÿÿÿ8À—èÃ¥-
-Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8À—èÃ¥-
-Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8À—èÃ¥-
-Dsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8À—èÃ¥-

@@ -1,6 +1,0 @@
-
-psquid:S1192N"MDefine a constant instead of duplicating this literal "access_token" 4 times.(ÏåÒøÿÿÿÿ8çû¶É¥-
-Wsquid:S2168%"9Remove this dangerous instance of double-checked locking.(Ùá¨¹8çû¶É¥-
-Osquid:S1135"2Complete the task associated to this TODO comment.(£°§\8çû¶É¥-
-msquid:S2445%"O"oauthSina" is not "private final", and should not be used for synchronization.(Ùá¨¹8çû¶É¥-
-Hsquid:S2116~"%Use "Arrays.hashCode(array)" instead.(Æ¤öşÿÿÿÿ8çû¶É¥-

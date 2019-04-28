@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="web" url="file://$PROJECT_DIR$/cook-admin" />
     <file type="web" url="file://$PROJECT_DIR$/cook-manager" />
     <file type="web" url="file://$PROJECT_DIR$/cook-web" />
   </component>
@@ -11,13 +10,6 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
       </list>
-    </option>
-    <option name="ignoredFiles">
-      <set>
-        <option value="$PROJECT_DIR$/cook-admin/cook-web/pom.xml" />
-        <option value="$PROJECT_DIR$/cook-admin/pom.xml" />
-        <option value="$PROJECT_DIR$/cook-oauth-base/pom.xml" />
-      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
