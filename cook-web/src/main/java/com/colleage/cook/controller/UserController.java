@@ -7,12 +7,14 @@ import com.colleage.cook.service.UserInfoService;
 import com.colleage.cook.vo.DetailMenuInfo;
 import com.colleage.cook.vo.SimpleUserInfo;
 import com.colleage.cook.vo.WebResponseData;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,6 +26,7 @@ import static com.colleage.cook.constants.SessionAttributeKeyConstants.SESSION_U
  * @Date 2019\4\12 0012
  * @Created by David
  */
+@Api(value = "用户访问服务", description = "提供用户信息的访问")
 @RestController
 @RequestMapping("u")
 public class UserController {
@@ -34,6 +37,11 @@ public class UserController {
     @Autowired
     private UserInfoService userInfoService;
 
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "uuid", value = "菜谱的唯一标识", paramType = "form", dataType="string", required = true)
+            })
+    @ApiOperation(value = "收藏菜谱", httpMethod = "POST")
     @PostMapping("collectMenu.do")
     public WebResponseData collectMenu(HttpServletRequest request, String uuid) {
         WebResponseData webResponseData = new WebResponseData();
@@ -53,12 +61,14 @@ public class UserController {
         return webResponseData;
     }
 
-    @RequestMapping
+    @ApiOperation(value = "获取用户信息", httpMethod = "GET")
+    @GetMapping("getDetailUserInfo.do")
     public WebResponseData getUserInfo(HttpServletRequest request) {
         WebResponseData webResponseData = new WebResponseData();
         try {
             SimpleUserInfo simpleUserInfo = ((SimpleUserInfo) request.getSession().getAttribute(SessionAttributeKeyConstants.SESSION_USER));
             UserInfo userInfo = userInfoService.getUserInfoByUsername(simpleUserInfo.getUsername());
+            userInfo.setPassword("");
             webResponseData.setCode(WebResponseData.Code.SUCCESS);
             webResponseData.setMessage(WebResponseData.Message.SUCCESS);
             webResponseData.setData(userInfo);
@@ -69,11 +79,24 @@ public class UserController {
         return webResponseData;
     }
 
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "username", value = "用户名", paramType = "form", dataType="string", required = true),
+                    @ApiImplicitParam(name = "nickname", value = "昵称", paramType = "form", dataType="string"),
+                    @ApiImplicitParam(name = "gender", value = "性别（1：男，2：女）", paramType = "form", dataType="string", required = true),
+                    @ApiImplicitParam(name = "avatar", value = "头像地址", paramType = "form", dataType="string"),
+                    @ApiImplicitParam(name = "email", value = "邮箱地址", paramType = "form", dataType="string"),
+                    @ApiImplicitParam(name = "mobile", value = "手机号", paramType = "form", dataType="int")
+            })
+    @ApiOperation(value = "更新用户信息", httpMethod = "POST")
     @PostMapping("updateUserInfo.do")
-    public WebResponseData updateUserInfo(UserInfo userInfo) {
+    public WebResponseData updateUserInfo(String username, String nickname, Integer gender, String avatar, String email, String mobile) {
         WebResponseData webResponseData = new WebResponseData();
         try {
-            userInfoService.updateUserInfo(userInfo);
+            if(StringUtils.isBlank(username) || gender == null){
+                throw new NullPointerException();
+            }
+            userInfoService.updateUserInfo(username, nickname, gender, avatar, email, mobile);
             webResponseData.setCode(WebResponseData.Code.SUCCESS);
             webResponseData.setMessage(WebResponseData.Message.SUCCESS);
         } catch (Exception e) {
@@ -83,6 +106,7 @@ public class UserController {
         return webResponseData;
     }
 
+    @ApiOperation(value = "创建菜谱", httpMethod = "POST")
     @PostMapping("createMenu.do")
     public WebResponseData createMenu(HttpServletRequest request, @RequestBody DetailMenuInfo menuInfo) {
         //如果使用的是json方式传递的数据，则使用

@@ -5,7 +5,10 @@ import com.colleage.cook.utils.page.PageConstants;
 import com.colleage.cook.vo.SimpleUserInfo;
 import com.colleage.cook.vo.WebResponseData;
 import com.mysql.jdbc.StringUtils;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +24,7 @@ import static com.colleage.cook.constants.SessionAttributeKeyConstants.SESSION_U
  * @Date 2019\4\23 0023
  * @Created by David
  */
+@Api(value = "菜谱访问", description = "允许用户通过各种方式获取菜谱列表和详细信息")
 @RequestMapping("m")
 @RestController
 public class FoodMenuController {
@@ -28,7 +32,14 @@ public class FoodMenuController {
     @Autowired
     private FoodMenuInfoService foodMenuInfoService;
 
-    @RequestMapping("getMenuByCategory.do")
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "category", value = "分类ID", paramType = "query", dataType="int", required = true),
+                    @ApiImplicitParam(name = "pageNo", value = "当前页号", paramType = "query", dataType="int", defaultValue = "1"),
+                    @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType="int", defaultValue = "8")
+            })
+    @ApiOperation(value = "根据分类获得菜谱列表信息", httpMethod = "GET")
+    @GetMapping("getMenuByCategory.do")
     public WebResponseData getMenuByCategoryId(int category,
                                                @RequestParam(required = false, defaultValue = "1") int pageNo,
                                                @RequestParam(required = false,
@@ -44,7 +55,8 @@ public class FoodMenuController {
         return webResponseData;
     }
 
-    @RequestMapping("getRecommendMenus.do")
+    @ApiOperation(value = "获得推荐菜谱信息", httpMethod = "GET")
+    @GetMapping("getRecommendMenus.do")
     public WebResponseData getRecommendMenus() {
         WebResponseData webResponseData = new WebResponseData();
         webResponseData.setData(foodMenuInfoService.getRecommendMenu(PageConstants.DEFAULT_PAGE_NO,
@@ -54,7 +66,14 @@ public class FoodMenuController {
         return webResponseData;
     }
 
-    @RequestMapping("getMenuByLikeWord.do")
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "word", value = "关键词", paramType = "query", dataType="string", required = true),
+                    @ApiImplicitParam(name = "pageNo", value = "当前页号", paramType = "query", dataType="int", defaultValue = "1"),
+                    @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType="int", defaultValue = "8")
+            })
+    @ApiOperation(value = "根据关键词搜索菜谱", httpMethod = "GET")
+    @GetMapping("getMenuByLikeWord.do")
     public WebResponseData getMenuByLikeWord(String word,
                                              @RequestParam(required = false, defaultValue = "1") int pageNo,
                                              @RequestParam(required = false,
@@ -71,7 +90,13 @@ public class FoodMenuController {
         return webResponseData;
     }
 
-    @RequestMapping("getCurrentWeekPopular.do")
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "pageNo", value = "当前页号", paramType = "query", dataType="int", defaultValue = "1"),
+                    @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType="int", defaultValue = "8")
+            })
+    @ApiOperation(value = "获得上周最受欢迎的菜谱", httpMethod = "GET")
+    @GetMapping("getCurrentWeekPopular.do")
     public WebResponseData getCurrentWeekPopular(@RequestParam(required = false, defaultValue = "1") int pageNo,
                                                  @RequestParam(required = false,
                                                          defaultValue = PageConstants.DEFAULT_PAGE_SIZE + "") int pageSize) {
@@ -80,7 +105,13 @@ public class FoodMenuController {
         return webResponseData;
     }
 
-    @RequestMapping("getLastMonthPopular.do")
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "pageNo", value = "当前页号", paramType = "query", dataType="int", defaultValue = "1"),
+                    @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType="int", defaultValue = "8")
+            })
+    @ApiOperation(value = "获得上月最受欢迎的菜谱", httpMethod = "GET")
+    @GetMapping("getLastMonthPopular.do")
     public WebResponseData getLastMonthPopular(@RequestParam(required = false, defaultValue = "1") int pageNo,
                                                @RequestParam(required = false,
                                                        defaultValue = PageConstants.DEFAULT_PAGE_SIZE + "") int pageSize) {
@@ -89,7 +120,13 @@ public class FoodMenuController {
         return webResponseData;
     }
 
-    @RequestMapping("getLastCreate.do")
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "pageNo", value = "当前页号", paramType = "query", dataType="int", defaultValue = "1"),
+                    @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType="int", defaultValue = "8")
+            })
+    @ApiOperation(value = "获得最新创建的菜谱", httpMethod = "GET")
+    @GetMapping("getLastCreate.do")
     public WebResponseData getLastCreate(@RequestParam(required = false, defaultValue = "1") int pageNo,
                                          @RequestParam(required = false,
                                                  defaultValue = PageConstants.DEFAULT_PAGE_SIZE + "") int pageSize) {
@@ -98,7 +135,13 @@ public class FoodMenuController {
         return webResponseData;
     }
 
-    @RequestMapping("getPopularMenu.do")
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "pageNo", value = "当前页号", paramType = "query", dataType="int", defaultValue = "1"),
+                    @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType="int", defaultValue = "8")
+            })
+    @ApiOperation(value = "获得本年最受欢迎的菜谱", httpMethod = "GET")
+    @GetMapping("getPopularMenu.do")
     public WebResponseData getPopularMenu(@RequestParam(required = false, defaultValue = "1") int pageNo,
                                           @RequestParam(required = false,
                                                   defaultValue = PageConstants.DEFAULT_PAGE_SIZE + "") int pageSize) {
@@ -107,8 +150,13 @@ public class FoodMenuController {
         return webResponseData;
     }
 
-    @RequestMapping("getDetailMenuInfo.do")
-    public WebResponseData getDetailMenuInfo(HttpServletRequest request, String uuid) {
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "uuid", value = "菜谱的唯一标识", paramType = "query", dataType="string", required = true)
+            })
+    @ApiOperation(value = "获得菜谱的详细信息", httpMethod = "GET")
+    @GetMapping("getDetailMenuInfo.do")
+    public WebResponseData getDetailMenuInfo(HttpServletRequest request, @RequestParam(required = true) String uuid) {
         WebResponseData webResponseData = new WebResponseData();
         if (StringUtils.isNullOrEmpty(uuid)) {
             webResponseData.setCode(WebResponseData.Code.PARAM_NOT_NULL);

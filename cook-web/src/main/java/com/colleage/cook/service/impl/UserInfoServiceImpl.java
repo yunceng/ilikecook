@@ -85,8 +85,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public boolean updateUserInfo(UserInfo userInfo) {
-        return userInfoMapper.updateUserInfo(userInfo);
+    public boolean updateUserInfo(String username, String nickname, Integer gender, String avatar, String email, String mobile) {
+        return userInfoMapper.updateUserInfo(username, nickname, gender, avatar, email, mobile);
     }
 
     @Override

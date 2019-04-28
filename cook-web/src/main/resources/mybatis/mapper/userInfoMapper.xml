@@ -56,9 +56,20 @@
 	</update>
 
 	<update id="updateUserInfo">
-		update user_info set avatar = #{userInfo.avatar}, email = #{userInfo.email},
-		mobile = #{userInfo.mobile}, nickname = #{userInfo.nickname}, gender = #{userInfo.gender},
-		 where username = #{userInfo.username}
+		update user_info set gender = #{gender}
+		<if test="avatar != null and avatar != ''">
+			, avatar = #{avatar}
+		</if>
+		<if test="email != null and email != ''">
+			, email = #{email}
+		</if>
+		<if test="mobile != null and mobile != 0">
+			, mobile = #{mobile}
+		</if>
+		<if test="nickname != null and nickname != ''">
+			, nickname = #{nickname}
+		</if>
+		 where username = #{username}
 	</update>
 
 	<update id="updateUserStatus">

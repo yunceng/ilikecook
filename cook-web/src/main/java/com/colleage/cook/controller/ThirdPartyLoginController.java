@@ -13,12 +13,14 @@ import com.colleage.cook.utils.ImageUtils;
 import com.colleage.cook.utils.constants.FileStorePathConstants;
 import com.colleage.cook.utils.upload.FileRepo;
 import com.colleage.cook.utils.upload.impl.FileRepoImpl;
+import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +34,7 @@ import static com.colleage.cook.constants.ViewConstants.OAUTH_REGISTERV;
  * @Date 2019\4\15 0015
  * @Created by David
  */
+@ApiIgnore
 @RequestMapping("oauth")
 @Controller
 public class ThirdPartyLoginController extends BaseLoginController {

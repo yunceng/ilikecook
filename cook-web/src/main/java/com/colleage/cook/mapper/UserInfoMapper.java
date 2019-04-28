@@ -47,11 +47,17 @@ public interface UserInfoMapper {
 
     /**
      * 更新用户信息
-     *
-     * @param userInfo
+     * @param username
+     * @param nickname
+     * @param gender
+     * @param avatar
+     * @param email
+     * @param mobile
      * @return
      */
-    boolean updateUserInfo(@Param("userInfo") UserInfo userInfo);
+    boolean updateUserInfo(@Param("username") String username, @Param("nickname") String nickname,
+                           @Param("gender") Integer gender, @Param("avatar") String avatar,
+                           @Param("email") String email, @Param("mobile") String mobile);
 
     /**
      * 更新用户状态

@@ -5,7 +5,12 @@ import com.colleage.cook.utils.constants.FileStorePathConstants;
 import com.colleage.cook.utils.upload.impl.FileRepoImpl;
 import com.colleage.cook.vo.SimpleUserInfo;
 import com.colleage.cook.vo.WebResponseData;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,18 +27,29 @@ import java.util.UUID;
  * @Date 2019\4\25 0025
  * @Created by David
  */
+@Api(value = "文件操作访问", description = "用于向系统中上传文件，目前用户上传用户头像和菜谱图片")
 @RequestMapping("fo")
 @RestController
 public class FileOperationController {
 
-    @RequestMapping("uploadAvatar.do")
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "img", value = "头像文件", paramType = "form", dataType="file", required = true)
+            })
+    @ApiOperation(value = "上传用户头像", httpMethod = "POST")
+    @PostMapping("uploadAvatar.do")
     public WebResponseData uploadAvatar(HttpServletRequest request, @RequestParam(value = "img") MultipartFile file) {
         int userId = ((SimpleUserInfo) request.getSession().getAttribute(SessionAttributeKeyConstants.SESSION_USER)).getId();
         String savePath = FileStorePathConstants.AVADIR + FileRepoImpl.getAvaPath(userId, 100);
         return doUpload(file, savePath);
     }
 
-    @RequestMapping("uploadMenuImg.do")
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "img", value = "菜谱图片", paramType = "form", dataType="file", required = true)
+            })
+    @ApiOperation(value = "上传菜谱图片", httpMethod = "POST")
+    @PostMapping("uploadMenuImg.do")
     public WebResponseData uploadMenuImg(@RequestParam(value = "img") MultipartFile file) {
         String name = file.getOriginalFilename();
         String suffix;

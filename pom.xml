@@ -34,6 +34,8 @@
         <common.lang.version>2.6</common.lang.version>
         <thymeleaf.spring.version>3.0.9.RELEASE</thymeleaf.spring.version>
         <thymeleaf-layout-dialect.version>2.2.1</thymeleaf-layout-dialect.version>
+        <swagger.version>2.2.2</swagger.version>
+
 
         <cook.common.version>1.0-SNAPSHOT</cook.common.version>
         <cook.util.version>1.0-SNAPSHOT</cook.util.version>
@@ -129,6 +131,17 @@
                 <groupId>org.thymeleaf</groupId>
                 <artifactId>thymeleaf-spring4</artifactId>
                 <version>${thymeleaf.spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
             </dependency>
 
             <dependency>

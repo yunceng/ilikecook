@@ -16,8 +16,8 @@ public interface UserInfoService extends UserDetailsService {
     @PreAuthorize("principal.username.equals(#username)")
     boolean updateAvatar(String username, String avatar);
 
-    @PreAuthorize("principal.username.equals(#userInfo.username)")
-    boolean updateUserInfo(UserInfo userInfo);
+    @PreAuthorize("principal.username.equals(#username)")
+    boolean updateUserInfo(String username, String nickname, Integer gender, String avatar, String email, String mobile);
 
     @PreAuthorize("principal.username.equals(#username) OR hasRole('ADMIN')")
     boolean lockUserAccount(String username);
