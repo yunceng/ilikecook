@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -21,6 +23,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
 import javax.sql.DataSource;
 
@@ -70,6 +74,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return j;
     }
 
+    @Bean
+    public SessionRegistry sessionRegistry(){
+        return new SessionRegistryImpl();
+    }
+
+    @Autowired
+    private SessionRegistry sessionRegistry;
+
     @Autowired
     private JdbcTokenRepositoryImpl tokenRepository;
 
@@ -97,7 +109,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .deleteCookies(HeaderConst.JESSIONID).logoutSuccessHandler(logoutSuccessHandler)
                 .and().rememberMe().rememberMeParameter("remember").tokenValiditySeconds(3600 * 24).tokenRepository(tokenRepository)
                 .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler).authenticationEntryPoint(authenticationEntryPoint)
-                .and().csrf().disable().httpBasic();
+                .and().csrf().disable().httpBasic()
+                //session并发控制,此处限制同时只能有一个人登录
+                .and().sessionManagement().maximumSessions(1).expiredUrl(ViewConstants.LOGIN_REQUEST).sessionRegistry(sessionRegistry);
     }
 
     @Override
