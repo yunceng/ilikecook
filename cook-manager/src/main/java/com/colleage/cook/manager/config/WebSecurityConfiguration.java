@@ -83,7 +83,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/index.html", "/login**").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
-                .loginPage(ViewConstants.LOGIN_REQUEST).loginProcessingUrl("/login.do").defaultSuccessUrl("/index.html")
+                .loginPage(ViewConstants.LOGIN_REQUEST).defaultSuccessUrl("/index.html")
                 .failureForwardUrl("/login.html").permitAll()
                 .and().logout().permitAll().invalidateHttpSession(true).clearAuthentication(true)
                 .logoutSuccessUrl("/login.html")

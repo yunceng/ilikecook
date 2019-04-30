@@ -19,7 +19,7 @@ public interface AdminInfoService extends UserDetailsService {
      * @param username
      * @return
      */
-    @PreAuthorize("(#principal.username.equals(#username) AND hasRole('ADMIN')) OR hasRole('SUPER')")
+//    @PreAuthorize("(#principal.username.equals(#username) AND hasRole('ADMIN')) OR hasRole('SUPER')")
     AdminInfo findAdminInfoByUsername(String username);
 
     /**
