@@ -2,88 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd0e04b9-563a-47db-94a8-0c0a33196e19" name="Default" comment="爱厨房">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-common/src/main/java/com/colleage/cook/exception/EmailSendException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-common/src/main/java/com/colleage/cook/exception/FileFormatNotSupportException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-common/src/main/java/com/colleage/cook/exception/FileNotNullException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/config/GlobalExceptionHandlerConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/config/Swagger2Configuration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/controller/ExceptionHandlerControlelr.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/utils/RestTemplateTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/0f4e50308bea11e6b87c0242ac110003_181w_278h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/0f6d6e3e8bea11e6a9a10242ac110002_185w_279h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/0f962d4c8bea11e6a9a10242ac110002_183w_275h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/0fb4e7788bea11e6b87c0242ac110003_190w_284h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/0fe11b048bea11e6b87c0242ac110003_185w_281h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/1007fc4c8bea11e6a9a10242ac110002_188w_284h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/102f69d08bea11e6a9a10242ac110002_184w_278h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/10515b268bea11e6b87c0242ac110003_184w_279h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/107c623a8bea11e6b87c0242ac110003_187w_279h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/109dd5f08bea11e6a9a10242ac110002_189w_282h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/10c443208bea11e6a9a10242ac110002_187w_283h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/10e6079e8bea11e6b87c0242ac110003_190w_286h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/1915da163fd0483ea6b7e11abeaddf0c_1920w_1920h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/1bfd909831de4af5b96538d924448b24_1000w_750h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/20eb8230481511e7947d0242ac110002_4128w_2322h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/2e6f294b63a543589b65ca6bb653b05f_721w_722h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/31aff68e15db4116a724a14811019fd9_5184w_3456h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/39d7c5cc481711e7bc9d0242ac110002_1280w_721h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/3ac9e95b64084edbb688223532eb1fed_1000w_750h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/3dede55a8a9a11e6b87c0242ac110003_812w_1080h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/41a19b76481611e7947d0242ac110002_721w_1280h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/4a737210872811e6b87c0242ac110003_426w_640h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/4ab894f67b254b118cee39f03c34170b_744w_992h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/5ca357b3193f4d40b5782254952e0eb4_731w_584h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/657740d2b9ad4b3388a1643b0ac4e81d_1920w_1920h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/6c146856481711e7bc9d0242ac110002_721w_1280h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/6dd650de481511e7947d0242ac110002_721w_1280h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/70aa6d25d39c474481389b0020be2e61_5184w_3456h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/70efa61e98c811e69ce70242ac110002_812w_1080h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/711ce6ec98c811e6b2400242ac110002_266w_212h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/7b5e18d88fbe48858e7145f626f2d6af_751w_751h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/850930be481511e7947d0242ac110002_721w_1280h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/85b3c87a481611e7947d0242ac110002_721w_1280h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/88772692276a405a8fcf6648847f3a25_744w_744h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/8892e47527a84d6fb851c13c58dc49e4_1000w_750h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/8c1508d392414fc1a4d4f78c5dfd8f02_5184w_3456h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/8dbc593612194d278d8ca9b8a0959338_5184w_3456h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/989c98493f544a71ae95b11cc33e3935_1000w_750h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/9c498a5372b54d7d8f02344c154a0e87_1920w_1920h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/9e2070de481611e7bc9d0242ac110002_721w_1280h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/a11d87dfda714f6889779d5e54d38464_733w_733h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/a1f7399ffae2484fa097bdc90399300f_744w_744h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/b04ca368481611e7bc9d0242ac110002_721w_1280h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/b508d553499a461f8a3ee69e020b4d36_750w_1000h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/ba6629b0481511e7bc9d0242ac110002_721w_1280h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/bff9f44ed4bc4cf8a0fb1654577efdca_1000w_750h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/c5d230afce204c49a338296c24c4cb37_992w_744h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/c8b8a43e28774f698e48af8844d657bc_731w_732h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/cea767b3bc534b649b11ad8573004aaf_744w_992h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/d3731ff9658f4579b788c7a1f113d725_744w_744h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/dc68c4e8c25e4855b3080e541848a2d2_750w_1000h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/e484e556ed1644e491db8bd0fe6d45e3_5184w_3456h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/f1aec67ce5c143d1a9b8bf10b167b9e8_1080w_1920h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/f1ea89dd6ba748c89a1e670f28c70cec_5184w_3456h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/f46986aa481211e7bc9d0242ac110002_721w_1280h.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cook-web/src/main/resources/static/images/app/f9eee3ea7fd8406eace73863c7be430b_750w_750h.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/log/spring.log.2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-common/src/main/java/com/colleage/cook/exception/ConsumeException.java" beforeDir="false" afterPath="$PROJECT_DIR$/cook-common/src/main/java/com/colleage/cook/exception/ThirdPartyLoginException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-util/src/main/java/com/colleage/cook/utils/HttpUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/cook-util/src/main/java/com/colleage/cook/utils/HttpUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-util/src/main/java/com/colleage/cook/utils/MailHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cook-util/src/main/java/com/colleage/cook/utils/MailHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-util/src/main/java/com/colleage/cook/utils/upload/impl/AbstractFileRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/cook-util/src/main/java/com/colleage/cook/utils/upload/impl/AbstractFileRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/config/RefererConfiguration.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/controller/FoodMenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/controller/FoodMenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/controller/ThirdPartyLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/controller/ThirdPartyLoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/handler/SimpleLoginFailureHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/handler/SimpleLoginFailureHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/mapper/FoodMenuInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/mapper/FoodMenuInfoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/oauth/bean/OauthQQ.java" beforeDir="false" afterPath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/oauth/bean/OauthQQ.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/oauth/bean/OauthTypeEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/oauth/bean/OauthTypeEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/service/impl/FoodMenuInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/service/impl/FoodMenuInfoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/service/impl/UserInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/cook-web/src/main/java/com/colleage/cook/service/impl/UserInfoServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cook-web/src/main/resources/mybatis/mapper/foodMenuInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/cook-web/src/main/resources/mybatis/mapper/foodMenuInfoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/sql/ilikecook.sql" beforeDir="false" afterPath="$PROJECT_DIR$/doc/sql/ilikecook.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/spring.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/spring.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/spring.log.1" beforeDir="false" afterPath="$PROJECT_DIR$/log/spring.log.1" afterDir="false" />
     </list>
@@ -465,7 +384,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1556416933280</updated>
-      <workItem from="1556416936321" duration="45314000" />
+      <workItem from="1556416936321" duration="45387000" />
     </task>
     <task id="LOCAL-00001" summary="爱厨房">
       <created>1556417630873</created>
@@ -488,11 +407,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556428897351</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="爱厨房">
+      <created>1556591595733</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1556591595733</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45314000" />
+    <option name="totallyTimeSpent" value="45387000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
