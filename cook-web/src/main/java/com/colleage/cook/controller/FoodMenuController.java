@@ -1,5 +1,6 @@
 package com.colleage.cook.controller;
 
+import com.colleage.cook.exception.EmailSendException;
 import com.colleage.cook.service.FoodMenuInfoService;
 import com.colleage.cook.utils.page.PageConstants;
 import com.colleage.cook.vo.SimpleUserInfo;
@@ -44,6 +45,7 @@ public class FoodMenuController {
                                                @RequestParam(required = false, defaultValue = "1") int pageNo,
                                                @RequestParam(required = false,
                                                        defaultValue = PageConstants.DEFAULT_PAGE_SIZE + "") int pageSize) {
+
         WebResponseData webResponseData = new WebResponseData();
         if (category < 101 || category > 9999) {
             webResponseData.setCode(WebResponseData.Code.PARAM_NOINVALID);
@@ -156,7 +158,7 @@ public class FoodMenuController {
             })
     @ApiOperation(value = "获得菜谱的详细信息", httpMethod = "GET")
     @GetMapping("getDetailMenuInfo.do")
-    public WebResponseData getDetailMenuInfo(HttpServletRequest request, @RequestParam(required = true) String uuid) {
+    public WebResponseData getDetailMenuInfo(HttpServletRequest request, String uuid) {
         WebResponseData webResponseData = new WebResponseData();
         if (StringUtils.isNullOrEmpty(uuid)) {
             webResponseData.setCode(WebResponseData.Code.PARAM_NOT_NULL);

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.colleage.cook.constants.AccessDataCacheConstants;
 import com.colleage.cook.constants.SystemInfoConstants;
-import com.colleage.cook.exception.ConsumeException;
+import com.colleage.cook.exception.ThirdPartyLoginException;
 import com.colleage.cook.oauth.utils.TokenUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -133,7 +133,7 @@ public class OauthQQ extends AbstractOauth {
             openOauthBean.setNickname(nickname);
             openOauthBean.setAvatar(photoUrl);
         } else {
-            throw new ConsumeException("获取用户信息发生异常");
+            throw new ThirdPartyLoginException("获取用户信息发生异常");
         }
         return openOauthBean;
     }

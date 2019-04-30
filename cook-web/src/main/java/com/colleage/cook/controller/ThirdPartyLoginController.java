@@ -4,7 +4,7 @@ import com.colleage.cook.constants.AccessDataCacheConstants;
 import com.colleage.cook.constants.SystemInfoConstants;
 import com.colleage.cook.domain.UserInfo;
 import com.colleage.cook.domain.UserOpenOauthInfo;
-import com.colleage.cook.exception.ConsumeException;
+import com.colleage.cook.exception.ThirdPartyLoginException;
 import com.colleage.cook.oauth.bean.OauthQQ;
 import com.colleage.cook.oauth.bean.OpenOauthBean;
 import com.colleage.cook.oauth.utils.TokenUtil;
@@ -13,7 +13,6 @@ import com.colleage.cook.utils.ImageUtils;
 import com.colleage.cook.utils.constants.FileStorePathConstants;
 import com.colleage.cook.utils.upload.FileRepo;
 import com.colleage.cook.utils.upload.impl.FileRepoImpl;
-import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +59,7 @@ public class ThirdPartyLoginController extends BaseLoginController {
             request.getSession().setAttribute(SESSION_STATE, state);
             response.sendRedirect(((OauthQQ) OauthQQ.getOauthInstance()).getAuthorizeUrl(state));
         } catch (Exception e) {
-            throw new ConsumeException("跳转到QQ授权接口时发生异常");
+            throw new ThirdPartyLoginException("跳转到QQ授权接口时发生异常");
         }
     }
 
@@ -77,7 +76,7 @@ public class ThirdPartyLoginController extends BaseLoginController {
         String session_state = (String) request.getSession().getAttribute(SESSION_STATE);
         // 取消了授权
         if (StringUtils.isBlank(state) || StringUtils.isBlank(session_state) || !state.equals(session_state) || StringUtils.isBlank(code)) {
-            throw new ConsumeException("缺少必要的参数");
+            throw new ThirdPartyLoginException("缺少必要的参数");
         }
         request.getSession().removeAttribute(SESSION_STATE);
 
@@ -85,7 +84,7 @@ public class ThirdPartyLoginController extends BaseLoginController {
         try {
             openOauthBean = OauthQQ.getOauthInstance().getUserBeanByCode(code);
         } catch (Exception e) {
-            throw new ConsumeException("解析信息时发生错误");
+            throw new ThirdPartyLoginException("解析信息时发生错误");
         }
 
         UserOpenOauthInfo openOauth = new UserOpenOauthInfo();

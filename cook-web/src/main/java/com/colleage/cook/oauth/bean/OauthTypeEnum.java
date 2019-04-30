@@ -1,6 +1,6 @@
 package com.colleage.cook.oauth.bean;
 
-import com.colleage.cook.exception.ConsumeException;
+import com.colleage.cook.exception.ThirdPartyLoginException;
 
 /**
  * @Classname OauthTypeEnum
@@ -38,6 +38,6 @@ public enum OauthTypeEnum {
                 return status[i];
             }
         }
-        throw new ConsumeException("不存在该第三方登录");
+        throw new ThirdPartyLoginException("不存在该第三方登录");
     }
 }

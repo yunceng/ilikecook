@@ -39,7 +39,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         /*模拟数据库操作*/
         UserInfo user = userInfoMapper.findUserInfoByUsername(s);
         if (user == null) {
-            throw new InsufficientAuthenticationException("用户:" + s + ",不存在!");
+            throw new UsernameNotFoundException("用户:" + s + ",不存在!");
         }
         return new com.colleage.cook.vo.UserInfo(user, true,
                 user.getStatus() == com.colleage.cook.domain.UserInfo.Status.NORMAL.getCode() ? true : false, getAuthorities(user.getRole_id()));

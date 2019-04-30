@@ -11,11 +11,33 @@
  Target Server Version : 50725
  File Encoding         : 65001
 
- Date: 25/04/2019 15:41:38
+ Date: 30/04/2019 10:31:45
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for admin_info
+-- ----------------------------
+DROP TABLE IF EXISTS `admin_info`;
+CREATE TABLE `admin_info`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
+  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
+  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '头像',
+  `create_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `email` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
+  `last_login` datetime(0) NOT NULL COMMENT '最后一次登录时间',
+  `mobile` int(11) NULL DEFAULT NULL COMMENT '手机号',
+  `status` int(11) NOT NULL DEFAULT 0 COMMENT '状态（0：正常，1：锁定，2：异常，3：注销）',
+  `nickname` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '昵称',
+  `gender` int(11) NOT NULL DEFAULT 0 COMMENT '性别（0：未知，1：男，2：女，）',
+  `role_id` int(11) NULL DEFAULT 1 COMMENT '用户拥有的角色的id',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `fk_role`(`role_id`) USING BTREE,
+  CONSTRAINT `fk_admin_role` FOREIGN KEY (`role_id`) REFERENCES `role_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for big_category
@@ -56,7 +78,7 @@ CREATE TABLE `category_menu_rel`  (
   INDEX `fk_menu`(`menu_id`) USING BTREE,
   CONSTRAINT `fk_category_tiny` FOREIGN KEY (`category_id`) REFERENCES `tiny_category` (`category`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_menu` FOREIGN KEY (`menu_id`) REFERENCES `menu_summary` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of category_menu_rel
@@ -70,6 +92,16 @@ INSERT INTO `category_menu_rel` VALUES (6, 10009, '6be893be5b80403ab592c2aa3a714
 INSERT INTO `category_menu_rel` VALUES (7, 10301, '6be893be5b80403ab592c2aa3a714021');
 INSERT INTO `category_menu_rel` VALUES (8, 10307, '6be893be5b80403ab592c2aa3a714021');
 INSERT INTO `category_menu_rel` VALUES (9, 10377, '6be893be5b80403ab592c2aa3a714021');
+INSERT INTO `category_menu_rel` VALUES (14, 10001, '05347f08072f46e783ce9efc3c7e9d3b');
+INSERT INTO `category_menu_rel` VALUES (15, 10002, '05347f08072f46e783ce9efc3c7e9d3b');
+INSERT INTO `category_menu_rel` VALUES (22, 10025, '833688f5f7f64b0cbf7809d5357f6f2e');
+INSERT INTO `category_menu_rel` VALUES (23, 10056, '833688f5f7f64b0cbf7809d5357f6f2e');
+INSERT INTO `category_menu_rel` VALUES (24, 10078, 'b36ffdff96264f53be7285e18cf699ef');
+INSERT INTO `category_menu_rel` VALUES (25, 10006, 'b36ffdff96264f53be7285e18cf699ef');
+INSERT INTO `category_menu_rel` VALUES (34, 10056, 'f40bbb0165b84a5e9899e77e92777ecf');
+INSERT INTO `category_menu_rel` VALUES (35, 10025, 'f40bbb0165b84a5e9899e77e92777ecf');
+INSERT INTO `category_menu_rel` VALUES (36, 10299, 'faf83bb0232f48548e478314ddf75542');
+INSERT INTO `category_menu_rel` VALUES (37, 10026, 'f78570a328e64ca6924c260bd92b84a6');
 
 -- ----------------------------
 -- Table structure for menu_food
@@ -80,8 +112,10 @@ CREATE TABLE `menu_food`  (
   `menu_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜谱的id',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用料的名称',
   `num` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用料的数量',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 396 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `fk_menu_summary_food`(`menu_id`) USING BTREE,
+  CONSTRAINT `fk_menu_summary_food` FOREIGN KEY (`menu_id`) REFERENCES `menu_summary` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 477 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu_food
@@ -481,6 +515,65 @@ INSERT INTO `menu_food` VALUES (392, '6fab45e6fbdd477d9cadbfbee4ab7950', '糖', 
 INSERT INTO `menu_food` VALUES (393, '6fab45e6fbdd477d9cadbfbee4ab7950', '黄酒', '1勺');
 INSERT INTO `menu_food` VALUES (394, '6fab45e6fbdd477d9cadbfbee4ab7950', '麻油', '少许');
 INSERT INTO `menu_food` VALUES (395, '6fab45e6fbdd477d9cadbfbee4ab7950', '胡椒粉', '少许');
+INSERT INTO `menu_food` VALUES (397, '05347f08072f46e783ce9efc3c7e9d3b', '普通面粉', '300克');
+INSERT INTO `menu_food` VALUES (398, '05347f08072f46e783ce9efc3c7e9d3b', '韭菜', '半斤');
+INSERT INTO `menu_food` VALUES (399, '05347f08072f46e783ce9efc3c7e9d3b', '鸡蛋', '3个');
+INSERT INTO `menu_food` VALUES (400, '05347f08072f46e783ce9efc3c7e9d3b', '粉丝', '1小把');
+INSERT INTO `menu_food` VALUES (401, '05347f08072f46e783ce9efc3c7e9d3b', '香油', '1汤匙');
+INSERT INTO `menu_food` VALUES (402, '05347f08072f46e783ce9efc3c7e9d3b', '盐', '适量');
+INSERT INTO `menu_food` VALUES (403, '05347f08072f46e783ce9efc3c7e9d3b', '植物油', '适量');
+INSERT INTO `menu_food` VALUES (425, '833688f5f7f64b0cbf7809d5357f6f2e', '小龙虾', '3斤');
+INSERT INTO `menu_food` VALUES (426, '833688f5f7f64b0cbf7809d5357f6f2e', '大蒜头', '5只');
+INSERT INTO `menu_food` VALUES (427, '833688f5f7f64b0cbf7809d5357f6f2e', '啤酒', '1易拉罐');
+INSERT INTO `menu_food` VALUES (428, '833688f5f7f64b0cbf7809d5357f6f2e', '红辣椒', '2只');
+INSERT INTO `menu_food` VALUES (429, '833688f5f7f64b0cbf7809d5357f6f2e', '姜，葱，八角', '适量');
+INSERT INTO `menu_food` VALUES (430, '833688f5f7f64b0cbf7809d5357f6f2e', '白糖', '2-3小勺');
+INSERT INTO `menu_food` VALUES (431, '833688f5f7f64b0cbf7809d5357f6f2e', '盐，生抽酱油', '适量');
+INSERT INTO `menu_food` VALUES (432, 'b36ffdff96264f53be7285e18cf699ef', '瘦肉', '300克');
+INSERT INTO `menu_food` VALUES (433, 'b36ffdff96264f53be7285e18cf699ef', '青椒', '1个');
+INSERT INTO `menu_food` VALUES (434, 'b36ffdff96264f53be7285e18cf699ef', '胡萝卜', '半根');
+INSERT INTO `menu_food` VALUES (435, 'b36ffdff96264f53be7285e18cf699ef', '木耳', '10朵');
+INSERT INTO `menu_food` VALUES (436, 'b36ffdff96264f53be7285e18cf699ef', '郫县豆瓣酱', '2勺');
+INSERT INTO `menu_food` VALUES (437, 'b36ffdff96264f53be7285e18cf699ef', '香醋', '2-少许');
+INSERT INTO `menu_food` VALUES (438, 'b36ffdff96264f53be7285e18cf699ef', '酱油或生抽', '少许');
+INSERT INTO `menu_food` VALUES (439, 'b36ffdff96264f53be7285e18cf699ef', '白糖', '适量');
+INSERT INTO `menu_food` VALUES (440, 'b36ffdff96264f53be7285e18cf699ef', '味精', '适量');
+INSERT INTO `menu_food` VALUES (441, 'b36ffdff96264f53be7285e18cf699ef', '淀粉（肉丝用）', '适量');
+INSERT INTO `menu_food` VALUES (442, 'b36ffdff96264f53be7285e18cf699ef', '水淀粉', '适量');
+INSERT INTO `menu_food` VALUES (443, 'f40bbb0165b84a5e9899e77e92777ecf', '皖鱼或者黑鱼', '');
+INSERT INTO `menu_food` VALUES (444, 'f40bbb0165b84a5e9899e77e92777ecf', '柠檬', '半个');
+INSERT INTO `menu_food` VALUES (445, 'f40bbb0165b84a5e9899e77e92777ecf', '小辣椒，姜片，蒜，葱丝', '适量');
+INSERT INTO `menu_food` VALUES (446, 'f40bbb0165b84a5e9899e77e92777ecf', '鱼露，料酒，盐，胡椒', '适量');
+INSERT INTO `menu_food` VALUES (447, 'faf83bb0232f48548e478314ddf75542', '鸡腿', '四个');
+INSERT INTO `menu_food` VALUES (448, 'faf83bb0232f48548e478314ddf75542', '姜', '三片');
+INSERT INTO `menu_food` VALUES (449, 'faf83bb0232f48548e478314ddf75542', '生抽', '两汤匙');
+INSERT INTO `menu_food` VALUES (450, 'faf83bb0232f48548e478314ddf75542', '米醋', '一汤匙');
+INSERT INTO `menu_food` VALUES (451, 'faf83bb0232f48548e478314ddf75542', '白糖', '半汤匙');
+INSERT INTO `menu_food` VALUES (452, 'faf83bb0232f48548e478314ddf75542', '料酒', '半汤匙');
+INSERT INTO `menu_food` VALUES (453, 'faf83bb0232f48548e478314ddf75542', '盐', '一点点');
+INSERT INTO `menu_food` VALUES (454, 'faf83bb0232f48548e478314ddf75542', '蒜泥', '（一粒蒜头的量）');
+INSERT INTO `menu_food` VALUES (455, 'faf83bb0232f48548e478314ddf75542', '芝麻油', '一小勺');
+INSERT INTO `menu_food` VALUES (456, 'f78570a328e64ca6924c260bd92b84a6', '茄子', '3个');
+INSERT INTO `menu_food` VALUES (457, 'f78570a328e64ca6924c260bd92b84a6', '肉末', '250克');
+INSERT INTO `menu_food` VALUES (458, 'f78570a328e64ca6924c260bd92b84a6', '蒜', '蒜末半颗');
+INSERT INTO `menu_food` VALUES (459, 'f78570a328e64ca6924c260bd92b84a6', '开水', '适量');
+INSERT INTO `menu_food` VALUES (460, 'f78570a328e64ca6924c260bd92b84a6', '老抽', '少量');
+INSERT INTO `menu_food` VALUES (461, 'f78570a328e64ca6924c260bd92b84a6', '冰糖', '少量');
+INSERT INTO `menu_food` VALUES (462, 'f78570a328e64ca6924c260bd92b84a6', '红糖', '少量');
+INSERT INTO `menu_food` VALUES (463, 'f78570a328e64ca6924c260bd92b84a6', '葱', '多一些葱白');
+INSERT INTO `menu_food` VALUES (464, 'f78570a328e64ca6924c260bd92b84a6', '海天味极鲜酱油', '适量');
+INSERT INTO `menu_food` VALUES (465, 'f78570a328e64ca6924c260bd92b84a6', '啤酒', '适量');
+INSERT INTO `menu_food` VALUES (466, 'f78570a328e64ca6924c260bd92b84a6', '盐', '少量');
+INSERT INTO `menu_food` VALUES (467, '943f7f4d1f204758893a64c59e2d0178', '鸡琵琶腿', '8个');
+INSERT INTO `menu_food` VALUES (468, '943f7f4d1f204758893a64c59e2d0178', '蚝油', '20g');
+INSERT INTO `menu_food` VALUES (469, '943f7f4d1f204758893a64c59e2d0178', '生抽', '30ml');
+INSERT INTO `menu_food` VALUES (470, '943f7f4d1f204758893a64c59e2d0178', '姜', '5-6片');
+INSERT INTO `menu_food` VALUES (471, '943f7f4d1f204758893a64c59e2d0178', '蒜', '4瓣');
+INSERT INTO `menu_food` VALUES (472, '943f7f4d1f204758893a64c59e2d0178', '盐', '5g');
+INSERT INTO `menu_food` VALUES (473, '943f7f4d1f204758893a64c59e2d0178', '花椒', '2g');
+INSERT INTO `menu_food` VALUES (474, '943f7f4d1f204758893a64c59e2d0178', '面粉', '200g');
+INSERT INTO `menu_food` VALUES (475, '943f7f4d1f204758893a64c59e2d0178', '水', '500ml');
+INSERT INTO `menu_food` VALUES (476, '943f7f4d1f204758893a64c59e2d0178', '油', '半锅');
 
 -- ----------------------------
 -- Table structure for menu_info
@@ -529,6 +622,27 @@ INSERT INTO `menu_info` VALUES ('894752734459199488', 'companyList', 'root', '00
 INSERT INTO `menu_info` VALUES ('903459378655395840', '/user/modify', 'userList', '893288715881807872', '密码重置', '/user/modify', 1, 3, 2, 1, '', '2019-04-12 11:31:39', '2019-04-12 11:31:39');
 
 -- ----------------------------
+-- Table structure for menu_other_user_rel
+-- ----------------------------
+DROP TABLE IF EXISTS `menu_other_user_rel`;
+CREATE TABLE `menu_other_user_rel`  (
+  `menu_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜谱信息',
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`menu_id`, `user_id`) USING BTREE,
+  INDEX `fk_menu_user_user_id`(`user_id`) USING BTREE,
+  CONSTRAINT `fk_menu_user_menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menu_summary` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_menu_user_user_id` FOREIGN KEY (`user_id`) REFERENCES `user_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of menu_other_user_rel
+-- ----------------------------
+INSERT INTO `menu_other_user_rel` VALUES ('0714066b25c64ebbbe18a4cf3d62c8bc', 6, '2019-04-25 23:24:24');
+INSERT INTO `menu_other_user_rel` VALUES ('6be893be5b80403ab592c2aa3a714021', 6, '2019-04-28 20:01:44');
+INSERT INTO `menu_other_user_rel` VALUES ('833688f5f7f64b0cbf7809d5357f6f2e', 6, '2019-04-28 22:16:53');
+
+-- ----------------------------
 -- Table structure for menu_step
 -- ----------------------------
 DROP TABLE IF EXISTS `menu_step`;
@@ -538,8 +652,10 @@ CREATE TABLE `menu_step`  (
   `description` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '步骤介绍',
   `img` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜谱步骤配图',
   `orderI` int(11) NULL DEFAULT NULL COMMENT '菜谱顺序',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 418 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `fk_menu_summary_step`(`menu_id`) USING BTREE,
+  CONSTRAINT `fk_menu_summary_step` FOREIGN KEY (`menu_id`) REFERENCES `menu_summary` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 504 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu_step
@@ -961,6 +1077,61 @@ INSERT INTO `menu_step` VALUES (414, '70460d48ec754d4287711710ae46921c', '热锅
 INSERT INTO `menu_step` VALUES (415, '6fab45e6fbdd477d9cadbfbee4ab7950', '腐乳压碎，和其它腌料混合拌匀备用（不同品牌的腐乳咸度和大小不同，味道要先试过，再酌量调整）。', '/static/images/app/ad00edda8d4b11e6a9a10242ac110002_200w_160h.jpg', 1);
 INSERT INTO `menu_step` VALUES (416, '6fab45e6fbdd477d9cadbfbee4ab7950', '嫩鸡洗净沥干水分，切成小块。加入姜末、蒜末、辣椒丝和之前准备好的腐乳腌料一起充分拌匀，腌制约30分钟。', '/static/images/app/ad2545ae8d4b11e6a9a10242ac110002_200w_160h.jpg', 2);
 INSERT INTO `menu_step` VALUES (417, '6fab45e6fbdd477d9cadbfbee4ab7950', '放入水滚的蒸锅，隔水用大火蒸约15-20分钟至鸡肉熟透即可，趁热享用。', '/static/images/app/ad341ec68d4b11e6b87c0242ac110003_200w_160h.jpg', 3);
+INSERT INTO `menu_step` VALUES (419, '05347f08072f46e783ce9efc3c7e9d3b', '面粉加热水西式厨师机3分钟', '/static/images/app/88772692276a405a8fcf6648847f3a25_744w_744h.jpg', 1);
+INSERT INTO `menu_step` VALUES (420, '05347f08072f46e783ce9efc3c7e9d3b', '揉好的面团滚圆后盖保鲜膜松驰15分钟', '/static/images/app/a1f7399ffae2484fa097bdc90399300f_744w_744h.jpg', 2);
+INSERT INTO `menu_step` VALUES (421, '05347f08072f46e783ce9efc3c7e9d3b', '准备好的食材，韭菜处理干净，粉丝泡软，鸡蛋加少许盐打散', '/static/images/app/c5d230afce204c49a338296c24c4cb37_992w_744h.jpg', 3);
+INSERT INTO `menu_step` VALUES (422, '05347f08072f46e783ce9efc3c7e9d3b', '炒好的鸡蛋稍微切成丁', '/static/images/app/4ab894f67b254b118cee39f03c34170b_744w_992h.jpg', 4);
+INSERT INTO `menu_step` VALUES (423, '05347f08072f46e783ce9efc3c7e9d3b', '沥干水的韭菜切碎', '/static/images/app/2e6f294b63a543589b65ca6bb653b05f_721w_722h.jpg', 5);
+INSERT INTO `menu_step` VALUES (424, '05347f08072f46e783ce9efc3c7e9d3b', '泡软的粉丝切碎', '/static/images/app/cea767b3bc534b649b11ad8573004aaf_744w_992h.jpg', 6);
+INSERT INTO `menu_step` VALUES (425, '05347f08072f46e783ce9efc3c7e9d3b', '韭菜先用香油拌一拌，再加入鸡蛋粉丝，最后加盐拌勻', '/static/images/app/c8b8a43e28774f698e48af8844d657bc_731w_732h.jpg', 7);
+INSERT INTO `menu_step` VALUES (426, '05347f08072f46e783ce9efc3c7e9d3b', '醒好的面团分成大小一样的剂子，擀薄包成自己喜欢的形状', '/static/images/app/d3731ff9658f4579b788c7a1f113d725_744w_744h.jpg', 8);
+INSERT INTO `menu_step` VALUES (427, '05347f08072f46e783ce9efc3c7e9d3b', '加热好的平底锅刷上油，放入韭菜盒子，煎成两面金黄出锅，就可以美美哒享用了！', '/static/images/app/a11d87dfda714f6889779d5e54d38464_733w_733h.jpg', 9);
+INSERT INTO `menu_step` VALUES (458, '833688f5f7f64b0cbf7809d5357f6f2e', '每只小龙虾都用牙刷刷干净，泡在淡盐水中30分钟。', '/static/images/app/20eb8230481511e7947d0242ac110002_4128w_2322h.jpg', 1);
+INSERT INTO `menu_step` VALUES (459, '833688f5f7f64b0cbf7809d5357f6f2e', '泡龙虾的时候剥大蒜头，蒜头不怕多，越多越好吃。', '/static/images/app/6dd650de481511e7947d0242ac110002_721w_1280h.jpg', 2);
+INSERT INTO `menu_step` VALUES (460, '833688f5f7f64b0cbf7809d5357f6f2e', '捣成蒜蓉。', '/static/images/app/850930be481511e7947d0242ac110002_721w_1280h.jpg', 3);
+INSERT INTO `menu_step` VALUES (461, '833688f5f7f64b0cbf7809d5357f6f2e', '把小龙虾从盐水里捞出，剪掉8条小腿，从尾部中央抽出虾肠。如果不是清水龙虾建议剪掉头顶的胃，追求口感的话虾肠可以不抽，吃的时候再抽，这样虾肉比较筋道。生姜和红辣椒准备好。', '/static/images/app/ba6629b0481511e7bc9d0242ac110002_721w_1280h.jpg', 4);
+INSERT INTO `menu_step` VALUES (462, '833688f5f7f64b0cbf7809d5357f6f2e', '热锅冷油，倒入蒜蓉炒香，加白糖炒匀，油一定要多倒。', '/static/images/app/41a19b76481611e7947d0242ac110002_721w_1280h.jpg', 5);
+INSERT INTO `menu_step` VALUES (463, '833688f5f7f64b0cbf7809d5357f6f2e', '倒入小龙虾、生姜、红辣椒，翻炒至虾壳变红，多翻炒一会让虾肉变紧。', '/static/images/app/85b3c87a481611e7947d0242ac110002_721w_1280h.jpg', 6);
+INSERT INTO `menu_step` VALUES (464, '833688f5f7f64b0cbf7809d5357f6f2e', '倒入一罐啤酒翻炒均匀，加入盐，生抽酱油，再倒点李锦记红烧汁和蒸鱼豉油。', '/static/images/app/9e2070de481611e7bc9d0242ac110002_721w_1280h.jpg', 7);
+INSERT INTO `menu_step` VALUES (465, '833688f5f7f64b0cbf7809d5357f6f2e', '加入葱白和八角，倒少量开水与龙虾齐平，如果啤酒倒得多就不加开水，加盖中火煮10-15分钟。', '/static/images/app/b04ca368481611e7bc9d0242ac110002_721w_1280h.jpg', 8);
+INSERT INTO `menu_step` VALUES (466, '833688f5f7f64b0cbf7809d5357f6f2e', '盛出小龙虾，锅内汤汁继续大火收干。', '/static/images/app/39d7c5cc481711e7bc9d0242ac110002_1280w_721h.jpg', 9);
+INSERT INTO `menu_step` VALUES (467, '833688f5f7f64b0cbf7809d5357f6f2e', '最后将收得半干的蒜蓉汤汁浇在龙虾上就可以了，甜、辣、鲜、香Y(＾_＾)Y', '/static/images/app/6c146856481711e7bc9d0242ac110002_721w_1280h.jpg', 10);
+INSERT INTO `menu_step` VALUES (468, 'b36ffdff96264f53be7285e18cf699ef', '瘦肉或者里脊肉按照纹路切成细丝，加白胡椒，盐，料酒，少量淀粉抓匀腌制！胡萝卜，木耳和青椒都切成细丝，水淀粉提前调好备用', '/static/images/app/7b5e18d88fbe48858e7145f626f2d6af_751w_751h.jpg', 1);
+INSERT INTO `menu_step` VALUES (469, 'b36ffdff96264f53be7285e18cf699ef', '开始调鱼香汁！香醋，白糖，酱油，味精调匀，因为我用的郫县豆瓣酱比较咸所以这个环节就不放盐了，至于比例，我之前看到过一个最佳比例，大家仅仅作为参考，不要一味照搬！“白糖25克，香醋20克，酱油15克，盐2克，味精1克，水淀粉25克，香油1滴”调到什么感觉算是成功了呢，尝起来有股荔枝的小酸甜就对了！', '/static/images/app/b508d553499a461f8a3ee69e020b4d36_750w_1000h.jpg', 2);
+INSERT INTO `menu_step` VALUES (470, 'b36ffdff96264f53be7285e18cf699ef', '起锅放油，下肉丝炒制', '/static/images/app/1bfd909831de4af5b96538d924448b24_1000w_750h.jpg', 3);
+INSERT INTO `menu_step` VALUES (471, 'b36ffdff96264f53be7285e18cf699ef', '肉丝炒到发白盛出留用', '/static/images/app/f9eee3ea7fd8406eace73863c7be430b_750w_750h.jpg', 4);
+INSERT INTO `menu_step` VALUES (472, 'b36ffdff96264f53be7285e18cf699ef', '锅内剩油下胡萝卜丝炒一下，因为胡萝卜丝不容易熟软，然后盛出来', '/static/images/app/3ac9e95b64084edbb688223532eb1fed_1000w_750h.jpg', 5);
+INSERT INTO `menu_step` VALUES (473, 'b36ffdff96264f53be7285e18cf699ef', '加入两勺郫县豆瓣酱炒出红油，豆瓣酱干的话可以加点水', '/static/images/app/bff9f44ed4bc4cf8a0fb1654577efdca_1000w_750h.jpg', 6);
+INSERT INTO `menu_step` VALUES (474, 'b36ffdff96264f53be7285e18cf699ef', '下木耳丝和青椒丝翻炒', '/static/images/app/989c98493f544a71ae95b11cc33e3935_1000w_750h.jpg', 7);
+INSERT INTO `menu_step` VALUES (475, 'b36ffdff96264f53be7285e18cf699ef', '加入胡萝卜丝一起炒-15分钟。', '/static/images/app/8892e47527a84d6fb851c13c58dc49e4_1000w_750h.jpg', 8);
+INSERT INTO `menu_step` VALUES (476, 'b36ffdff96264f53be7285e18cf699ef', '炒熟蔬菜类然后加入肉丝，倒入鱼香汁，大火翻炒均匀，最后加入水淀粉，让菜都裹上浆，有光泽', '/static/images/app/39d7c5cc481711e7bc9d0242ac110002_1280w_721h.jpg', 9);
+INSERT INTO `menu_step` VALUES (477, 'b36ffdff96264f53be7285e18cf699ef', '出炉！特别下饭，特别简单，食材都是北方人家里最常见的！', '/static/images/app/dc68c4e8c25e4855b3080e541848a2d2_750w_1000h.jpg', 10);
+INSERT INTO `menu_step` VALUES (478, 'f40bbb0165b84a5e9899e77e92777ecf', '把鱼洗干净，侧切，按鱼的纹路切片，剩余骨头砍同鱼片大小。这样切没那么多刺骨', '/static/images/app/711ce6ec98c811e6b2400242ac110002_266w_212h.jpg', 1);
+INSERT INTO `menu_step` VALUES (479, 'f40bbb0165b84a5e9899e77e92777ecf', '用柠檬汁，盐，淀粉，鱼露，少量姜蒜，腌制鱼片', '/static/images/app/', 2);
+INSERT INTO `menu_step` VALUES (480, 'f40bbb0165b84a5e9899e77e92777ecf', '待锅热后放油  之后放辣椒 蒜 姜片 少量胡椒 翻炒', '/static/images/app/', 3);
+INSERT INTO `menu_step` VALUES (481, 'f40bbb0165b84a5e9899e77e92777ecf', '放入鱼骨头入锅内翻炒几分钟后倒入热水', '/static/images/app/', 4);
+INSERT INTO `menu_step` VALUES (482, 'f40bbb0165b84a5e9899e77e92777ecf', '水沸腾后放入2片柠檬，喜欢酸的可以自行增加。腌制好的鱼片煮熟，调味。', '/static/images/app/', 5);
+INSERT INTO `menu_step` VALUES (483, 'f40bbb0165b84a5e9899e77e92777ecf', '起锅放入些许葱丝 自行摆盘，完成！', '/static/images/app/70efa61e98c811e69ce70242ac110002_812w_1080h.jpg', 6);
+INSERT INTO `menu_step` VALUES (484, 'faf83bb0232f48548e478314ddf75542', '用剪刀在鸡腿根部剪开，然后直的往上剪开到底', '/static/images/app/0f4e50308bea11e6b87c0242ac110003_181w_278h.jpg', 1);
+INSERT INTO `menu_step` VALUES (485, 'faf83bb0232f48548e478314ddf75542', '用剪刀辅助把鸡腿肉往两边分开，使之与腿骨分离', '/static/images/app/0f6d6e3e8bea11e6a9a10242ac110002_185w_279h.jpg', 2);
+INSERT INTO `menu_step` VALUES (486, 'faf83bb0232f48548e478314ddf75542', '用剪刀沿着腿骨把腿肉和骨头分开', '/static/images/app/0f962d4c8bea11e6a9a10242ac110002_183w_275h.jpg', 3);
+INSERT INTO `menu_step` VALUES (487, 'faf83bb0232f48548e478314ddf75542', '最后把腿骨剔除，剩下整块的鸡腿肉备用', '/static/images/app/0fb4e7788bea11e6b87c0242ac110003_190w_284h.jpg', 4);
+INSERT INTO `menu_step` VALUES (488, 'faf83bb0232f48548e478314ddf75542', '一小块平果去皮用擦蓉器擦成泥', '/static/images/app/0fe11b048bea11e6b87c0242ac110003_185w_281h.jpg', 5);
+INSERT INTO `menu_step` VALUES (489, 'faf83bb0232f48548e478314ddf75542', '一小颗蒜头也擦成蒜泥', '/static/images/app/1007fc4c8bea11e6a9a10242ac110002_188w_284h.jpg', 6);
+INSERT INTO `menu_step` VALUES (490, 'faf83bb0232f48548e478314ddf75542', '拆好的整块鸡腿肉用刀背拍几下，拍松，然后切成小块（我是把整块鸡腿肉分成三到四块）', '/static/images/app/102f69d08bea11e6a9a10242ac110002_184w_278h.jpg', 7);
+INSERT INTO `menu_step` VALUES (491, 'faf83bb0232f48548e478314ddf75542', '用生抽两汤匙、米醋一汤匙、白糖半汤匙、料酒半汤匙、盐一点点、苹果泥一小勺、蒜泥一小勺、芝麻油一小勺腌制鸡腿肉，用手不断抓捏一会儿，然后静置腌制两小时', '/static/images/app/10515b268bea11e6b87c0242ac110003_184w_279h.jpg', 8);
+INSERT INTO `menu_step` VALUES (492, 'faf83bb0232f48548e478314ddf75542', '锅烧热放油，油烧热放姜片爆香', '/static/images/app/107c623a8bea11e6b87c0242ac110003_187w_279h.jpg', 9);
+INSERT INTO `menu_step` VALUES (493, 'faf83bb0232f48548e478314ddf75542', '把腌制好的鸡腿肉一块块夹出放入锅中煸炒至表面变色收紧', '/static/images/app/109dd5f08bea11e6a9a10242ac110002_189w_282h.jpg', 10);
+INSERT INTO `menu_step` VALUES (494, 'faf83bb0232f48548e478314ddf75542', '倒入碗中腌制鸡腿肉的腌汁，再倒小半碗水，盖上盖子大火煮开后，转中小火煮10分钟左右', '/static/images/app/10c443208bea11e6a9a10242ac110002_187w_283h.jpg', 11);
+INSERT INTO `menu_step` VALUES (495, 'faf83bb0232f48548e478314ddf75542', '开盖转大火收浓汤汁撒上葱花即可', '/static/images/app/10e6079e8bea11e6b87c0242ac110003_190w_286h.jpg', 12);
+INSERT INTO `menu_step` VALUES (496, 'f78570a328e64ca6924c260bd92b84a6', '锅里倒入较多的油，油热了之后加入蒜末、葱白，炒出香味', '/static/images/app/31aff68e15db4116a724a14811019fd9_5184w_3456h.jpg', 1);
+INSERT INTO `menu_step` VALUES (497, 'f78570a328e64ca6924c260bd92b84a6', '放入肉末，大火煸炒五分钟左右，至肉末颜色半白半红', '/static/images/app/e484e556ed1644e491db8bd0fe6d45e3_5184w_3456h.jpg', 2);
+INSERT INTO `menu_step` VALUES (498, 'f78570a328e64ca6924c260bd92b84a6', '倒入少量啤酒、美味鲜酱油、老抽、冰糖，盖上锅盖，小火收汁到一半，把肉拨到锅的四周，中间留出汁水，放入茄子块，盖上锅盖，大火炖5分钟左右。', '/static/images/app/70aa6d25d39c474481389b0020be2e61_5184w_3456h.jpg', 3);
+INSERT INTO `menu_step` VALUES (499, 'f78570a328e64ca6924c260bd92b84a6', '倒入少许醋、一点点红糖、洒一些盐调味，小火收汁到汤汁上有一层薄薄的浮油即可', '/static/images/app/f1ea89dd6ba748c89a1e670f28c70cec_5184w_3456h.jpg', 4);
+INSERT INTO `menu_step` VALUES (500, 'f78570a328e64ca6924c260bd92b84a6', '把汤汁全部倒入餐盘中，大火煸炒肉末茄子一小会，出盘，撒上葱花', '/static/images/app/8c1508d392414fc1a4d4f78c5dfd8f02_5184w_3456h.jpg', 5);
+INSERT INTO `menu_step` VALUES (501, '943f7f4d1f204758893a64c59e2d0178', '鸡腿洗净擦干，倒入4瓣蒜、5片姜、30ml生抽、20g蚝油、2g花椒、5g盐，冷藏腌制3小时以上，最好能过夜', '/static/images/app/9c498a5372b54d7d8f02344c154a0e87_1920w_1920h.jpg', 1);
+INSERT INTO `menu_step` VALUES (502, '943f7f4d1f204758893a64c59e2d0178', '腌好的鸡腿蘸干面粉，然后过一遍水，再蘸一遍干面粉。', '/static/images/app/657740d2b9ad4b3388a1643b0ac4e81d_1920w_1920h.jpg', 2);
+INSERT INTO `menu_step` VALUES (503, '943f7f4d1f204758893a64c59e2d0178', '锅里热油，将鸡腿放入油锅小火炸约15分钟，表面金黄。\r\n小贴士：如何检查油温：筷子放进去起小泡泡的程度即可', '/static/images/app/1915da163fd0483ea6b7e11abeaddf0c_1920w_1920h.jpg', 3);
 
 -- ----------------------------
 -- Table structure for menu_summary
@@ -982,16 +1153,16 @@ CREATE TABLE `menu_summary`  (
   INDEX `uuid`(`uuid`) USING BTREE,
   INDEX `fk_user`(`userId`) USING BTREE,
   CONSTRAINT `fk_user` FOREIGN KEY (`userId`) REFERENCES `user_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 67 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu_summary
 -- ----------------------------
 INSERT INTO `menu_summary` VALUES (1, '0714066b25c64ebbbe18a4cf3d62c8bc', '萝卜干炒腊肉', '/static/images/app/8c1a4f6603654f31b7abd869eee80412_1252w_1876h.jpg', 2, '我家里人爱吃腊肉，但是吃腊肉有一个很特别的嗜好，那就是不喜欢吃腊肉的咸，非得要泡水，然后焯水，最后把腊肉弄的没有一点咸味了，才爱吃。虽然这样挺奇怪的，但是呢，每个人家里都有自己的一些小癖好，所以我的菜谱做得到底正不正确，就先不论了…哈哈哈', '2019-04-11 19:07:21', 5.8, 256, 35, 3.0);
 INSERT INTO `menu_summary` VALUES (2, 'e5ebeeb682fb4c8792313f44d309a299', '✨香煎豆腐✨', '/static/images/app/12a1306688ea11e6b87c0242ac110003_650w_650h.jpg', 2, '超级超级下饭的菜~', '2019-04-03 19:07:21', 6.7, 34, 1, 3.4);
-INSERT INTO `menu_summary` VALUES (3, '6be893be5b80403ab592c2aa3a714021', '咖喱肥牛乌冬面', '/static/images/app/c24e69c6d39c4fe0a102b977eb36413b_4096w_2730h.jpg', 2, '去丸龟制面的时候顺着点餐台走\r\n看着餐牌 叫一份喜欢的乌冬面\r\n看着师傅亲手加工再端到你面前\r\n前后不过个把分钟\r\n却是满满期待的过程\r\n\r\n一直想写一个咖喱的方子来着\r\n今天就结合一下\r\n于是就有了这一碗——咖喱肥牛乌冬面', '2019-03-19 19:07:21', 8.6, 54, 12, 4.4);
+INSERT INTO `menu_summary` VALUES (3, '6be893be5b80403ab592c2aa3a714021', '咖喱肥牛乌冬面', '/static/images/app/c24e69c6d39c4fe0a102b977eb36413b_4096w_2730h.jpg', 2, '去丸龟制面的时候顺着点餐台走\r\n看着餐牌 叫一份喜欢的乌冬面\r\n看着师傅亲手加工再端到你面前\r\n前后不过个把分钟\r\n却是满满期待的过程\r\n\r\n一直想写一个咖喱的方子来着\r\n今天就结合一下\r\n于是就有了这一碗——咖喱肥牛乌冬面', '2019-03-19 19:07:21', 8.6, 54, 13, 4.4);
 INSERT INTO `menu_summary` VALUES (4, '92718a72a7a947e5b637c36107d81f09', '【减脂增肌】低卡纤维杂粮饭', '/static/images/app/2106b9ac2d9911e6bf67b82a72e00100.jpg', 4, '⁄(⁄ ⁄•⁄ω⁄•⁄ ⁄)⁄\r\n\r\n        近期都在关注和研究减脂餐，最近对粗粮的兴趣极高\r\n        减脂期间非常推荐吃粗粮，热量低不说了，还蠕动肠胃，可以很好的“嗯嗯” ^^~\r\n\r\n        然后去网上把市面上的粗粮基本上全入了\r\n        口感确实不好，用我大重庆的话说就是“嚼起杂翻翻d”，不好吃\r\n        但是我很好的发挥了小强精神\r\n        搭配出一个口感吃起来还不错的组合，哇哈哈 ^罒^', '2019-04-25 19:07:21', 6.8, 54, 32, 3.7);
-INSERT INTO `menu_summary` VALUES (5, '47f1cdd33e9a4281b6cb3f93f52dc149', '海带排骨汤', '/static/images/app/ba437e28876e11e6b87c0242ac110003_620w_465h.jpg', 2, '如今的家常饮食应该兼顾补钙、降脂、增强免疫力等健康观念；类似这样的汤品制作很简单，味道也很鲜美，营养又滋补...', '2019-04-23 19:07:21', 4.6, 65, 42, 2.8);
+INSERT INTO `menu_summary` VALUES (5, '47f1cdd33e9a4281b6cb3f93f52dc149', '海带排骨汤', '/static/images/app/ba437e28876e11e6b87c0242ac110003_620w_465h.jpg', 2, '如今的家常饮食应该兼顾补钙、降脂、增强免疫力等健康观念；类似这样的汤品制作很简单，味道也很鲜美，营养又滋补...', '2019-04-23 19:07:21', 4.6, 65, 42, 2.6);
 INSERT INTO `menu_summary` VALUES (6, '571926782b7a433393e487de00eb5522', '可乐鸡翅 ', '/static/images/app/ed35e338873811e6b87c0242ac110003_450w_600h.jpg', 2, NULL, '2019-03-18 19:07:21', 8.7, 756, 23, 4.4);
 INSERT INTO `menu_summary` VALUES (7, '5f1376312824475ea6ce692174900ec1', '懒人版糖醋排骨', '/static/images/app/4daad8ea877a11e6a9a10242ac110002_469w_701h.jpg', 4, '', '2019-03-25 19:07:21', 6.6, 54, 3, 3.3);
 INSERT INTO `menu_summary` VALUES (8, 'f34f0087950d4f059e4ef8997af022a1', '宫保鸡丁', '/static/images/app/57bda645202140df89b80450a9f4de71_5184w_3456h.jpg', 2, NULL, '2019-04-16 19:08:21', 6.7, 4, 0, 3.3);
@@ -1000,21 +1171,21 @@ INSERT INTO `menu_summary` VALUES (10, 'c8ad71e6ea8642f780daedb9fd691ddc', '柠�
 INSERT INTO `menu_summary` VALUES (11, '6f4e6c1f487d41bf97d563d594846ad5', '春天的味道-油焖笋', '/static/images/app/bdd22c74dbd74805a0da6a0e3337d8e5_1616w_1080h.jpg', 1, '春雷乍响，必须要吃春天的笋宝宝咯～油焖笋的烧制小贴士：1.笋要事先下水焯，去除麻味 2.尽量保持笋的鲜美，不要放太多调味料', '2019-04-25 19:07:21', 8.2, 564, 52, 4.1);
 INSERT INTO `menu_summary` VALUES (12, '3d3e0493400642e9ac617a7257f0bdf4', '清蒸鳕鱼', '/static/images/app/a23c503887ab11e6b87c0242ac110003_600w_397h.jpg', 2, NULL, '2019-04-25 19:07:21', 6.3, 56, 30, 3.4);
 INSERT INTO `menu_summary` VALUES (13, 'cee46249de1d4b42a0c93577413fa5cb', '三色芋圆', '/static/images/app/b5c9503e89e911e6b87c0242ac110003_1280w_854h.jpg', 2, '做这个请先看最下面的小贴士好不？只用木薯淀粉！只用木薯淀粉！只用木薯淀粉！不要再问这种问题了，拜托！\r\n和女儿一样都喜欢去鲜芋仙，柳州如雨后春笋般开了好几家台式甜品店我们也都去过。喜欢台式甜品中又Q又糯的芋圆。一碗10几至20几块钱不等的芋圆或仙草甜品，每次都还要另外加2份芋圆，以前一份2块钱8个芋圆，最近鲜芋仙不知廉耻的将芋圆涨到3块钱8个，我和女儿就不乐意去了。\r\n     想吃多少芋圆就能放多少，是不是我们在鲜芋仙的幻想！不如自己动手丰衣足食！', '2019-03-26 19:07:21', 8.2, 76, 36, 4.3);
-INSERT INTO `menu_summary` VALUES (14, '1ceba29d11634538a908542f737fb489', '红烧肉沫茄子', '/static/images/app/12612b0288ad11e6b87c0242ac110003_1239w_1209h.jpg', 6, '米饭杀手，绝对够味，喜欢茄子的人都懂得！茄子是一道离不开油的菜，离开油做不出那个感觉的，所以我要么不做茄子，要么肯定过油，这也是餐厅里厨师们一贯做法！', '2019-04-25 19:07:21', 2.6, 87, 56, 1.6);
+INSERT INTO `menu_summary` VALUES (14, '1ceba29d11634538a908542f737fb489', '红烧肉沫茄子', '/static/images/app/12612b0288ad11e6b87c0242ac110003_1239w_1209h.jpg', 6, '米饭杀手，绝对够味，喜欢茄子的人都懂得！茄子是一道离不开油的菜，离开油做不出那个感觉的，所以我要么不做茄子，要么肯定过油，这也是餐厅里厨师们一贯做法！', '2019-04-25 19:07:21', 8.6, 87, 56, 4.6);
 INSERT INTO `menu_summary` VALUES (15, '19816b23d74249b4aae7ebb114f46379', '麻婆豆腐', '/static/images/app/ac70082ee9b211e6947d0242ac110002_1221w_915h.jpg', 2, '经典传统川菜，川菜代表菜之一。\r\n本菜谱采用适合家庭烹煮方式制作，简单易学。想在家里做出餐馆里的卖相和味道吗?快快准备材料吧!', '2019-03-22 19:07:21', 3.8, 56, 55, 2.4);
 INSERT INTO `menu_summary` VALUES (16, 'a14be5243eac46fc9d3b06a93ecc9270', '火腿蘑菇小白菜 ', '/static/images/app/9a92ad77f5dd484fb835442a64510be9_1688w_1124h.jpg', 5, '买了德式低脂火腿，空口吃有点咸；与口蘑、小白菜一起炒，特鲜。\r\n\r\n\r\n本来打算用娃娃菜的，谁知买完菜到家，发现忘了拿娃娃菜了……', '2019-04-25 19:07:21', 8.6, 4565, 4123, 4.8);
-INSERT INTO `menu_summary` VALUES (17, 'd011da5fdca64b328463984ddb132b3a', '超简单椰子鸡汤', '/static/images/app/b21f2ff9a4ef4982a0fe16e1fc5dc4e5_2876w_2876h.jpg', 2, '超级好喝简单的原汁原味的椰青鸡汤。\r\n健康又好喝。\r\n椰青肉嫩滑爽口。推荐买椰青来煲汤。\r\n比普通的椰子肉好吃太多了！\r\n普通椰子肉都是硬邦邦的，咬的牙疼，还难取肉。\r\n份量4人份', '2019-04-25 19:07:21', 9.9, 2, 1, 5.2);
+INSERT INTO `menu_summary` VALUES (17, 'd011da5fdca64b328463984ddb132b3a', '超简单椰子鸡汤', '/static/images/app/b21f2ff9a4ef4982a0fe16e1fc5dc4e5_2876w_2876h.jpg', 2, '超级好喝简单的原汁原味的椰青鸡汤。\r\n健康又好喝。\r\n椰青肉嫩滑爽口。推荐买椰青来煲汤。\r\n比普通的椰子肉好吃太多了！\r\n普通椰子肉都是硬邦邦的，咬的牙疼，还难取肉。\r\n份量4人份', '2019-04-25 19:07:21', 9.9, 2, 1, 5.0);
 INSERT INTO `menu_summary` VALUES (18, '8a60936befcc4de3b93ed0bb25d906d3', '荷兰宝贝松饼', '/static/images/app/9b840511c379433486c1a0c681e46898_972w_648h.jpg', 5, '做法简单，让厨房小白也能脑后光环闪闪：面粉、鸡蛋、牛奶一旦完成了烤炉里的完美膨 胀，摞上心爱的水果和配料就行，要是换成三文鱼、培根这类的肉菜，四舍五入也能算个正餐，怎么样都划得来。', '2019-04-08 19:07:21', 9.6, 45, 2, 4.8);
-INSERT INTO `menu_summary` VALUES (19, '62367bf1715643068596d263162a9157', '黑芝麻馅青团 艾草青团 艾草粿', '/static/images/app/2cc3a135489c4feab0307cbaa93a5d28_1864w_1242h.jpg', 2, NULL, '2019-04-25 19:07:21', 9.5, 987, 693, 5.1);
+INSERT INTO `menu_summary` VALUES (19, '62367bf1715643068596d263162a9157', '黑芝麻馅青团 艾草青团 艾草粿', '/static/images/app/2cc3a135489c4feab0307cbaa93a5d28_1864w_1242h.jpg', 2, NULL, '2019-04-25 19:07:21', 9.5, 987, 693, 5.0);
 INSERT INTO `menu_summary` VALUES (20, 'f46d40f225bf4c92ba9def092509ed2a', '香煎杏鲍菇', '/static/images/app/d207c7b9b8624537ab729375c698a1bf_1017w_896h.jpg', 2, NULL, '2019-04-25 19:07:21', 9.2, 657, 263, 4.8);
-INSERT INTO `menu_summary` VALUES (21, 'f960eec54cc54c728b78ea46f0196900', '南瓜饼（最简单的做法） ', '/static/images/app/cbc8273020144f4a89857a5aab64cd45_1006w_775h.jpg', 2, '十五分钟就可以做成的美食', '2019-04-01 19:07:21', 2.6, 345, 153, 1.5);
+INSERT INTO `menu_summary` VALUES (21, 'f960eec54cc54c728b78ea46f0196900', '南瓜饼（最简单的做法） ', '/static/images/app/cbc8273020144f4a89857a5aab64cd45_1006w_775h.jpg', 2, '十五分钟就可以做成的美食', '2019-04-01 19:07:21', 7.6, 345, 153, 4.0);
 INSERT INTO `menu_summary` VALUES (22, 'c1b4703829a34a91b7af8e089a1f8549', '熟醉大头虾 ', '/static/images/app/d74281a0565a4bfaa17ece1e228f63fd_5466w_4000h.jpg', 5, '', '2019-04-25 19:07:21', 3.6, 65, 26, 2.0);
 INSERT INTO `menu_summary` VALUES (23, '032d9f1e7dd64cc1b3af8df456659550', '花生酥芝麻酥', '/static/images/app/b9efd28a6d2f11e7947d0242ac110002_1280w_1023h.jpg', 2, NULL, '2019-04-25 19:07:21', 4.5, 353, 236, 2.6);
 INSERT INTO `menu_summary` VALUES (24, '80a09b188ba845039696964cb03d218b', '姜撞奶', '/static/images/app/d19d9d4fe7fc473aa53d9cb31ae8b678_3648w_2736h.jpg', 2, '我平生也有一个追求，那就是，用尽量简单的办法做出尽量好吃的东西，让我自己觉得，哦，原来做好吃的，并不难。\r\n比如说这个姜撞奶，我是姜爱好者啊，每次来好朋友的时候都会冲一杯姜茶，对于姜撞奶，自然少了不尝试一下，但很遗憾，前几次都以失败告终，但俗话说的好啊，失败是成功他妈妈，经过几次的尝试之后，我逐渐掌握了姜撞奶的决窍，以及姜撞奶好吃的比例，现在，不用去甜品店，在家里也能轻轻松松吃到好吃的姜撞奶。', '2019-04-12 19:07:21', 6.3, 76, 25, 3.3);
 INSERT INTO `menu_summary` VALUES (25, 'f30b83378f924b1db4705d22dc21af2b', '虾皮豆腐炒蛋', '/static/images/app/47bbef9c873811e6b87c0242ac110003_720w_480h.jpg', 2, '今天上的这道小菜是简单而营养比较好的一道快手菜式——虾皮豆腐炒蛋，适合上班族，希望大家喜欢呀！', '2019-04-25 19:07:21', 6.5, 234, 26, 3.3);
 INSERT INTO `menu_summary` VALUES (26, '156c052ca5584994bb84562ed48e18ff', '冬阴功汤', '/static/images/app/40d0ab61a1bc4eb28f0d5a5b7ae15111_1124w_1318h.jpg', 6, '我老公从来不吃冬阴功，有一次我突发奇想做冬阴功，他说不吃，结果一吃赞口不绝，整天叫我做。我说你不是说不吃吗？他说好吃当然吃啊，外面的都不好吃，哈哈哈', '2019-03-26 19:07:21', 7.2, 564, 63, 3.7);
-INSERT INTO `menu_summary` VALUES (27, 'db4c21e2787a4c0f9e6c6db53d7678a2', '干锅肥肠', '/static/images/app/885eb7a9f9ab48008457c60a08444035_1440w_1078h.jpg', 2, '肥肠有一定的营养价值，它含有大量的脂肪与蛋白质，还有一些微量元素。其性寒，味甘；有润肠、去下焦风热、止小便数的作用。\r\n1、肥肠中的营养物质是人体各器官工作时的必须成分，人们食用肥肠能满足身体对不同营养的需要，能促进身体代谢，提高各器官功能。\r\n2、肥肠还具有一定的药用功效，从中医的角度上看性寒味甘，可以去下焦风热，也能润肠止燥，更能清理人体肠道中的一些病菌，能起不错的止痢作用，平时在中医中它也可以用于人类痔疮和大便带血等症的治疗，治疗功效十分明显。', '2019-04-25 19:07:21', 4.6, 24, 5, 2.4);
-INSERT INTO `menu_summary` VALUES (28, '683438c94bc945de9d4297b1cca20730', '韭菜鸡蛋虾仁三鲜饺子 ', '/static/images/app/1c526086885311e6a9a10242ac110002_2398w_1516h.jpg', 2, '家里喜欢吃饺子，所以妈妈经常做，三鲜的尤其好吃。\r\n这个菜谱的用料可以做100多个饺子，差不多够4个人吃（依据个人食量了...）。\r\n我们家通常吃的比较素，喜欢荤一点的同学可以多放些虾仁。', '2019-04-25 19:07:21', 6.5, 546232, 2366, 3.3);
+INSERT INTO `menu_summary` VALUES (27, 'db4c21e2787a4c0f9e6c6db53d7678a2', '干锅肥肠', '/static/images/app/885eb7a9f9ab48008457c60a08444035_1440w_1078h.jpg', 2, '肥肠有一定的营养价值，它含有大量的脂肪与蛋白质，还有一些微量元素。其性寒，味甘；有润肠、去下焦风热、止小便数的作用。\r\n1、肥肠中的营养物质是人体各器官工作时的必须成分，人们食用肥肠能满足身体对不同营养的需要，能促进身体代谢，提高各器官功能。\r\n2、肥肠还具有一定的药用功效，从中医的角度上看性寒味甘，可以去下焦风热，也能润肠止燥，更能清理人体肠道中的一些病菌，能起不错的止痢作用，平时在中医中它也可以用于人类痔疮和大便带血等症的治疗，治疗功效十分明显。', '2019-04-25 19:07:21', 8.4, 24, 5, 4.3);
+INSERT INTO `menu_summary` VALUES (28, '683438c94bc945de9d4297b1cca20730', '韭菜鸡蛋虾仁三鲜饺子 ', '/static/images/app/1c526086885311e6a9a10242ac110002_2398w_1516h.jpg', 2, '家里喜欢吃饺子，所以妈妈经常做，三鲜的尤其好吃。\r\n这个菜谱的用料可以做100多个饺子，差不多够4个人吃（依据个人食量了...）。\r\n我们家通常吃的比较素，喜欢荤一点的同学可以多放些虾仁。', '2019-03-12 19:07:21', 7.6, 546, 23, 3.8);
 INSERT INTO `menu_summary` VALUES (29, 'baa13029841947f3b27e0d003cb443a3', '土豆炖排骨', '/static/images/app/bc9439e008df11e7947d0242ac110002_1280w_1024h.jpg', 2, '每家都做，家家都各有特色', '2019-04-25 19:07:21', 6.3, 4, 3, 3.5);
 INSERT INTO `menu_summary` VALUES (30, 'a7fb8e6391f244c09f23ab724eb18cc1', '鲜嫩无比口水鸡 ', '/static/images/app/7072deaa857d4bd1b497386067b9395c_3024w_3024h.jpg', 4, '夏天是不是想吃辣！快告诉我“想吃！”\r\n怎样的口水鸡好吃！快告诉我“鲜嫩！”\r\n零失败的做法就是这里了', '2019-03-28 19:07:21', 6.5, 4, 2, 3.5);
 INSERT INTO `menu_summary` VALUES (31, '06a449db80ad4a999a9c3b60b2faab01', '豌豆炒肉', '/static/images/app/e65fb38e889311e6b87c0242ac110003_534w_367h.jpg', 2, NULL, '2019-04-25 19:07:21', 6.8, 3, 3, 3.9);
@@ -1023,34 +1194,22 @@ INSERT INTO `menu_summary` VALUES (33, '6d0513e76e344e68911cbd7acb87669b', '照�
 INSERT INTO `menu_summary` VALUES (34, '2c107b88df964d0fb3b12067ad959924', '脆皮日本豆腐', '/static/images/app/18c15c48f83711e6947d0242ac110002_1280w_856h.jpg', 2, NULL, '2019-04-25 19:07:21', 5.6, 23, 12, 3.1);
 INSERT INTO `menu_summary` VALUES (35, 'dfd9fd73133e4636bd9ce046d3dcd7b5', '清蒸鲈鱼', '/static/images/app/6db66de28efe42d8878ceabc3a593c30_3072w_2302h.jpg', 7, '鲈鱼味道鲜美，鱼刺少、营养高，用来清蒸不仅保持了鱼形的完整，还特别的鲜香肉嫩。\r\n清蒸鲈鱼也是一道几乎家家都会的家常菜，在我家里的上桌率也极高，这里就分享几个蒸鱼好吃的秘诀。\r\n1、鲈鱼要选新鲜现杀的；\r\n2、鱼一定要清洗干净并擦干表面的水份；\r\n3、高火蒸鱼，时间根据鱼的大小会略有调整，1斤重的鲈鱼蒸8分钟足够，蒸的时间过长肉质会老；\r\n4、最后关键的一步，把油烧到180度以上淋到鱼身上，激发鱼的鲜香味。', '2019-03-30 19:07:21', 5.6, 65, 23, 3.0);
 INSERT INTO `menu_summary` VALUES (36, 'd4840ad99fea4ef2a62fb86d2bfc9a0d', '爆炒鱿鱼', '/static/images/app/755ac4d8a8b04c409143cd0c1925fc32_1616w_1080h.jpg', 2, NULL, '2019-04-25 19:07:21', 7.6, 65, 25, 4.0);
-INSERT INTO `menu_summary` VALUES (37, 'd81329e6c383451699d856a1f71d25b2', '紫菜光饼', '/static/images/app/f494b1e40ed047699f0a74781e97809a_720w_576h.jpg', 2, '前两天我家户主在叨叨，说好久没做紫菜饼了，算算有一年没做啦！\r\n\r\n嘻嘻，是够久的啦，\r\n那还不简单，撸起袖子做吧！', '2019-04-25 19:07:21', 5.9, 76, 29, 3.1);
+INSERT INTO `menu_summary` VALUES (37, 'd81329e6c383451699d856a1f71d25b2', '紫菜光饼', '/static/images/app/f494b1e40ed047699f0a74781e97809a_720w_576h.jpg', 2, '前两天我家户主在叨叨，说好久没做紫菜饼了，算算有一年没做啦！\r\n\r\n嘻嘻，是够久的啦，\r\n那还不简单，撸起袖子做吧！', '2019-04-25 19:07:21', 7.8, 76, 29, 4.1);
 INSERT INTO `menu_summary` VALUES (38, '699452b7d68942a2a0e4aee592b79e1e', '无油喷香脆皮烤鸡腿儿', '/static/images/app/40f00f68f4ce498c92e98cacf5a52a3e_1688w_1124h.jpg', 5, '鸡腿儿是个好东西啊！其实不吃皮和鸡胸的热量相差不多～非常适合减脂期吃 或者鸡胸吃惯了换一下口味儿～口感真是比鸡胸提升无数个level！', '2019-04-25 19:07:21', 8.5, 74, 56, 4.6);
-INSERT INTO `menu_summary` VALUES (39, 'addea5aaa26f470c90dcf8b164f24a22', '安东鸡', '/static/images/app/daf670cc73a911e6aae8cd5a4774d612.jpg', 6, '不一定正宗但好吃的Sunny版安东鸡（韩式红烧鸡），红薯粉被我换成了豆腐丝。\r\n千里迢迢背回来的两包云南石屏云丝被忘得死死的，才想起来吃，不合格的吃货。', '2019-04-25 19:07:21', 5.6, 566, 456, 3.2);
-INSERT INTO `menu_summary` VALUES (40, 'd613d080aed84a96be974e9f7cabcdc7', '酸甜可口的糖醋里脊(鸡胸肉版)', '/static/images/app/482e09527e1c4e0b901c8e27e57eaa2f_1080w_864h.jpg', 2, '特别喜欢学校一食堂的糖醋里脊，放假回家后打算自己做。因为家里没有猪里脊又不想去买，就用鸡胸肉去做了。本以为口感会柴，没想到还不错。这道菜很简单，厨房小白也可以很容易掌握。', '2019-04-25 19:07:21', 7.8, 23, 23, 4.4);
+INSERT INTO `menu_summary` VALUES (39, 'addea5aaa26f470c90dcf8b164f24a22', '安东鸡', '/static/images/app/daf670cc73a911e6aae8cd5a4774d612.jpg', 6, '不一定正宗但好吃的Sunny版安东鸡（韩式红烧鸡），红薯粉被我换成了豆腐丝。\r\n千里迢迢背回来的两包云南石屏云丝被忘得死死的，才想起来吃，不合格的吃货。', '2019-03-19 19:07:21', 7.3, 566, 20, 3.7);
+INSERT INTO `menu_summary` VALUES (40, 'd613d080aed84a96be974e9f7cabcdc7', '酸甜可口的糖醋里脊(鸡胸肉版)', '/static/images/app/482e09527e1c4e0b901c8e27e57eaa2f_1080w_864h.jpg', 2, '特别喜欢学校一食堂的糖醋里脊，放假回家后打算自己做。因为家里没有猪里脊又不想去买，就用鸡胸肉去做了。本以为口感会柴，没想到还不错。这道菜很简单，厨房小白也可以很容易掌握。', '2019-04-09 19:07:21', 7.8, 23, 23, 4.4);
 INSERT INTO `menu_summary` VALUES (41, '5c229206192f46938049a0e10ff5b718', '豆角焖面', '/static/images/app/b17cf7ea883d11e6a9a10242ac110002_1989w_1321h.jpg', 6, '第一次吃到豆角焖面是因为室友“皇额娘”\r\n她是地地道道的内蒙妹子，一直心系家乡的食物\r\n后来在学校附近找到了一家地道的内蒙饭店\r\n每次我，皇额娘，皇姐都会坐车去吃，吃撑了走路回宿舍\r\n印象最深刻莫过于一大锅子的豆角焖面~\r\n每次会点上排骨，豆角，土豆一起焖\r\n除了焖面，大锅的内壁会贴上一个个金灿灿的饼子\r\n待一大锅肉面做好了，贴着的饼子也熟了，那是真真美味啊！', '2019-04-25 19:07:21', 8.6, 43, 25, 4.6);
 INSERT INTO `menu_summary` VALUES (42, '84e184c0a4e14416bb92d826233fd816', '想妈秘制百香果鸡脚', '/static/images/app/e888fb482dcf11e7947d0242ac110002_1280w_1024h.jpg', 2, '我家大妞想姐姐是出名的鸡脚姐.\r\n那爱吃鸡脚的程度是你没法想到的.', '2019-04-25 19:07:21', 8.3, 54, 48, 4.6);
-INSERT INTO `menu_summary` VALUES (43, '32b09d7ffb5247eda0d37b5d521423a1', '卤肉饭', '/static/images/app/eb2827c17a524b73bf73b70e89351340_1520w_1059h.jpg', 6, '有天晚上.看见人家说卤肉饭.\r\n立马口水万里..\r\n想到好久木有吃了.(≧∇≦)', '2019-04-25 19:07:21', 8.5, 73, 56, 4.6);
-INSERT INTO `menu_summary` VALUES (44, '70460d48ec754d4287711710ae46921c', '嫩姜丝炒肉', '/static/images/app/4200b590888411e6b87c0242ac110003_640w_640h.jpg', 4, '#二木食记#和群里的kiki姐学的她家的家乡菜。\r\n嫩姜切丝，一定要刚刚上市的嫩姜，嫩姜甜且脆，老姜不仅辣且柴；红绿椒切丝，和肉丝一起爆炒。微辣、爽脆、合胃。\r\n偶尔跳脱一下也不错。', '2019-04-25 19:07:21', 5.0, 654, 536, 2.9);
+INSERT INTO `menu_summary` VALUES (43, '32b09d7ffb5247eda0d37b5d521423a1', '卤肉饭', '/static/images/app/eb2827c17a524b73bf73b70e89351340_1520w_1059h.jpg', 6, '有天晚上.看见人家说卤肉饭.\r\n立马口水万里..\r\n想到好久木有吃了.(≧∇≦)', '2019-04-18 19:07:21', 8.5, 73, 56, 4.6);
+INSERT INTO `menu_summary` VALUES (44, '70460d48ec754d4287711710ae46921c', '嫩姜丝炒肉', '/static/images/app/4200b590888411e6b87c0242ac110003_640w_640h.jpg', 4, '#二木食记#和群里的kiki姐学的她家的家乡菜。\r\n嫩姜切丝，一定要刚刚上市的嫩姜，嫩姜甜且脆，老姜不仅辣且柴；红绿椒切丝，和肉丝一起爆炒。微辣、爽脆、合胃。\r\n偶尔跳脱一下也不错。', '2019-04-25 19:07:21', 5.0, 654, 20, 2.5);
 INSERT INTO `menu_summary` VALUES (45, '6fab45e6fbdd477d9cadbfbee4ab7950', '腐乳蒸鸡', '/static/images/app/a1cfc74c880011e6b87c0242ac110003_500w_752h.jpg', 5, '天冷，除了吃炖菜，蒸菜也是不错的选择。尤其是工作比较忙碌的时候，只要提前把食材腌好，回家随时可以拿出来蒸，热气腾腾的，再搭配一样青菜，就是简单又美味的一餐。 \r\n今天的这道蒸鸡，特色在于用腐乳来调味。腐乳特有的咸鲜味和酒香搭配鸡肉倒也别有一番风味，是一道醇香惹味的下饭菜。', '2019-04-25 19:07:21', 7.8, 64, 56, 4.3);
-
--- ----------------------------
--- Table structure for menu_user_rel
--- ----------------------------
-DROP TABLE IF EXISTS `menu_user_rel`;
-CREATE TABLE `menu_user_rel`  (
-  `menu_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜谱信息',
-  `user_id` int(11) NOT NULL COMMENT '用户id',
-  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`menu_id`, `user_id`) USING BTREE,
-  INDEX `fk_menu_user_user_id`(`user_id`) USING BTREE,
-  CONSTRAINT `fk_menu_user_menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menu_summary` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_menu_user_user_id` FOREIGN KEY (`user_id`) REFERENCES `user_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of menu_user_rel
--- ----------------------------
-INSERT INTO `menu_user_rel` VALUES ('0714066b25c64ebbbe18a4cf3d62c8bc', 6, '2019-04-25 23:24:24');
+INSERT INTO `menu_summary` VALUES (47, '05347f08072f46e783ce9efc3c7e9d3b', '韭菜盒子', '/static/images/app/13743e7ee18c4cc4a652e6d658eb8e73_1000w_1000h.jpg', 6, '妈妈的味道,小时候记忆中最香最好吃的莫过于妈妈做的韭菜盒子,现在妈妈年纪大了,正好母亲节也快到了,做上一份香喷喷的韭菜盒子献上女儿的一份孝心,这也是我的第一个菜谱,处女作送给妈妈！', '2019-04-28 21:05:38', 5.9, 787, 65, 3.0);
+INSERT INTO `menu_summary` VALUES (51, '833688f5f7f64b0cbf7809d5357f6f2e', '蒜蓉小龙虾', '/static/images/app/f46986aa481211e7bc9d0242ac110002_721w_1280h.jpg', 6, '饭店里的小龙虾不但贵吃了还不放心，其实自己做出的美味完全可以不输大厨。', '2019-04-28 22:15:24', 6.9, 787, 1, 3.5);
+INSERT INTO `menu_summary` VALUES (52, 'b36ffdff96264f53be7285e18cf699ef', '鱼香肉丝', '/static/images/app/5ca357b3193f4d40b5782254952e0eb4_731w_584h.jpg', 6, '说到“鱼香肉丝“，恐怕没几个人不爱的。其酸、甜、香、鲜，每个味道都足够诱人。口感也是超级开胃,非常讨巧，属于老少咸宜的一道菜', '2019-04-28 22:24:14', 9.1, 785, 75, 4.6);
+INSERT INTO `menu_summary` VALUES (57, 'f40bbb0165b84a5e9899e77e92777ecf', '柠檬鱼', '/static/images/app/3dede55a8a9a11e6b87c0242ac110003_812w_1080h.jpg', 6, '', '2019-04-28 22:37:58', 7.8, 782, 58, 3.9);
+INSERT INTO `menu_summary` VALUES (58, 'faf83bb0232f48548e478314ddf75542', '私家烧鸡腿肉', '/static/images/app/4a737210872811e6b87c0242ac110003_426w_640h.jpg', 6, '之前朋友送了我一瓶秘制红烧汁，用那个做出来的肉肉很好吃。 ', '2019-04-28 22:47:05', 8.1, 785, 40, 4.1);
+INSERT INTO `menu_summary` VALUES (59, 'f78570a328e64ca6924c260bd92b84a6', '肉末茄子', '/static/images/app/8dbc593612194d278d8ca9b8a0959338_5184w_3456h.jpg', 6, '一道超级超级下饭菜', '2019-04-29 20:04:32', 7.0, 25, 23, 4.0);
+INSERT INTO `menu_summary` VALUES (60, '943f7f4d1f204758893a64c59e2d0178', '0失败炸鸡腿', '/static/images/app/f1aec67ce5c143d1a9b8bf10b167b9e8_1080w_1920h.jpg', 5, NULL, '2019-04-30 16:06:33', 8.1, 22, 15, 4.4);
 
 -- ----------------------------
 -- Table structure for persistent_logins
@@ -1063,6 +1222,25 @@ CREATE TABLE `persistent_logins`  (
   `last_used` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`series`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of persistent_logins
+-- ----------------------------
+INSERT INTO `persistent_logins` VALUES ('test2', '2252oJEswDyI94tdwlIdgw==', 'UKel0Y4ZBoXqQPqfkYFimg==', '2019-04-28 18:01:44');
+INSERT INTO `persistent_logins` VALUES ('test2', '7U9XFM4D6lBInq/REECk8g==', 'V+wKdaQh0KLeOatNMrrdag==', '2019-04-28 18:36:40');
+INSERT INTO `persistent_logins` VALUES ('test2', 'BByRV2c0CX29yOR17KaQrw==', 'S7fbwiPaeQzfXJWGLhQHVA==', '2019-04-28 18:11:04');
+INSERT INTO `persistent_logins` VALUES ('test2', 'FyZhjQcEmZeSR4uZ0fDKcA==', '0nGl7gNmS2V9kLInk4o60A==', '2019-04-28 18:27:47');
+INSERT INTO `persistent_logins` VALUES ('test2', 'LBU95DeOdymR+XOUNLhBsA==', 'ltfnY40KWRm0FLtJSmmoNg==', '2019-04-28 18:16:19');
+INSERT INTO `persistent_logins` VALUES ('test2', 'M18xtxurqDwck4B+wu6J0A==', 'nFsNfrTu9Ie4ifsg7MisNw==', '2019-04-28 18:19:49');
+INSERT INTO `persistent_logins` VALUES ('test2', 'Mes4LyI9Jmt+0NmQNllyRw==', 'lsqzndkOoTjs7G/2IAAS4Q==', '2019-04-28 18:20:44');
+INSERT INTO `persistent_logins` VALUES ('test2', 'mjovEGEga+bU87R01vIEnw==', 'hnjbfqBNYQJ/DlDUh7avgA==', '2019-04-28 18:25:59');
+INSERT INTO `persistent_logins` VALUES ('test2', 'N93Asm6oGM7D/ZnUM81bHA==', 'vbM3j8oXU6/g+5UZ5/tLyw==', '2019-04-29 09:41:36');
+INSERT INTO `persistent_logins` VALUES ('test2', 'qtl6fxt7GCW50jIGiM3pxQ==', 'p6mh9r7Dj66rFTNTumvo4w==', '2019-04-28 18:15:38');
+INSERT INTO `persistent_logins` VALUES ('test2', 'RKdFE0M2bN73r7lvxbeZ5A==', 'fqPOQFm1FPodXqym2H+yCA==', '2019-04-28 18:32:21');
+INSERT INTO `persistent_logins` VALUES ('test2', 'T/AfF3kqilpOQGNjSz8NUg==', '7ss2oMh+qVUT6TGIRBQz/A==', '2019-04-28 18:29:20');
+INSERT INTO `persistent_logins` VALUES ('test2', 'TJhoMoULdFTLSClijBb+mQ==', 'aJFXd6/8VryMaMzoKn+3Hg==', '2019-04-28 18:13:37');
+INSERT INTO `persistent_logins` VALUES ('test2', 'uOjBNmxYcm2liY3pKL7G9A==', 'i6BpgI7Z5XdL7tKVmxCj7A==', '2019-04-28 18:23:26');
+INSERT INTO `persistent_logins` VALUES ('test2', 'y2tHUR7XeJFxOllWleQ/yw==', 'la3MYD+FsI29PjxtI+Xg8g==', '2019-04-28 18:14:51');
 
 -- ----------------------------
 -- Table structure for privilege_info
@@ -1785,17 +1963,21 @@ CREATE TABLE `user_info`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_role`(`role_id`) USING BTREE,
   CONSTRAINT `fk_role` FOREIGN KEY (`role_id`) REFERENCES `role_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
 INSERT INTO `user_info` VALUES (1, 'admin', '$2a$10$p8momL8581LuXYWaBPH9peeWXsHdyPNqvBiEIog7.iBzkRxXxh7nK', '/static/images/default_user_avator.png', '2019-04-18 04:38:28', NULL, '2019-04-11 16:13:05', NULL, 0, NULL, 0, 0, 0, NULL, 0, 0, 1, 0);
-INSERT INTO `user_info` VALUES (2, 'alan', '$2a$10$p8momL8581LuXYWaBPH9peeWXsHdyPNqvBiEIog7.iBzkRxXxh7nK', '/static/images/default_user_avator.png', '2019-04-25 02:24:04', NULL, '2019-04-11 16:13:05', NULL, 0, '皮皮不皮', 0, 0, 0, NULL, 0, 0, 3, 0);
-INSERT INTO `user_info` VALUES (4, 'peter', '$2a$10$fjjukZYN4wUfkglAVCD0TucKSofyVl79.mRHziYKNys7/CiaiaaAu', '/static/images/default_user_avator.png', '2019-04-25 02:24:18', 'vungle@yeah.net', '2019-04-14 07:48:14', NULL, 0, '厨房闺娘', 1, 0, 0, NULL, 0, 0, 1, 0);
+INSERT INTO `user_info` VALUES (2, 'alanwang', '$2a$10$p8momL8581LuXYWaBPH9peeWXsHdyPNqvBiEIog7.iBzkRxXxh7nK', '/static/images/default_user_avator.png', '2019-04-30 17:16:24', NULL, '2019-04-11 16:13:05', NULL, 0, '皮皮不皮', 0, 0, 0, NULL, 0, 0, 3, 0);
+INSERT INTO `user_info` VALUES (4, 'peter2', '$2a$10$fjjukZYN4wUfkglAVCD0TucKSofyVl79.mRHziYKNys7/CiaiaaAu', '/static/images/default_user_avator.png', '2019-04-30 17:16:28', 'vungle@yeah.net', '2019-04-14 07:48:14', NULL, 0, '厨房闺娘', 1, 0, 0, NULL, 0, 0, 1, 0);
 INSERT INTO `user_info` VALUES (5, 'bobbob', '$2a$10$Zp9Nqczs.3U5ok8neJEFkOCCNSb2kylk7G4HvaTbor84d9DeljrRW', '/static/images/default_user_avator.png', '2019-04-25 02:24:54', 'plm2019@yeah.net', '2019-04-14 07:54:52', NULL, 0, '萌萌的猫团子', 1, 0, 0, NULL, 0, 0, 1, 0);
-INSERT INTO `user_info` VALUES (6, 'test2', '$2a$10$taemojaikmPnNFwTGdKcTe5CY52wY5VSmIJnNPhjyvBQN5trK.29O', '/static/images/default_user_avator.png', '2019-04-25 02:25:17', 'qze2019@yeah.net', '2019-04-14 08:00:04', NULL, 0, '小羽私厨', 1, 0, 0, NULL, 0, 0, 1, 0);
+INSERT INTO `user_info` VALUES (6, 'test22', '$2a$10$taemojaikmPnNFwTGdKcTe5CY52wY5VSmIJnNPhjyvBQN5trK.29O', '/static/images/default_user_avator.png', '2019-04-30 17:16:30', 'qze2019@yeah.net', '2019-04-14 08:00:04', NULL, 0, '潇洒侠', 1, 0, 0, NULL, 0, 0, 1, 0);
 INSERT INTO `user_info` VALUES (7, 'country', '$2a$10$pbIPSQqQK7Q5D9KdcthlFOtul07su7uof18t.x4.DCi2WWeCoQhXW', '/static/images/default_user_avator.png', '2019-04-25 02:25:18', 'erobinette9721@gmail.com', '2019-04-17 20:47:46', NULL, 0, '活脱脱是个宝', 1, 0, 0, NULL, 0, 0, 1, 0);
+INSERT INTO `user_info` VALUES (8, 'shagua', '$2a$10$QgwFWjmk8IvF1qm6lbBDLesEp/sp.NA2b3zgCw73wAeN.n4v0qzFa', '/static/images/default_user_avator.png', '2019-04-27 00:51:11', '175695632@qq.com', '2019-04-27 00:51:11', NULL, 0, '傻瓜屁', 1, 0, 0, NULL, 0, 0, 1, 0);
+INSERT INTO `user_info` VALUES (9, 'ershazi', '$2a$10$bD8VnKeAgdcttDp4xyYz1ercKb8xUgu0UBSKCiYP8KqCajRnwfjNq', '/static/images/default_user_avator.png', '2019-04-27 00:52:44', '175695632@qq.com', '2019-04-27 00:52:44', NULL, 0, '傻瓜屁', 1, 0, 0, NULL, 0, 0, 1, 0);
+INSERT INTO `user_info` VALUES (10, 'pipizhu', '$2a$10$CRnVZpFEd4o3sNh7gTPtZe7PARnTC4588hftK/Zp3OyaNUDmyNDKa', '/static/images/default_user_avator.png', '2019-04-27 00:54:26', 'admin@qq.com', '2019-04-27 00:54:26', NULL, 0, '屁屁猪', 1, 0, 0, NULL, 0, 0, 1, 0);
+INSERT INTO `user_info` VALUES (11, 'zhuzhuxia', '$2a$10$BsP94GWQQUzz6bPPpz6ItOXQJdAhRm4JcPBGZCI3YRI7O3HfAudW2', '/static/images/default_user_avator.png', '2019-04-27 01:00:42', '32423423534@qq.com', '2019-04-27 01:00:42', NULL, 0, '猪猪侠', 1, 0, 0, NULL, 0, 0, 1, 0);
 
 -- ----------------------------
 -- Table structure for user_open_oauth

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -54,6 +55,8 @@ public class SimpleLoginFailureHandler implements AuthenticationFailureHandler {
             responseData.setMessage(WebResponseData.Message.LOGIN_ERROR_DISABLE);
         } else if (exception instanceof AccountStatusException) {
             responseData.setMessage(WebResponseData.Message.USER_ACCOUNT_STATUS_ERROR);
+        }else {
+            responseData.setMessage(WebResponseData.Message.ERROR);
         }
         out.write(responseData.toJSONString());
         out.flush();

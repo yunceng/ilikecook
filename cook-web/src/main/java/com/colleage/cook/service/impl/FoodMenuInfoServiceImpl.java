@@ -101,7 +101,7 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
         PageInfo pageInfo = new PageInfo(pageNo, pageSize);
         List<MenuSummaryInfo> lastCreate = foodMenuInfoMapper.
                 getLastCreate(30, pageInfo.getStart(), pageInfo.getPageSize());
-        int count = foodMenuInfoMapper.getLastCreateCount();
+        int count = foodMenuInfoMapper.getLastCreateCount(30);
         pageInfo.setCount(count);
         pageInfo.setData(getSimpleMenuInfoList(lastCreate));
 
@@ -156,13 +156,12 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
     public boolean createMenu(DetailMenuInfo menu) {
         String menu_uuid = UUID.randomUUID().toString().replace("-", "");
         menu.getSummaryInfo().setUuid(menu_uuid);
-        foodMenuInfoMapper.insertMenuCategoryRel(menu.getSummaryInfo().getUuid(), menu.getCategorys());
         foodMenuInfoMapper.insertMenuSummary(menu.getSummaryInfo(), menu.getUser().getId());
+        foodMenuInfoMapper.insertMenuCategoryRel(menu.getSummaryInfo().getUuid(), menu.getCategorys());
         foodMenuInfoMapper.insertMenuFoods(menu.getSummaryInfo().getUuid(), menu.getMenuFoodInfoList());
         foodMenuInfoMapper.insertMenuSteps(menu.getSummaryInfo().getUuid(), menu.getMenuStepInfoList());
         return true;
     }
-
 
     private List<SimpleMenuInfo> getSimpleMenuInfoList(List<MenuSummaryInfo> menuSummaryInfos) {
         List simpleMenuInfos = new ArrayList<SimpleMenuInfo>();

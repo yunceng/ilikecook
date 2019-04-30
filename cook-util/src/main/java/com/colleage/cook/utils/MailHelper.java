@@ -1,6 +1,7 @@
 package com.colleage.cook.utils;
 
-import com.colleage.cook.exception.ConsumeException;
+import com.colleage.cook.exception.EmailSendException;
+import com.colleage.cook.exception.ThirdPartyLoginException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -45,7 +46,7 @@ public class MailHelper {
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new ConsumeException("邮件发送失败", e);
+            throw new EmailSendException("邮件发送失败");
         }
     }
 
@@ -56,7 +57,7 @@ public class MailHelper {
 
             return thymeleafViewResolver.getTemplateEngine().process(templateName, ctx);
         } catch (Exception e) {
-            throw new ConsumeException(e.getMessage(), e);
+            throw new ThirdPartyLoginException(e.getMessage(), e);
         }
     }
 }

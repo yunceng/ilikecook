@@ -10,11 +10,13 @@
 package com.colleage.cook.utils.upload.impl;
 
 
-import com.colleage.cook.exception.ConsumeException;
+import com.colleage.cook.exception.FileFormatNotSupportException;
+import com.colleage.cook.exception.FileNotNullException;
 import com.colleage.cook.utils.FileNameUtils;
 import com.colleage.cook.utils.ImageUtils;
 import com.colleage.cook.utils.upload.FileRepo;
 import org.apache.log4j.Logger;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -39,11 +41,11 @@ public abstract class AbstractFileRepo implements FileRepo {
 
     protected void validateFile(MultipartFile file) {
         if (file == null || file.isEmpty()) {
-            throw new ConsumeException("文件不能为空");
+            throw new FileNotNullException();
         }
 
         if (!checkFileType(file.getOriginalFilename())) {
-            throw new ConsumeException("文件格式不支持");
+            throw new FileFormatNotSupportException();
         }
     }
 

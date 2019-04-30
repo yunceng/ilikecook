@@ -125,7 +125,7 @@
         where menu_id = #{uuid} order by orderI ASC
     </select>
 
-    <select id="menuIsCollected">
+    <select id="menuIsCollected" resultType="Boolean">
         select count(1) from menu_other_user_rel where user_id = #{userId} and menu_id = #{uuid}
     </select>
 
@@ -142,7 +142,9 @@
     </update>
 
     <update id="updateMenuRecommend">
-        update menu_summary set recommend_num = (score + browse_num/collect_num)/2
+        UPDATE menu_summary
+        SET recommend_num = IF(browse_num = 0,score / 2,
+                                IF( ( score + collect_num / browse_num ) / 2 > 5, 5, ( score + collect_num / browse_num ) / 2 ) )
     </update>
 
     <insert id="insertMenuSummary">

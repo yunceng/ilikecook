@@ -99,7 +99,7 @@ public interface FoodMenuInfoMapper {
      *
      * @return
      */
-    Integer getLastCreateCount();
+    Integer getLastCreateCount(@Param("recentDays") int recentDays);
 
     /**
      * 获取最近创建的菜谱

@@ -1,58 +1,58 @@
 package com.colleage.cook.exception;
 
 /**
- * @Classname ConsumeException
+ * @Classname ThirdPartyLoginException
  * @Description TODO
  * @Date 2019\4\11 0011
  * @Created by David
  */
-public class ConsumeException extends RuntimeException {
+public class ThirdPartyLoginException extends RuntimeException {
     private static final long serialVersionUID = -7443213283905815106L;
     private int code;
 
-    public ConsumeException() {
+    public ThirdPartyLoginException() {
     }
 
     /**
-     * ConsumeException
+     * ThirdPartyLoginException
      * @param code 错误代码
      */
-    public ConsumeException(int code) {
+    public ThirdPartyLoginException(int code) {
         super("code=" + code);
         this.code = code;
     }
 
     /**
-     * ConsumeException
+     * ThirdPartyLoginException
      * @param message 错误消息
      */
-    public ConsumeException(String message) {
+    public ThirdPartyLoginException(String message) {
         super(message);
     }
 
     /**
-     * ConsumeException
+     * ThirdPartyLoginException
      * @param cause 捕获的异常
      */
-    public ConsumeException(Throwable cause) {
+    public ThirdPartyLoginException(Throwable cause) {
         super(cause);
     }
 
     /**
-     * ConsumeException
+     * ThirdPartyLoginException
      * @param message 错误消息
      * @param cause 捕获的异常
      */
-    public ConsumeException(String message, Throwable cause) {
+    public ThirdPartyLoginException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * ConsumeException
+     * ThirdPartyLoginException
      * @param code 错误代码
      * @param message 错误消息
      */
-    public ConsumeException(int code, String message) {
+    public ThirdPartyLoginException(int code, String message) {
         super(message);
         this.code = code;
     }
