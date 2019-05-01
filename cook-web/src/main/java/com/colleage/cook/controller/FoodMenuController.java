@@ -47,7 +47,7 @@ public class FoodMenuController {
                                                        defaultValue = PageConstants.DEFAULT_PAGE_SIZE + "") int pageSize) {
 
         WebResponseData webResponseData = new WebResponseData();
-        if (category < 101 || category > 9999) {
+        if (category < 101 || category > 99999) {
             webResponseData.setCode(WebResponseData.Code.PARAM_NOINVALID);
             webResponseData.setMessage(WebResponseData.Message.PARAM_NOINVALID);
         }

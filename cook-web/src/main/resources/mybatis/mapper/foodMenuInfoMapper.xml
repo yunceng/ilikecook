@@ -98,7 +98,7 @@
     </select>
 
     <select id="getMenuByCategoryIdCount" resultType="Integer">
-        select <include refid="Summary_Base_Column_List"></include> from menu_summary
+        select count(1) from menu_summary
         where uuid in (select menu_id from category_menu_rel r where r.category_id = #{category})
     </select>
 
