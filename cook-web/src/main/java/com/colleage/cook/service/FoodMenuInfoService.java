@@ -119,4 +119,20 @@ public interface FoodMenuInfoService {
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.DEFAULT,
             timeout = 3600, rollbackFor = Exception.class)
     boolean createMenu(DetailMenuInfo menu);
+
+    /**
+     * 获取用户创建的菜谱
+     * @param userId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    PageInfo getUserOwnMenus(int userId, int pageNo, int pageSize);
+
+    /**
+     * 获取用户收藏的菜谱
+     * @param userId
+     * @return
+     */
+    PageInfo getUserCollectedMenus(int userId, int pageNo, int pageSize);
 }

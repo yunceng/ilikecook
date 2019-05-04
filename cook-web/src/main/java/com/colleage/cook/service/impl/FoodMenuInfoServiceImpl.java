@@ -41,6 +41,8 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
     @Autowired
     private FoodClassificationInfoMapper foodClassificationInfoMapper;
 
+
+
     @Override
     public PageInfo getMenuByCategoryId(int category, int pageNo, int pageSize) {
         PageInfo pageInfo = new PageInfo(pageNo, pageSize);
@@ -161,6 +163,26 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
         foodMenuInfoMapper.insertMenuFoods(menu.getSummaryInfo().getUuid(), menu.getMenuFoodInfoList());
         foodMenuInfoMapper.insertMenuSteps(menu.getSummaryInfo().getUuid(), menu.getMenuStepInfoList());
         return true;
+    }
+
+    @Override
+    public PageInfo getUserOwnMenus(int userId, int pageNo, int pageSize) {
+        PageInfo pageInfo = new PageInfo(pageNo, pageSize);
+        Integer count = foodMenuInfoMapper.getUserOwnMenusCount(userId);
+        List<MenuSummaryInfo> menus = foodMenuInfoMapper.getUserOwnMenus(userId, pageInfo.getStart(), pageInfo.getPageSize());
+        pageInfo.setCount(count);
+        pageInfo.setData(getSimpleMenuInfoList(menus));
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo getUserCollectedMenus(int userId, int pageNo, int pageSize) {
+        PageInfo pageInfo = new PageInfo(pageNo, pageSize);
+        Integer count = foodMenuInfoMapper.getUserCollectedMenusCount(userId);
+        List<MenuSummaryInfo> menus = foodMenuInfoMapper.getUserCollectedMenus(userId, pageInfo.getStart(), pageInfo.getPageSize());
+        pageInfo.setCount(count);
+        pageInfo.setData(getSimpleMenuInfoList(menus));
+        return pageInfo;
     }
 
     private List<SimpleMenuInfo> getSimpleMenuInfoList(List<MenuSummaryInfo> menuSummaryInfos) {

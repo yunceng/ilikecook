@@ -40,6 +40,25 @@
            id, menu_id, description, img, orderI
     </sql>
 
+    <select id="getUserCollectedMenusCount" resultType="Integer">
+        select count(1) from menu_other_user_rel where user_id = #{userId}
+    </select>
+
+    <select id="getUserCollectedMenus" resultMap="SummaryResultMap">
+        select <include refid="Summary_Base_Column_List"></include> from menu_summary
+        where uuid in (select menu_id from menu_other_user_rel where user_id = #{userId}) limit #{start}, #{limit}
+    </select>
+
+    <select id="getUserOwnMenusCount" resultType="Integer">
+        select count(1) from menu_summary
+        WHERE userId = #{userId}
+    </select>
+
+    <select id="getUserOwnMenus" resultMap="SummaryResultMap">
+        select <include refid="Summary_Base_Column_List"></include> from menu_summary
+        where  userId = #{userId} limit #{start}, #{limit}
+    </select>
+
     <select id="getMenuByLikeWordCount" resultType="Integer">
         select count(1) from menu_summary
         where name like concat(concat(#{word}, '%'), '%')

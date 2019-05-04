@@ -4,6 +4,8 @@ import com.colleage.cook.constants.SessionAttributeKeyConstants;
 import com.colleage.cook.domain.UserInfo;
 import com.colleage.cook.service.FoodMenuInfoService;
 import com.colleage.cook.service.UserInfoService;
+import com.colleage.cook.utils.page.PageConstants;
+import com.colleage.cook.utils.page.PageInfo;
 import com.colleage.cook.vo.DetailMenuInfo;
 import com.colleage.cook.vo.SimpleUserInfo;
 import com.colleage.cook.vo.WebResponseData;
@@ -61,6 +63,48 @@ public class UserController {
         }
         return webResponseData;
     }
+
+    @ApiOperation(value = "获取用户收藏的菜谱", httpMethod = "GET")
+    @GetMapping("getUserCollectedMenus.do")
+    public WebResponseData getUserCollectedMenus(HttpServletRequest request,
+                                                 @RequestParam(required = false, defaultValue = "1") int pageNo,
+                                                 @RequestParam(required = false,
+                                                         defaultValue = PageConstants.DEFAULT_PAGE_SIZE + "") int pageSize){
+        WebResponseData webResponseData = new WebResponseData();
+        try {
+            SimpleUserInfo simpleUserInfo = ((SimpleUserInfo) request.getSession().getAttribute(SessionAttributeKeyConstants.SESSION_USER));
+            PageInfo pageInfo = foodMenuInfoService.getUserCollectedMenus(simpleUserInfo.getId(), pageNo, pageSize);
+            webResponseData.setCode(WebResponseData.Code.SUCCESS);
+            webResponseData.setMessage(WebResponseData.Message.SUCCESS);
+            webResponseData.setData(pageInfo);
+        } catch (Exception e) {
+            webResponseData.setCode(WebResponseData.Code.ERROR);
+            webResponseData.setMessage(WebResponseData.Message.ERROR);
+        }
+        return webResponseData;
+
+    }
+
+    @ApiOperation(value = "获取用户的菜谱", httpMethod = "GET")
+    @GetMapping("getUserOwnMenus.do")
+    public WebResponseData getUserOwnMenus(HttpServletRequest request,
+                                           @RequestParam(required = false, defaultValue = "1") int pageNo,
+                                           @RequestParam(required = false,
+                                                   defaultValue = PageConstants.DEFAULT_PAGE_SIZE + "") int pageSize){
+        WebResponseData webResponseData = new WebResponseData();
+        try {
+            SimpleUserInfo simpleUserInfo = ((SimpleUserInfo) request.getSession().getAttribute(SessionAttributeKeyConstants.SESSION_USER));
+            PageInfo pageInfo = foodMenuInfoService.getUserOwnMenus(simpleUserInfo.getId(), pageNo, pageSize);
+            webResponseData.setCode(WebResponseData.Code.SUCCESS);
+            webResponseData.setMessage(WebResponseData.Message.SUCCESS);
+            webResponseData.setData(pageInfo);
+        } catch (Exception e) {
+            webResponseData.setCode(WebResponseData.Code.ERROR);
+            webResponseData.setMessage(WebResponseData.Message.ERROR);
+        }
+        return webResponseData;
+    }
+
 
     @ApiOperation(value = "获取用户信息", httpMethod = "GET")
     @GetMapping("getDetailUserInfo.do")

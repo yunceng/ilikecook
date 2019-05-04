@@ -16,6 +16,40 @@ import java.util.List;
 public interface FoodMenuInfoMapper {
 
     /**
+     * 获取用户收藏菜谱的数量
+     * @param userId
+     * @return
+     */
+    Integer getUserCollectedMenusCount(@Param("userId") int userId);
+
+    /**
+     * 获取用户收藏的菜谱
+     * @param userId
+     * @param start
+     * @param limit
+     * @return
+     */
+    List<MenuSummaryInfo> getUserCollectedMenus(@Param("userId") int userId, @Param("start") int start, @Param("limit") int limit);
+
+    /**
+     * 获得用户的菜谱数量
+     *
+     * @param userId
+     * @return
+     */
+    Integer getUserOwnMenusCount(@Param("userId") int userId);
+
+    /**
+     * 获得用户的菜谱
+     *
+     * @param userId
+     * @param start
+     * @param limit
+     * @return
+     */
+    List<MenuSummaryInfo> getUserOwnMenus(@Param("userId") int userId, @Param("start") int start, @Param("limit") int limit);
+
+    /**
      * 根据分类查找菜谱数量
      *
      * @param category
