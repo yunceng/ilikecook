@@ -90,6 +90,8 @@ public class WebResponseData implements Serializable {
 
         public static final int PARAM_NOINVALID = -10002;
 
+        public static final int PASSWORD_ERROR = -10003;
+
     }
 
     /**
@@ -122,6 +124,8 @@ public class WebResponseData implements Serializable {
         public static final String UPLOAD_FILE_NOT_NULL = "上传的文件不能为空";
 
         public static final String TRANSFER_FILE_ERROR = "文件传输失败";
+
+        public static final String PASSWORD_ERROR = "原始密码错误";
 
     }
 }

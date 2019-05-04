@@ -76,4 +76,8 @@
 		update user_info set status = #{status} where username = #{username}
 	</update>
 
+	<update id="updatePassword">
+		update user_info set password = #{password} where username = #{username}
+	</update>
+
 </mapper>

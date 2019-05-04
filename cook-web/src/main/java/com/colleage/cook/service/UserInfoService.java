@@ -27,4 +27,7 @@ public interface UserInfoService extends UserDetailsService {
 
     @PreAuthorize("hasRole('ADMIN')")
     boolean recoverNormalAccount(String username);
+
+    @PreAuthorize("principal.username.equals(#username) OR hasRole('ADMIN')")
+    boolean updatePassword(String username, String newPassword);
 }

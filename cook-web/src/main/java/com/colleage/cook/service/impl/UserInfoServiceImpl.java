@@ -103,4 +103,9 @@ public class UserInfoServiceImpl implements UserInfoService {
     public boolean recoverNormalAccount(String username) {
         return userInfoMapper.updateUserStatus(username, UserInfo.Status.NORMAL.getCode());
     }
+
+    @Override
+    public boolean updatePassword(String username, String newPassword) {
+        return userInfoMapper.updatePassword(username, newPassword);
+    }
 }

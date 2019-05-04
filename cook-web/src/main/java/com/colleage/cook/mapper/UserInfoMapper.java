@@ -67,4 +67,12 @@ public interface UserInfoMapper {
      * @return
      */
     boolean updateUserStatus(@Param("username") String username, @Param("status") int status);
+
+    /**
+     * 更新用户密码
+     * @param username
+     * @param password
+     * @return
+     */
+    boolean updatePassword(@Param("username") String username, @Param("password") String password);
 }
