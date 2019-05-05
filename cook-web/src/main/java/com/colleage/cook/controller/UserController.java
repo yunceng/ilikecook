@@ -203,6 +203,13 @@ public class UserController {
         }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserInfo user = ((com.colleage.cook.vo.UserInfo) authentication.getPrincipal()).getUser();
+
+        if(passwordEncoder.matches(newPassword, user.getPassword())){
+            webResponseData.setCode(WebResponseData.Code.NEW_OLD_PASSWORD_EQUAL_ERROR);
+            webResponseData.setMessage(WebResponseData.Message.NEW_OLD_PASSWORD_EQUAL_ERROR);
+            return webResponseData;
+        }
+
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             webResponseData.setCode(WebResponseData.Code.PASSWORD_ERROR);
             webResponseData.setMessage(WebResponseData.Message.PASSWORD_ERROR);

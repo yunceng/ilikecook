@@ -94,6 +94,8 @@ public class WebResponseData implements Serializable {
 
         public static final int UPDATE_PASSWORD_ERROR = -1004;
 
+        public static final int NEW_OLD_PASSWORD_EQUAL_ERROR = -1005;
+
     }
 
     /**
@@ -130,6 +132,8 @@ public class WebResponseData implements Serializable {
         public static final String PASSWORD_ERROR = "原始密码错误";
 
         public static final String UPDATE_PASSWORD_ERROR = "修改密码错误";
+
+        public static final String NEW_OLD_PASSWORD_EQUAL_ERROR = "新旧密码不能相同";
 
     }
 }
