@@ -40,6 +40,11 @@
            id, menu_id, description, img, orderI
     </sql>
 
+    <select id="getMenuRotation" resultMap="SummaryResultMap">
+        select <include refid="Summary_Base_Column_List"></include> from menu_summary
+        where uuid in (select menu_id from menu_rotation_info where status = #{status})
+    </select>
+
     <select id="getUserCollectedMenusCount" resultType="Integer">
         select count(1) from menu_other_user_rel where user_id = #{userId}
     </select>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.colleage.cook.mapper.FoodMenuInfoMapper">
+
+    <resultMap id="SummaryResultMap" type="com.colleage.cook.domain.MenuSummaryInfo">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="cover_img" property="cover_img" jdbcType="VARCHAR"/>
+        <result column="userId" property="userId" jdbcType="INTEGER"/>
+        <result column="description" property="desc" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="FoodResultMap" type="com.colleage.cook.domain.MenuFoodInfo">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="menu_id" property="menu_id" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="num" property="num" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="StepResultMap" type="com.colleage.cook.domain.MenuStepInfo">
+        <id column="id" property="id" jdbcType="INTEGER"></id>
+        <result column="menu_id" property="menu_id" jdbcType="VARCHAR"/>
+        <result column="description" property="desc" jdbcType="VARCHAR"/>
+        <result column="img" property="img" jdbcType="VARCHAR"/>
+        <result column="orderI" property="order" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Summary_Base_Column_List">
+           id, uuid, name, cover_img, userId, description, create_time, score
+    </sql>
+
+    <sql id="Food_Base_Column_List">
+           id, menu_id, name, num
+    </sql>
+
+    <sql id="Step_Base_Column_List">
+           id, menu_id, description, img, orderI
+    </sql>
+
+    <select id="getMenuRotation" resultMap="SummaryResultMap">
+        select <include refid="Summary_Base_Column_List"></include> from menu_summary
+        where uuid in (select menu_id from menu_rotation_info where status = #{status})
+    </select>
+
+    <update id="updateMenuRotationStatus">
+        update menu_rotation_info set status = #{status}, remove_time = now() where menu_id = #{uuid}
+    </update>
+
+</mapper>

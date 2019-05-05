@@ -117,4 +117,18 @@ public class MenuSummaryInfo implements Serializable {
     public void isCollected(boolean collected) {
         isCollected = collected;
     }
+
+    public enum Status{
+        ONLINE(0), OFFLINE(1);
+
+        int code;
+
+        private Status(int code){
+            this.code = code;
+        }
+
+        public int getCode() {
+            return code;
+        }
+    }
 }

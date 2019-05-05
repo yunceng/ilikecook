@@ -185,6 +185,11 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
         return pageInfo;
     }
 
+    @Override
+    public List<MenuSummaryInfo> getOnlineMenuRotation() {
+        return foodMenuInfoMapper.getMenuRotation(MenuSummaryInfo.Status.ONLINE.getCode());
+    }
+
     private List<SimpleMenuInfo> getSimpleMenuInfoList(List<MenuSummaryInfo> menuSummaryInfos) {
         List simpleMenuInfos = new ArrayList<SimpleMenuInfo>();
 

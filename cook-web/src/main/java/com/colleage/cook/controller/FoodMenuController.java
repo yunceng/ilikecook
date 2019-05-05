@@ -33,6 +33,17 @@ public class FoodMenuController {
     @Autowired
     private FoodMenuInfoService foodMenuInfoService;
 
+    @ApiOperation(value = "获取首页轮播菜谱信息", httpMethod = "GET")
+    @GetMapping("getMenuRotation.do")
+    public WebResponseData getMenuRotation(){
+        WebResponseData webResponseData = new WebResponseData();
+        webResponseData.setCode(WebResponseData.Code.SUCCESS);
+        webResponseData.setMessage(WebResponseData.Message.SUCCESS);
+        webResponseData.setData(foodMenuInfoService.getOnlineMenuRotation());
+        return webResponseData;
+
+    }
+
     @ApiImplicitParams(
             value = {
                     @ApiImplicitParam(name = "category", value = "分类ID", paramType = "query", dataType="int", required = true),

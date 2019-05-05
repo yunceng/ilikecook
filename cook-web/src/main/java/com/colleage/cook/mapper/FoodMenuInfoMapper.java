@@ -266,4 +266,10 @@ public interface FoodMenuInfoMapper {
      * @return
      */
     boolean insertMenuSteps(@Param("uuid") String uuid, @Param("menuSteps") List<MenuStepInfo> menuStepInfoList);
+
+    /**
+     * 获取首页轮播菜谱信息
+     * @return
+     */
+    List<MenuSummaryInfo> getMenuRotation(@Param("status") int status);
 }

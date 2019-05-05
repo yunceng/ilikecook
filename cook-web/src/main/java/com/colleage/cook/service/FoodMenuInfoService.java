@@ -1,5 +1,6 @@
 package com.colleage.cook.service;
 
+import com.colleage.cook.domain.MenuSummaryInfo;
 import com.colleage.cook.utils.page.PageInfo;
 import com.colleage.cook.vo.DetailMenuInfo;
 import com.colleage.cook.vo.SimpleMenuInfo;
@@ -135,4 +136,10 @@ public interface FoodMenuInfoService {
      * @return
      */
     PageInfo getUserCollectedMenus(int userId, int pageNo, int pageSize);
+
+    /**
+     * 获取首页轮播菜谱信息
+     * @return
+     */
+    List<MenuSummaryInfo> getOnlineMenuRotation();
 }
