@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * @Classname WebResponseData
- * @Description TODO
+ * @Description 网络响应码和消息
  * @Date 2019\4\15 0015
  * @Created by David
  */
@@ -86,11 +86,13 @@ public class WebResponseData implements Serializable {
         /**
          * 业务级别的错误码全部小于-10000
          */
-        public static final int PARAM_NOT_NULL = -10001;
+        public static final int PARAM_NOT_NULL = -1001;
 
-        public static final int PARAM_NOINVALID = -10002;
+        public static final int PARAM_NOINVALID = -1002;
 
-        public static final int PASSWORD_ERROR = -10003;
+        public static final int PASSWORD_ERROR = -1003;
+
+        public static final int UPDATE_PASSWORD_ERROR = -1004;
 
     }
 
@@ -126,6 +128,8 @@ public class WebResponseData implements Serializable {
         public static final String TRANSFER_FILE_ERROR = "文件传输失败";
 
         public static final String PASSWORD_ERROR = "原始密码错误";
+
+        public static final String UPDATE_PASSWORD_ERROR = "修改密码错误";
 
     }
 }

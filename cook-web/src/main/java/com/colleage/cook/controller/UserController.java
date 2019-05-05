@@ -13,14 +13,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -70,6 +68,11 @@ public class UserController {
         return webResponseData;
     }
 
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "pageNo", value = "页号", paramType = "query", dataType = "int"),
+                    @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "int")
+            })
     @ApiOperation(value = "获取用户收藏的菜谱", httpMethod = "GET")
     @GetMapping("getUserCollectedMenus.do")
     public WebResponseData getUserCollectedMenus(HttpServletRequest request,
@@ -91,6 +94,11 @@ public class UserController {
 
     }
 
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "pageNo", value = "页号", paramType = "query", dataType = "int"),
+                    @ApiImplicitParam(name = "pageSize", value = "页大小", paramType = "query", dataType = "int")
+            })
     @ApiOperation(value = "获取用户的菜谱", httpMethod = "GET")
     @GetMapping("getUserOwnMenus.do")
     public WebResponseData getUserOwnMenus(HttpServletRequest request,
@@ -179,6 +187,11 @@ public class UserController {
         }
     }
 
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "oldPassword", value = "旧密码", paramType = "form", dataType = "string", required = true),
+                    @ApiImplicitParam(name = "newPassword", value = "新密码", paramType = "form", dataType = "string", required = true)
+            })
     @ApiOperation(value = "更新用户密码", httpMethod = "POST")
     @PostMapping("updatePassword.do")
     public WebResponseData updatePassword(String oldPassword, String newPassword) {
@@ -186,19 +199,21 @@ public class UserController {
         if (StringUtils.isBlank(oldPassword) || StringUtils.isBlank(newPassword)) {
             webResponseData.setCode(WebResponseData.Code.PARAM_NOT_NULL);
             webResponseData.setMessage(WebResponseData.Message.PARAM_NOT_NULL);
+            return webResponseData;
         }
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserInfo user = ((com.colleage.cook.vo.UserInfo) authentication.getPrincipal()).getUser();
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             webResponseData.setCode(WebResponseData.Code.PASSWORD_ERROR);
             webResponseData.setMessage(WebResponseData.Message.PASSWORD_ERROR);
+            return webResponseData;
         }
-        if(userInfoService.updatePassword(user.getUsername(), passwordEncoder.encode(newPassword))){
+        if (userInfoService.updatePassword(user.getUsername(), passwordEncoder.encode(newPassword))) {
             webResponseData.setCode(WebResponseData.Code.SUCCESS);
             webResponseData.setMessage(WebResponseData.Message.SUCCESS);
-        }else {
-            webResponseData.setCode(WebResponseData.Code.ERROR);
-            webResponseData.setMessage(WebResponseData.Message.ERROR);
+        } else {
+            webResponseData.setCode(WebResponseData.Code.UPDATE_PASSWORD_ERROR);
+            webResponseData.setMessage(WebResponseData.Message.UPDATE_PASSWORD_ERROR);
         }
         return webResponseData;
     }

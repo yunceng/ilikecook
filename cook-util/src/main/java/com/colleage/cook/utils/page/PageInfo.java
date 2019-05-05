@@ -84,10 +84,7 @@ public class PageInfo {
     }
 
     public void setLastPage() {
-        lastPage = currentPage;
-        if (currentPage > 1) {
-            lastPage = currentPage - 1;
-        }
+        lastPage = totalPages;
     }
 
     public int getPageSize() {
