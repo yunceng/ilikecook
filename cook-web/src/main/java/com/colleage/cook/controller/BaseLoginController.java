@@ -33,16 +33,14 @@ public class BaseLoginController {
     @Autowired
     protected AuthenticationManager authenticationManager;
 
-    protected String doLogin(HttpServletRequest request, String username, String password) {
+    protected WebResponseData doLogin(HttpServletRequest request, String username, String password) {
         WebResponseData responseData = new WebResponseData();
         if (StringUtils.isNullOrEmpty(username) || StringUtils.isNullOrEmpty(password)) {
             responseData.setCode(WebResponseData.Code.LOGIN_ERROR);
             responseData.setMessage(WebResponseData.Message.LOGIN_PARAMS_NOT_NULL);
         }
-
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username,
                 password);
-
         try {
             Authentication authenticate = authenticationManager.authenticate(authRequest);
             SecurityContextHolder.getContext().setAuthentication(authenticate);
@@ -50,9 +48,8 @@ public class BaseLoginController {
         } catch (AuthenticationException e) {
             responseData.setCode(WebResponseData.Code.LOGIN_ERROR);
             responseData.setMessage(WebResponseData.Message.LOGIN_PARAMS_ERROR);
-            return LOGIN_VIEW;
         }
-        return REDIRECT_INDEX_REQUEST;
+        return responseData;
     }
 
 }

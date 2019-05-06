@@ -5,6 +5,7 @@ import com.colleage.cook.constants.SystemInfoConstants;
 import com.colleage.cook.domain.UserInfo;
 import com.colleage.cook.oauth.bean.OauthTypeEnum;
 import com.colleage.cook.utils.constants.FileStorePathConstants;
+import com.colleage.cook.vo.WebResponseData;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,10 +49,14 @@ public class LoginController extends BaseLoginController {
     }
 
     @PostMapping("register.do")
-    public String register(HttpServletRequest request, @RequestParam(required = false) String username,
-                           @RequestParam(required = false) String nickname,
-                           @RequestParam(required = false) String email,
-                           @RequestParam(required = false) String password) {
+    @ResponseBody
+    public WebResponseData register(HttpServletRequest request, String username, String password,
+                                    @RequestParam(required = false) String nickname,
+                                    @RequestParam(required = false) String email) {
+        if(StringUtils.isBlank(username) || StringUtils.isBlank(password)){
+            return new WebResponseData(WebResponseData.Code.PARAM_NOT_NULL, WebResponseData.Message.PARAM_NOT_NULL);
+        }
+
         UserInfo userInfo = new UserInfo();
         userInfo.setUsername(username);
         userInfo.setPassword(passwordEncoder.encode(password));
