@@ -54,7 +54,7 @@ public class LoginController extends BaseLoginController {
                                     @RequestParam(required = false) String nickname,
                                     @RequestParam(required = false) String email) {
         if(StringUtils.isBlank(username) || StringUtils.isBlank(password)){
-            return new WebResponseData(WebResponseData.Code.PARAM_NOT_NULL, WebResponseData.Message.PARAM_NOT_NULL);
+            return WebResponseData.paramIsNull();
         }
 
         UserInfo userInfo = new UserInfo();

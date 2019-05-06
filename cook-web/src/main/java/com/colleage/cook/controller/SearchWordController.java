@@ -33,15 +33,11 @@ public class SearchWordController {
     @ApiOperation(value = "根据用户输入提示相应的关键词列表", httpMethod = "GET")
     @GetMapping("search.do")
     public WebResponseData getSearchWords(String word) {
-        WebResponseData webResponseData = new WebResponseData();
-        if (StringUtils.isNullOrEmpty(word)) {
-            webResponseData.setCode(WebResponseData.Code.PARAM_NOT_NULL);
-            webResponseData.setMessage(WebResponseData.Message.PARAM_NOT_NULL);
-            return webResponseData;
-        }
 
-        webResponseData.setCode(WebResponseData.Code.SUCCESS);
-        webResponseData.setMessage(WebResponseData.Message.SUCCESS);
+        if (StringUtils.isNullOrEmpty(word)) {
+            return WebResponseData.paramIsNull();
+        }
+        WebResponseData webResponseData = WebResponseData.success();
         webResponseData.setData(searchWordInfoService.getSearchWords(word));
         return webResponseData;
     }

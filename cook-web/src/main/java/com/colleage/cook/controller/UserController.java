@@ -57,8 +57,9 @@ public class UserController {
             if (StringUtils.isNotBlank(uuid) && foodMenuInfoService.updateMenuCollectNum(userId, uuid)) {
                 webResponseData.setCode(WebResponseData.Code.SUCCESS);
                 webResponseData.setMessage(WebResponseData.Message.SUCCESS);
+                return webResponseData;
             } else {
-                webResponseData.setCode(WebResponseData.Code.ERROR);
+                webResponseData.setCode(WebResponseData.Code.PARAM_NOT_NULL);
                 webResponseData.setMessage(WebResponseData.Message.PARAM_NOT_NULL);
             }
         } catch (Exception e) {
@@ -150,19 +151,15 @@ public class UserController {
     @ApiOperation(value = "更新用户信息", httpMethod = "POST")
     @PostMapping("updateUserInfo.do")
     public WebResponseData updateUserInfo(String username, String nickname, Integer gender, String avatar, String email, String mobile) {
-        WebResponseData webResponseData = new WebResponseData();
         try {
             if (StringUtils.isBlank(username) || gender == null) {
                 throw new NullPointerException();
             }
             userInfoService.updateUserInfo(username, nickname, gender, avatar, email, mobile);
-            webResponseData.setCode(WebResponseData.Code.SUCCESS);
-            webResponseData.setMessage(WebResponseData.Message.SUCCESS);
+            return WebResponseData.success();
         } catch (Exception e) {
-            webResponseData.setCode(WebResponseData.Code.ERROR);
-            webResponseData.setMessage(WebResponseData.Message.ERROR);
+           return WebResponseData.error();
         }
-        return webResponseData;
     }
 
     @ApiOperation(value = "创建菜谱", httpMethod = "POST")
@@ -175,15 +172,15 @@ public class UserController {
         // 解析数据
         if (menuInfo == null || menuInfo.getSummaryInfo() == null || menuInfo.getMenuFoodInfoList() == null
                 || menuInfo.getMenuStepInfoList() == null) {
-            return new WebResponseData(WebResponseData.Code.PARAM_NOINVALID, WebResponseData.Message.PARAM_NOINVALID);
+            return WebResponseData.paramIsNull();
         }
         try {
             SimpleUserInfo userInfo = ((SimpleUserInfo) request.getSession().getAttribute(SessionAttributeKeyConstants.SESSION_USER));
             menuInfo.setUser(userInfo);
             foodMenuInfoService.createMenu(menuInfo);
-            return new WebResponseData(WebResponseData.Code.SUCCESS, WebResponseData.Message.SUCCESS);
+            return WebResponseData.success();
         } catch (Exception e) {
-            return new WebResponseData(WebResponseData.Code.ERROR, WebResponseData.Message.ERROR);
+            return WebResponseData.error();
         }
     }
 
@@ -195,12 +192,11 @@ public class UserController {
     @ApiOperation(value = "更新用户密码", httpMethod = "POST")
     @PostMapping("updatePassword.do")
     public WebResponseData updatePassword(String oldPassword, String newPassword) {
-        WebResponseData webResponseData = new WebResponseData();
         if (StringUtils.isBlank(oldPassword) || StringUtils.isBlank(newPassword)) {
-            webResponseData.setCode(WebResponseData.Code.PARAM_NOT_NULL);
-            webResponseData.setMessage(WebResponseData.Message.PARAM_NOT_NULL);
-            return webResponseData;
+            return WebResponseData.paramIsNull();
         }
+
+        WebResponseData webResponseData = new WebResponseData();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserInfo user = ((com.colleage.cook.vo.UserInfo) authentication.getPrincipal()).getUser();
 
@@ -209,12 +205,12 @@ public class UserController {
             webResponseData.setMessage(WebResponseData.Message.NEW_OLD_PASSWORD_EQUAL_ERROR);
             return webResponseData;
         }
-
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             webResponseData.setCode(WebResponseData.Code.PASSWORD_ERROR);
             webResponseData.setMessage(WebResponseData.Message.PASSWORD_ERROR);
             return webResponseData;
         }
+
         if (userInfoService.updatePassword(user.getUsername(), passwordEncoder.encode(newPassword))) {
             webResponseData.setCode(WebResponseData.Code.SUCCESS);
             webResponseData.setMessage(WebResponseData.Message.SUCCESS);

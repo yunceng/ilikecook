@@ -66,6 +66,46 @@ public class WebResponseData implements Serializable {
     }
 
     /**
+     * 成功的响应
+     * @return
+     */
+    public static WebResponseData success(){
+        return new WebResponseData(Code.SUCCESS, Message.SUCCESS);
+    }
+
+    /**
+     * 错误的响应
+     * @return
+     */
+    public static WebResponseData error(){
+        return new WebResponseData(Code.ERROR, Message.ERROR);
+    }
+
+    /**
+     * 参数为空的响应
+     * @return
+     */
+    public static WebResponseData paramIsNull(){
+        return new WebResponseData(Code.PARAM_NOT_NULL, Message.PARAM_NOT_NULL);
+    }
+
+    /**
+     * 参数不符合要求的响应
+     * @return
+     */
+    public static WebResponseData paramInvalid(){
+        return new WebResponseData(Code.PARAM_NOINVALID, Message.PARAM_NOINVALID);
+    }
+
+    /**
+     * 没有权限的响应
+     * @return
+     */
+    public static WebResponseData noPrivilege(){
+        return new WebResponseData(Code.NO_PRIVILEGES, Message.NO_PRIVILEGES);
+    }
+
+    /**
      * 返回消息的状态码常量
      */
     public static class Code {

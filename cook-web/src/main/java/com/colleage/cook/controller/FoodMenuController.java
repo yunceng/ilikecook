@@ -56,14 +56,10 @@ public class FoodMenuController {
                                                @RequestParam(required = false, defaultValue = "1") int pageNo,
                                                @RequestParam(required = false,
                                                        defaultValue = PageConstants.DEFAULT_PAGE_SIZE + "") int pageSize) {
-
-        WebResponseData webResponseData = new WebResponseData();
         if (category < 101 || category > 99999) {
-            webResponseData.setCode(WebResponseData.Code.PARAM_NOINVALID);
-            webResponseData.setMessage(WebResponseData.Message.PARAM_NOINVALID);
+            return WebResponseData.paramInvalid();
         }
-        webResponseData.setCode(WebResponseData.Code.SUCCESS);
-        webResponseData.setMessage(WebResponseData.Message.SUCCESS);
+        WebResponseData webResponseData = WebResponseData.success();
         webResponseData.setData(foodMenuInfoService.getMenuByCategoryId(category, pageNo, pageSize));
         return webResponseData;
     }
@@ -91,15 +87,11 @@ public class FoodMenuController {
                                              @RequestParam(required = false, defaultValue = "1") int pageNo,
                                              @RequestParam(required = false,
                                                      defaultValue = PageConstants.DEFAULT_PAGE_SIZE + "") int pageSize) {
-        WebResponseData webResponseData = new WebResponseData();
         if (StringUtils.isNullOrEmpty(word)) {
-            webResponseData.setCode(WebResponseData.Code.PARAM_NOT_NULL);
-            webResponseData.setMessage(WebResponseData.Message.PARAM_NOT_NULL);
-            return webResponseData;
+            return WebResponseData.paramIsNull();
         }
+        WebResponseData webResponseData = WebResponseData.success();
         webResponseData.setData(foodMenuInfoService.getMenuByLikeWord(word, pageNo, pageSize));
-        webResponseData.setCode(WebResponseData.Code.SUCCESS);
-        webResponseData.setMessage(WebResponseData.Message.SUCCESS);
         return webResponseData;
     }
 
