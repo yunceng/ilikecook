@@ -13,12 +13,14 @@ import com.colleage.cook.utils.ImageUtils;
 import com.colleage.cook.utils.constants.FileStorePathConstants;
 import com.colleage.cook.utils.upload.FileRepo;
 import com.colleage.cook.utils.upload.impl.FileRepoImpl;
+import com.colleage.cook.vo.WebResponseData;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
@@ -71,7 +73,8 @@ public class ThirdPartyLoginController extends BaseLoginController {
      * @return
      */
     @RequestMapping("/qq_callback")
-    public String callback4QQ(String code, String state, HttpServletRequest request, ModelMap model) {
+    @ResponseBody
+    public WebResponseData callback4QQ(String code, String state, HttpServletRequest request, ModelMap model) {
         // --
         String session_state = (String) request.getSession().getAttribute(SESSION_STATE);
         // 取消了授权
@@ -102,7 +105,7 @@ public class ThirdPartyLoginController extends BaseLoginController {
 
         if (thirdToken == null) {
             model.put("open", openOauth);
-            return OAUTH_REGISTERV;
+            return WebResponseData.error();
         }
         String username = userInfoService.getUserInfoByUserId(thirdToken.getUser_id()).getUsername();
         return doLogin(request, username, thirdToken.getAccess_token());
@@ -117,7 +120,8 @@ public class ThirdPartyLoginController extends BaseLoginController {
      * @throws Exception
      */
     @RequestMapping("/bind_oauth")
-    public String bindOauth(UserOpenOauthInfo openOauth, HttpServletRequest request) throws Exception {
+    @ResponseBody
+    public WebResponseData bindOauth(UserOpenOauthInfo openOauth, HttpServletRequest request) throws Exception {
         UserOpenOauthInfo thirdToken = openOauthService.getOauthByOauthUserId(openOauth.getOauth_user_id());
         String username = openOauth.getUsername();
 

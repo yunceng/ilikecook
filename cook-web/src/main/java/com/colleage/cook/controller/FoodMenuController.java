@@ -36,9 +36,7 @@ public class FoodMenuController {
     @ApiOperation(value = "获取首页轮播菜谱信息", httpMethod = "GET")
     @GetMapping("getMenuRotation.do")
     public WebResponseData getMenuRotation(){
-        WebResponseData webResponseData = new WebResponseData();
-        webResponseData.setCode(WebResponseData.Code.SUCCESS);
-        webResponseData.setMessage(WebResponseData.Message.SUCCESS);
+        WebResponseData webResponseData = WebResponseData.success();
         webResponseData.setData(foodMenuInfoService.getOnlineMenuRotation());
         return webResponseData;
 
@@ -67,11 +65,9 @@ public class FoodMenuController {
     @ApiOperation(value = "获得推荐菜谱信息", httpMethod = "GET")
     @GetMapping("getRecommendMenus.do")
     public WebResponseData getRecommendMenus() {
-        WebResponseData webResponseData = new WebResponseData();
+        WebResponseData webResponseData = WebResponseData.success();
         webResponseData.setData(foodMenuInfoService.getRecommendMenu(PageConstants.DEFAULT_PAGE_NO,
                 PageConstants.DEFAULT_PAGE_SIZE));
-        webResponseData.setCode(WebResponseData.Code.SUCCESS);
-        webResponseData.setMessage(WebResponseData.Message.SUCCESS);
         return webResponseData;
     }
 
@@ -162,11 +158,8 @@ public class FoodMenuController {
     @ApiOperation(value = "获得菜谱的详细信息", httpMethod = "GET")
     @GetMapping("getDetailMenuInfo.do")
     public WebResponseData getDetailMenuInfo(HttpServletRequest request, String uuid) {
-        WebResponseData webResponseData = new WebResponseData();
         if (StringUtils.isNullOrEmpty(uuid)) {
-            webResponseData.setCode(WebResponseData.Code.PARAM_NOT_NULL);
-            webResponseData.setMessage(WebResponseData.Message.PARAM_NOT_NULL);
-            return webResponseData;
+            return WebResponseData.paramIsNull();
         }
 
         Integer userId = 0;
@@ -175,8 +168,7 @@ public class FoodMenuController {
         }
 
         MENU_BROWSE_NUMS.put(uuid, MENU_BROWSE_NUMS.getOrDefault(uuid, 0) + 1);
-        webResponseData.setCode(WebResponseData.Code.SUCCESS);
-        webResponseData.setMessage(WebResponseData.Message.SUCCESS);
+        WebResponseData webResponseData = WebResponseData.success();
         webResponseData.setData(foodMenuInfoService.getDetailMenuInfo(userId, uuid));
         return webResponseData;
     }

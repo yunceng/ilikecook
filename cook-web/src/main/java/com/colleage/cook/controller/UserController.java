@@ -51,20 +51,16 @@ public class UserController {
     @ApiOperation(value = "收藏菜谱", httpMethod = "POST")
     @PostMapping("collectMenu.do")
     public WebResponseData collectMenu(HttpServletRequest request, String uuid) {
-        WebResponseData webResponseData = new WebResponseData();
+        WebResponseData webResponseData;
         try {
             Integer userId = ((SimpleUserInfo) request.getSession().getAttribute(SESSION_USER)).getId();
             if (StringUtils.isNotBlank(uuid) && foodMenuInfoService.updateMenuCollectNum(userId, uuid)) {
-                webResponseData.setCode(WebResponseData.Code.SUCCESS);
-                webResponseData.setMessage(WebResponseData.Message.SUCCESS);
-                return webResponseData;
+                webResponseData = WebResponseData.success();
             } else {
-                webResponseData.setCode(WebResponseData.Code.PARAM_NOT_NULL);
-                webResponseData.setMessage(WebResponseData.Message.PARAM_NOT_NULL);
+                webResponseData = WebResponseData.paramIsNull();
             }
         } catch (Exception e) {
-            webResponseData.setCode(WebResponseData.Code.ERROR);
-            webResponseData.setMessage(WebResponseData.Message.COLLECT_MENU_ERROR);
+            webResponseData = new WebResponseData(WebResponseData.Code.ERROR, WebResponseData.Message.COLLECT_MENU_ERROR);
         }
         return webResponseData;
     }
@@ -80,16 +76,14 @@ public class UserController {
                                                  @RequestParam(required = false, defaultValue = "1") int pageNo,
                                                  @RequestParam(required = false,
                                                          defaultValue = PageConstants.DEFAULT_PAGE_SIZE + "") int pageSize) {
-        WebResponseData webResponseData = new WebResponseData();
+        WebResponseData webResponseData;
         try {
             SimpleUserInfo simpleUserInfo = ((SimpleUserInfo) request.getSession().getAttribute(SessionAttributeKeyConstants.SESSION_USER));
             PageInfo pageInfo = foodMenuInfoService.getUserCollectedMenus(simpleUserInfo.getId(), pageNo, pageSize);
-            webResponseData.setCode(WebResponseData.Code.SUCCESS);
-            webResponseData.setMessage(WebResponseData.Message.SUCCESS);
+            webResponseData = WebResponseData.success();
             webResponseData.setData(pageInfo);
         } catch (Exception e) {
-            webResponseData.setCode(WebResponseData.Code.ERROR);
-            webResponseData.setMessage(WebResponseData.Message.ERROR);
+            webResponseData = WebResponseData.error();
         }
         return webResponseData;
 
@@ -106,16 +100,14 @@ public class UserController {
                                            @RequestParam(required = false, defaultValue = "1") int pageNo,
                                            @RequestParam(required = false,
                                                    defaultValue = PageConstants.DEFAULT_PAGE_SIZE + "") int pageSize) {
-        WebResponseData webResponseData = new WebResponseData();
+        WebResponseData webResponseData;
         try {
             SimpleUserInfo simpleUserInfo = ((SimpleUserInfo) request.getSession().getAttribute(SessionAttributeKeyConstants.SESSION_USER));
             PageInfo pageInfo = foodMenuInfoService.getUserOwnMenus(simpleUserInfo.getId(), pageNo, pageSize);
-            webResponseData.setCode(WebResponseData.Code.SUCCESS);
-            webResponseData.setMessage(WebResponseData.Message.SUCCESS);
+            webResponseData = WebResponseData.success();
             webResponseData.setData(pageInfo);
         } catch (Exception e) {
-            webResponseData.setCode(WebResponseData.Code.ERROR);
-            webResponseData.setMessage(WebResponseData.Message.ERROR);
+            webResponseData = WebResponseData.error();
         }
         return webResponseData;
     }
@@ -124,17 +116,15 @@ public class UserController {
     @ApiOperation(value = "获取用户信息", httpMethod = "GET")
     @GetMapping("getDetailUserInfo.do")
     public WebResponseData getUserInfo(HttpServletRequest request) {
-        WebResponseData webResponseData = new WebResponseData();
+        WebResponseData webResponseData;
         try {
             SimpleUserInfo simpleUserInfo = ((SimpleUserInfo) request.getSession().getAttribute(SessionAttributeKeyConstants.SESSION_USER));
             UserInfo userInfo = userInfoService.getUserInfoByUsername(simpleUserInfo.getUsername());
             userInfo.setPassword("");
-            webResponseData.setCode(WebResponseData.Code.SUCCESS);
-            webResponseData.setMessage(WebResponseData.Message.SUCCESS);
+            webResponseData = WebResponseData.success();
             webResponseData.setData(userInfo);
         } catch (Exception e) {
-            webResponseData.setCode(WebResponseData.Code.ERROR);
-            webResponseData.setMessage(WebResponseData.Message.ERROR);
+            webResponseData = WebResponseData.error();
         }
         return webResponseData;
     }
