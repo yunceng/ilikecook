@@ -63,7 +63,7 @@ public class LoginController extends BaseLoginController {
         String avatar = AccessDataCacheConstants.all_system_info.get(FileStorePathConstants.APP_CONTEXT_IMG
                 + File.separator + SystemInfoConstants.DEFAULT_USER_AVATAR);
         userInfo.setAvatar(avatar);
-        userInfo.setNickname(nickname);
+        userInfo.setNickname(StringUtils.isBlank(nickname) ? username : nickname);
         userInfo.setGender(1);
         userInfo.setOauth_type(OauthTypeEnum.TYPE_NULL.getValue());
         userInfo.setEmail(email);
