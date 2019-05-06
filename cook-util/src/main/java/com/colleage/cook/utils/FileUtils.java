@@ -34,11 +34,21 @@ public class FileUtils {
         return false;
     }
 
+    /**
+     * 获取文件名
+     * @param path
+     * @return
+     */
     public static String getFilename(String path) {
         int pos = path.lastIndexOf(File.separator);
         return path.substring(pos + 1);
     }
 
+    /**
+     * 获取文件后缀
+     * @param filename
+     * @return
+     */
     public static String getSuffix(String filename) {
         int pos = filename.lastIndexOf(".");
         return filename.substring(pos + 1);

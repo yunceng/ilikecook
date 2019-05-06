@@ -33,7 +33,15 @@ public class HttpUtils {
 		client.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, StandardCharsets.UTF_8);
 		return client;
 	}
-	
+
+	/**
+	 * 模拟发送post请求
+	 * @param url
+	 * @param params
+	 * @return
+	 * @throws HttpException
+	 * @throws IOException
+	 */
 	public static String post(String url, Map<String, String> params) throws HttpException, IOException {
 		HttpClient client = getClient();
 		

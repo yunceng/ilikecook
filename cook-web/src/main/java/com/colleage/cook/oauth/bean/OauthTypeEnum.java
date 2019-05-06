@@ -4,7 +4,7 @@ import com.colleage.cook.exception.ThirdPartyLoginException;
 
 /**
  * @Classname OauthTypeEnum
- * @Description TODO
+ * @Description 第三方认证的类型
  * @Date 2019\4\16 0016
  * @Created by David
  */

@@ -118,6 +118,9 @@ public class MenuSummaryInfo implements Serializable {
         isCollected = collected;
     }
 
+    /**
+     * 菜谱状态
+     */
     public enum Status{
         ONLINE(0), OFFLINE(1);
 

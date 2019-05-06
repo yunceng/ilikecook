@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @Classname PrivilegeInfo
- * @Description TODO
+ * @Description 用户权限信息
  * @Date 2019\4\12 0012
  * @Created by David
  */

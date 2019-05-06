@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * @Classname OauthDouban
- * @Description TODO
+ * @Description 豆瓣认证
  * @Date 2019\4\16 0016
  * @Created by David
  */

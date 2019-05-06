@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 /**
  * @Classname WebMvcConfigurerConfiguration
- * @Description TODO
+ * @Description 配置webmvc
  * @Date 2019\4\24 0024
  * @Created by David
  */

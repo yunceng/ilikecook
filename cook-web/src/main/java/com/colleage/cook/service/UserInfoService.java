@@ -5,6 +5,12 @@ import com.colleage.cook.vo.SimpleUserInfo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+/**
+ * @Classname UserInfoService
+ * @Description 用户信息访问接口
+ * @Date 2019\4\11 0011
+ * @Created by David
+ */
 public interface UserInfoService extends UserDetailsService {
 
     UserInfo getUserInfoByUsername(String username);

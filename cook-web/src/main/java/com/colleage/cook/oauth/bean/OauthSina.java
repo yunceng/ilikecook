@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * @Classname OauthSina
- * @Description TODO
+ * @Description 新浪认证
  * @Date 2019\4\16 0016
  * @Created by David
  */

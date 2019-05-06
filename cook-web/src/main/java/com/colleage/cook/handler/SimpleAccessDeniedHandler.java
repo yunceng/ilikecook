@@ -14,7 +14,7 @@ import java.io.PrintWriter;
 
 /**
  * @Classname SimpleAccessDeniedHandler
- * @Description TODO
+ * @Description 权限检查被拒绝后的处理
  * @Date 2019\4\18 0018
  * @Created by David
  */

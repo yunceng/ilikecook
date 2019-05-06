@@ -22,6 +22,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * @Classname UserInfoServiceImpl
+ * @Description 用户信息访问接口实现
+ * @Date 2019\4\11 0011
+ * @Created by David
+ */
 @Service("userInfoService")
 public class UserInfoServiceImpl implements UserInfoService {
 

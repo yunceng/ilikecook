@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * @Classname SearchWordInfoServiceImpl
- * @Description TODO
+ * @Description 搜索关键词接口实现
  * @Date 2019\4\25 0025
  * @Created by David
  */

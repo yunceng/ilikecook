@@ -19,7 +19,12 @@ import java.net.URL;
  * @Created by David
  */
 public class URLUtils {
-	
+
+	/**
+	 * 从url中获取域名
+	 * @param link
+	 * @return
+	 */
 	public static String getHost(String link) {
 		URL url;
 		String host = "";

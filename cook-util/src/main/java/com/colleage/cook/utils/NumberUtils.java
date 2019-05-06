@@ -13,6 +13,11 @@ import java.util.Set;
  */
 public class NumberUtils {
 
+    /**
+     * 将Object转为Integer类型
+     * @param obj
+     * @return
+     */
     public static int changeToInt(Object obj) {
         int i = 0;
         if (obj != null && StringUtils.isNumeric(obj.toString())) {
@@ -21,6 +26,11 @@ public class NumberUtils {
         return i;
     }
 
+    /**
+     * 将String转为Set
+     * @param ids
+     * @return
+     */
     public static Set<Long> toList(String ids) {
         Set<Long> ret = new HashSet<>();
         if (StringUtils.isNotBlank(ids)) {

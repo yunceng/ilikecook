@@ -11,7 +11,7 @@ import java.util.Collection;
 
 /**
  * @Classname SimplePermisstionEvaluator
- * @Description TODO
+ * @Description 简单的权限检查实现
  * @Date 2019\4\16 0016
  * @Created by David
  */

@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 
 /**
  * @Classname SimpleLogoutSuccessHandler
- * @Description TODO
+ * @Description 登出处理
  * @Date 2019\4\18 0018
  * @Created by David
  */

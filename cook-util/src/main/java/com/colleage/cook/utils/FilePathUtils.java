@@ -13,7 +13,12 @@ public class FilePathUtils {
 	private static String template = "%09d";
 	private static int[] grids = new int[] {3,2,2,2};
 	private static int length = 9;
-	
+
+	/**
+	 * 获取用户头像的名称
+	 * @param key
+	 * @return
+	 */
 	public static String getAvatar(long key) {
 		String r = String.format(template, key);
 		StringBuffer buf = new StringBuffer(32);

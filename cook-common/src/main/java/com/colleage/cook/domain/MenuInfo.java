@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @Classname MenuInfo
- * @Description TODO
+ * @Description 项目菜单详情
  * @Date 2019\4\12 0012
  * @Created by David
  */

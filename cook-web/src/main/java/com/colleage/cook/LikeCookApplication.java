@@ -17,6 +17,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * 项目启动类
+ */
+
+//启用事务管理
 @EnableTransactionManagement
 @SpringBootApplication
 @MapperScan(value = "com.colleage.cook.mapper")

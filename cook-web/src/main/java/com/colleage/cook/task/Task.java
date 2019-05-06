@@ -74,6 +74,9 @@ public class Task {
         }
     }
 
+    /**
+     * 保存菜谱浏览数量
+     */
     @Scheduled(cron = "0 15 0 * * ?")
     public void saveMenuBrowseNums() {
         Map<String, Integer> data = new ConcurrentHashMap<>(MENU_BROWSE_NUMS);
@@ -86,6 +89,9 @@ public class Task {
         }
     }
 
+    /**
+     * 加载分类信息，一次加载永久使用
+     */
     @PostConstruct
     @Scheduled(cron = "0 25 0 * * ?")
     public void getClassification() {

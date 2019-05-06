@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * @Classname RoleInfo
- * @Description TODO
+ * @Description 角色信息
  * @Date 2019\4\12 0012
  * @Created by David
  */

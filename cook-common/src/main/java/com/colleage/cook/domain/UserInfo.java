@@ -198,6 +198,9 @@ public class UserInfo implements Serializable{
         return String.format("%s, username: %s, status: %d", getClass(), username, status);
     }
 
+    /**
+     * 用户的状态
+     */
     public enum Status {
         NORMAL(0), ACCOUNT_LOCK(1), ACCOUNT_BLACK(2);
 

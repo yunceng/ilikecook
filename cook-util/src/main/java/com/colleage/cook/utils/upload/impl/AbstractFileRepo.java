@@ -39,6 +39,10 @@ public abstract class AbstractFileRepo implements FileRepo {
     // 文件允许格式
     protected String[] allowFiles = {".gif", ".png", ".jpg", ".jpeg", ".bmp"};
 
+    /**
+     * 验证文件是否为空，并且验证是否支持其格式
+     * @param file
+     */
     protected void validateFile(MultipartFile file) {
         if (file == null || file.isEmpty()) {
             throw new FileNotNullException();
@@ -66,6 +70,11 @@ public abstract class AbstractFileRepo implements FileRepo {
         return false;
     }
 
+    /**
+     * 获取文件后缀
+     * @param filename
+     * @return
+     */
     protected String getExt(String filename) {
         int pos = filename.lastIndexOf(".");
         return filename.substring(pos + 1);

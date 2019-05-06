@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @Classname OpenOauthServiceImpl
- * @Description TODO
+ * @Description 认证信息数据业务操作实现类
  * @Date 2019\4\16 0016
  * @Created by David
  */
