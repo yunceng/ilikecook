@@ -45,6 +45,7 @@ public class BaseLoginController {
             Authentication authenticate = authenticationManager.authenticate(authRequest);
             SecurityContextHolder.getContext().setAuthentication(authenticate);
             request.getSession().setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+            responseData = WebResponseData.success();
         } catch (AuthenticationException e) {
             responseData.setCode(WebResponseData.Code.LOGIN_ERROR);
             responseData.setMessage(WebResponseData.Message.LOGIN_PARAMS_ERROR);

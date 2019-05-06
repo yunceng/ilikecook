@@ -13,6 +13,6 @@
 	</sql>
 
 	<select id="findAll" resultMap="BaseResultMap">
-		select <include refid="column_list"></include> FROM system_info where status = 0
+		select <include refid="column_list"></include> FROM system_info where status = 0 and m_value is not null
 	</select>
 </mapper>
