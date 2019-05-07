@@ -14,6 +14,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -62,6 +63,7 @@ public class Task {
      * 定时将关键词的搜索次数保存到数据库中
      */
     @Scheduled(cron = "0 0 0 * * ?")
+    @PreDestroy
     public void saveSearchWordNums() {
         Map<String, Integer> data = new ConcurrentHashMap<>(SEARCH_WORD_NUMS);
         try {
@@ -78,6 +80,7 @@ public class Task {
      * 保存菜谱浏览数量
      */
     @Scheduled(cron = "0 15 0 * * ?")
+    @PreDestroy
     public void saveMenuBrowseNums() {
         Map<String, Integer> data = new ConcurrentHashMap<>(MENU_BROWSE_NUMS);
         try {
