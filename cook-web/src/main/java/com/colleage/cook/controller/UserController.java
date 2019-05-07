@@ -120,7 +120,6 @@ public class UserController {
         try {
             SimpleUserInfo simpleUserInfo = ((SimpleUserInfo) request.getSession().getAttribute(SessionAttributeKeyConstants.SESSION_USER));
             UserInfo userInfo = userInfoService.getUserInfoByUsername(simpleUserInfo.getUsername());
-            userInfo.setPassword("");
             webResponseData = WebResponseData.success();
             webResponseData.setData(userInfo);
         } catch (Exception e) {

@@ -81,12 +81,12 @@ public interface UserInfoMapper {
      * @param username
      * @return
      */
-    UserInfo checkUsernameIsExists(@Param("username") String username);
+    UserInfo getUserInfoByUsername(@Param("username") String username);
 
     /**
      * 检查邮箱是不是已经存在
      * @param email
      * @return
      */
-    UserInfo checkEmailIsExists(@Param("email") String email);
+    UserInfo getUserInfoByEmail(@Param("email") String email);
 }

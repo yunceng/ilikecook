@@ -57,12 +57,12 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfo checkUsernameIsExists(String username) {
-        return userInfoMapper.checkUsernameIsExists(username);
+        return userInfoMapper.getUserInfoByUsername(username);
     }
 
     @Override
     public UserInfo checkEmailIsExists(String email) {
-        return userInfoMapper.checkEmailIsExists(email);
+        return userInfoMapper.getUserInfoByEmail(email);
     }
 
     @Override
