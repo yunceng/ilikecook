@@ -37,8 +37,16 @@
 		menus, role_id, oauth_type
 	</sql>
 
+	<select id="checkUsernameIsExists">
+		select <include refid="column_list"></include> FROM user_info where username = #{username}
+	</select>
+
+	<select id="checkEmailIsExists">
+		select <include refid="column_list"></include> FROM user_info where email = #{email}
+	</select>
+
 	<select id="findUserInfoByUsername" resultMap="BaseResultMap">
-        select <include refid="column_list"></include> FROM user_info where username = #{username} and role_id = 1
+        select <include refid="column_list"></include> FROM user_info where username = #{username}
 	</select>
 
 	<select id="findUserInfoByUserId" resultMap="simpleUserInfo">

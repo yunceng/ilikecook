@@ -9,6 +9,8 @@ import com.colleage.cook.mapper.RoleInfoMapper;
 import com.colleage.cook.mapper.UserInfoMapper;
 import com.colleage.cook.service.UserInfoService;
 import com.colleage.cook.vo.SimpleUserInfo;
+import com.colleage.cook.vo.WebResponseData;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -52,6 +54,17 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
 
+
+    @Override
+    public UserInfo checkUsernameIsExists(String username) {
+        return userInfoMapper.checkUsernameIsExists(username);
+    }
+
+    @Override
+    public UserInfo checkEmailIsExists(String email) {
+        return userInfoMapper.checkEmailIsExists(email);
+    }
+
     @Override
     public UserInfo getUserInfoByUsername(String username) {
         return userInfoMapper.findUserInfoByUsername(username);
@@ -61,6 +74,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     public SimpleUserInfo getUserInfoByUserId(int userId) {
         return userInfoMapper.findUserInfoByUserId(userId);
     }
+
+
 
     @Override
     public UserInfo register(UserInfo userInfo) {

@@ -136,6 +136,8 @@ public class WebResponseData implements Serializable {
 
         public static final int NEW_OLD_PASSWORD_EQUAL_ERROR = -1005;
 
+        public static final int USER_ALREADY_EXISTS = -1006;
+
     }
 
     /**
@@ -174,6 +176,10 @@ public class WebResponseData implements Serializable {
         public static final String UPDATE_PASSWORD_ERROR = "修改密码错误";
 
         public static final String NEW_OLD_PASSWORD_EQUAL_ERROR = "新旧密码不能相同";
+
+        public static final String USERNAME_ALREADY_EXISTS = "用户名已经存在";
+
+        public static final String EMAIL_ALREADY_EXISTS = "该邮箱已经被绑定";
 
     }
 }

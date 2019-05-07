@@ -25,7 +25,6 @@
 
 	<select id="findAdminInfoByUsername" resultMap="BaseResultMap">
 		select <include refid="column_list"></include> FROM admin_info where username = #{username}
-        and role_id &gt;= 2
 	</select>
 
 	<select id="getBeManagedAdminsCount"  resultType="Integer">

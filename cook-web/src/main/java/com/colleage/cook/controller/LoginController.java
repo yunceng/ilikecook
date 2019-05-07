@@ -48,6 +48,30 @@ public class LoginController extends BaseLoginController {
         return REGISTER_VIEW;
     }
 
+    @PostMapping("checkUsernameIsExists.do")
+    @ResponseBody
+    public WebResponseData checkUsernameIsExists(String username){
+        if(StringUtils.isBlank(username)){
+            return WebResponseData.paramIsNull();
+        }
+        if(userInfoService.checkUsernameIsExists(username) == null){
+            return null;
+        }
+        return new WebResponseData(WebResponseData.Code.USER_ALREADY_EXISTS, WebResponseData.Message.USERNAME_ALREADY_EXISTS);
+    }
+
+    @PostMapping("checkEmailIsExists.do")
+    @ResponseBody
+    public WebResponseData checkEmailIsExists(String email){
+        if(StringUtils.isBlank(email)){
+            return WebResponseData.paramIsNull();
+        }
+        if(userInfoService.checkEmailIsExists(email) == null){
+            return null;
+        }
+        return new WebResponseData(WebResponseData.Code.USER_ALREADY_EXISTS, WebResponseData.Message.EMAIL_ALREADY_EXISTS);
+    }
+
     @PostMapping("register.do")
     @ResponseBody
     public WebResponseData register(HttpServletRequest request, String username, String password,
