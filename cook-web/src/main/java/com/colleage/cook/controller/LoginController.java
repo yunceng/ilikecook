@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.WebApplicationContext;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
@@ -81,18 +82,23 @@ public class LoginController extends BaseLoginController {
             return WebResponseData.paramIsNull();
         }
 
-        UserInfo userInfo = new UserInfo();
-        userInfo.setUsername(username);
-        userInfo.setPassword(passwordEncoder.encode(password));
-        String avatar = AccessDataCacheConstants.all_system_info.get(SystemInfoConstants.DEFAULT_USER_AVATAR);
-        userInfo.setAvatar(avatar);
-        userInfo.setNickname(StringUtils.isBlank(nickname) ? username : nickname);
-        userInfo.setGender(1);
-        userInfo.setOauth_type(OauthTypeEnum.TYPE_NULL.getValue());
-        userInfo.setEmail(email);
+        try{
+            UserInfo userInfo = new UserInfo();
+            userInfo.setUsername(username);
+            userInfo.setPassword(passwordEncoder.encode(password));
+            String avatar = AccessDataCacheConstants.all_system_info.get(SystemInfoConstants.DEFAULT_USER_AVATAR);
+            userInfo.setAvatar(avatar);
+            userInfo.setNickname(StringUtils.isBlank(nickname) ? username : nickname);
+            userInfo.setGender(1);
+            userInfo.setOauth_type(OauthTypeEnum.TYPE_NULL.getValue());
+            userInfo.setEmail(email);
 
-        userInfoService.register(userInfo);
-        return doLogin(request, username, password);
+            userInfoService.register(userInfo);
+
+            return WebResponseData.success();
+        }catch (Exception e){
+            return WebResponseData.error();
+        }
     }
 
 }
