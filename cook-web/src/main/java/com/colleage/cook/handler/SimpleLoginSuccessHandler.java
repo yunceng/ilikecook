@@ -40,7 +40,7 @@ public class SimpleLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         PrintWriter out = httpServletResponse.getWriter();
 
-        WebResponseData response = new WebResponseData(WebResponseData.Code.SUCCESS, WebResponseData.Message.SUCCESS);
+        WebResponseData response = new WebResponseData(WebResponseData.Code.SUCCESS, WebResponseData.Message.SUCCESS, userInfo);
         out.write(response.toJSONString());
         out.flush();
         out.close();
