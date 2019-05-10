@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import static com.colleage.cook.constants.CharacterConstants.CHARACTER_SPOT;
+
 /**
  * @Classname AbstractFileRepo
  * @Description 文件存储抽象实现类
@@ -76,7 +78,7 @@ public abstract class AbstractFileRepo implements FileRepo {
      * @return
      */
     protected String getExt(String filename) {
-        int pos = filename.lastIndexOf(".");
+        int pos = filename.lastIndexOf(CHARACTER_SPOT);
         return filename.substring(pos + 1);
     }
 
