@@ -18,6 +18,8 @@ import java.security.NoSuchProviderException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.colleage.cook.constants.HeaderConstants.ACCESS_TOKEN;
+
 /**
  * @Classname OauthQQ
  * @Description qq认证信息类
@@ -77,7 +79,7 @@ public class OauthQQ extends AbstractOauth {
 
     public String getTokenInfo(String accessToken) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
         Map<String, String> params = new HashMap();
-        params.put("access_token", accessToken);
+        params.put(ACCESS_TOKEN, accessToken);
 
         String openid = TokenUtil.getOpenId(super.doGet(TOKEN_INFO_URL, params));
         LOGGER.debug(openid);
@@ -86,7 +88,7 @@ public class OauthQQ extends AbstractOauth {
 
     public String getUserInfo(String accessToken, String uid) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
         Map<String, String> params = new HashMap();
-        params.put("access_token", accessToken);
+        params.put(ACCESS_TOKEN, accessToken);
         params.put("oauth_consumer_key", getClientId());
         params.put("openid", uid);
         params.put("format", "json");
@@ -107,7 +109,7 @@ public class OauthQQ extends AbstractOauth {
         }
         JSONObject dataMap = JSON.parseObject(getUserInfo(accessToken, openId));
         dataMap.put("openid", openId);
-        dataMap.put("access_token", accessToken);
+        dataMap.put(ACCESS_TOKEN, accessToken);
         return dataMap;
     }
 
@@ -120,7 +122,7 @@ public class OauthQQ extends AbstractOauth {
         if (userInfo.containsKey("ret") && userInfo.getString("ret").equals("0")) {
             openOauthBean = new OpenOauthBean();
             String openid = userInfo.getString("openid");
-            String accessToken = userInfo.getString("access_token");
+            String accessToken = userInfo.getString(ACCESS_TOKEN);
             String nickname = userInfo.getString("nickname");
             String photoUrl = userInfo.getString("figureurl_2");
 

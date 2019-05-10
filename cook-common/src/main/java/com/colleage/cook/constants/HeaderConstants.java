@@ -1,12 +1,16 @@
 package com.colleage.cook.constants;
 
 /**
- * @Classname HeaderConst
+ * @Classname HeaderConstants
  * @Description 请求头中的常量
  * @Date 2019\4\18 0018
  * @Created by David
  */
-public class HeaderConst {
+public class HeaderConstants {
+
+    private HeaderConstants(){}
+
+    public static final String ACCESS_TOKEN = "access_token";
 
     /**
      * 默认编码方式

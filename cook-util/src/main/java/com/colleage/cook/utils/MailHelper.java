@@ -15,6 +15,7 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @Classname MailHelper
@@ -36,7 +37,7 @@ public class MailHelper {
                           String templateName, Model model) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         try {
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, StandardCharsets.UTF_8.name());
             helper.setFrom(env.getProperty("spring.mail.username"));
             helper.setTo(to);
 

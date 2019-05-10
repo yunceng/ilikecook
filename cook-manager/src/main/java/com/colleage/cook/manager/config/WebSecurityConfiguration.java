@@ -1,6 +1,6 @@
 package com.colleage.cook.manager.config;
 
-import com.colleage.cook.constants.HeaderConst;
+import com.colleage.cook.constants.HeaderConstants;
 import com.colleage.cook.manager.constants.ViewConstants;
 import com.colleage.cook.manager.handler.SimpleAccessDeniedHandler;
 import com.colleage.cook.manager.service.AdminInfoService;
@@ -87,7 +87,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .failureForwardUrl("/login.html").permitAll()
                 .and().logout().permitAll().invalidateHttpSession(true).clearAuthentication(true)
                 .logoutSuccessUrl("/login.html")
-                .deleteCookies(HeaderConst.JESSIONID)
+                .deleteCookies(HeaderConstants.JESSIONID)
                 .and().rememberMe().rememberMeParameter("remember").tokenValiditySeconds(3600 * 24)
                 .tokenRepository(tokenRepository)
                 .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler)

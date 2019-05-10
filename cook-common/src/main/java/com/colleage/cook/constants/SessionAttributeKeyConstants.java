@@ -8,6 +8,8 @@ package com.colleage.cook.constants;
  */
 public class SessionAttributeKeyConstants {
 
+    private SessionAttributeKeyConstants(){}
+
     /**
      * 第三方登录保存状态
      */

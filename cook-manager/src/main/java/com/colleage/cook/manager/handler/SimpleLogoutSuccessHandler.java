@@ -1,11 +1,10 @@
 package com.colleage.cook.manager.handler;
 
-import com.colleage.cook.constants.CharacterConst;
-import com.colleage.cook.constants.HeaderConst;
+import com.colleage.cook.constants.CharacterConstants;
+import com.colleage.cook.constants.HeaderConstants;
 import com.colleage.cook.vo.WebResponseData;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +23,8 @@ public class SimpleLogoutSuccessHandler implements LogoutSuccessHandler {
 
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-        httpServletResponse.setContentType(HeaderConst.CONTENT_TYPE);
-        httpServletResponse.setHeader(HeaderConst.ACCESS_CONTROL_ALLOW_ORIGIN, CharacterConst.CHARACTER_ARBITRARILY);
+        httpServletResponse.setContentType(HeaderConstants.CONTENT_TYPE);
+        httpServletResponse.setHeader(HeaderConstants.ACCESS_CONTROL_ALLOW_ORIGIN, CharacterConstants.CHARACTER_ARBITRARILY);
         PrintWriter out = httpServletResponse.getWriter();
         WebResponseData response = new WebResponseData(WebResponseData.Code.LOGOUT_SUCCESS, WebResponseData.Message.LOGOUT_SUCCESS);
         out.write(response.toJSONString());

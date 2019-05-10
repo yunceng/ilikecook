@@ -1,6 +1,6 @@
 package com.colleage.cook.config;
 
-import com.colleage.cook.constants.HeaderConst;
+import com.colleage.cook.constants.HeaderConstants;
 import com.colleage.cook.constants.ViewConstants;
 import com.colleage.cook.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy;
-import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
 import javax.sql.DataSource;
 
@@ -106,7 +104,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .successHandler(loginSuccessHandler)
                 .failureHandler(loginFailureHandler).permitAll()
                 .and().logout().permitAll().invalidateHttpSession(true).clearAuthentication(true)
-                .deleteCookies(HeaderConst.JESSIONID).logoutSuccessHandler(logoutSuccessHandler)
+                .deleteCookies(HeaderConstants.JESSIONID).logoutSuccessHandler(logoutSuccessHandler)
                 .and().rememberMe().rememberMeParameter("remember").tokenValiditySeconds(3600 * 24).tokenRepository(tokenRepository)
                 .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler).authenticationEntryPoint(authenticationEntryPoint)
                 .and().csrf().disable().httpBasic()

@@ -8,6 +8,8 @@ package com.colleage.cook.utils.page;
  */
 public class PageConstants {
 
+    private PageConstants(){}
+
     /**
      * 默认页号
      */

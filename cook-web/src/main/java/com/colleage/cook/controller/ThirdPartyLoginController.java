@@ -124,30 +124,28 @@ public class ThirdPartyLoginController extends BaseLoginController {
     public WebResponseData bindOauth(UserOpenOauthInfo openOauth, HttpServletRequest request) throws Exception {
         UserOpenOauthInfo thirdToken = openOauthService.getOauthByOauthUserId(openOauth.getOauth_user_id());
         String username = openOauth.getUsername();
-
+        String access_token = openOauth.getAccess_token();
         // 已存在：提取用户信息，登录
         if (thirdToken != null) {
             username = userInfoService.getUserInfoByUserId(thirdToken.getUser_id()).getUsername();
+            access_token = thirdToken.getAccess_token();
             // 不存在：注册新用户，并绑定此token，登录
         } else {
             UserInfo user = userInfoService.getUserInfoByUsername(username);
             if (user == null) {
-                UserInfo u = userInfoService.register(wrapUser(openOauth));
+                user = userInfoService.register(wrapUser(openOauth));
 
                 // ===将远程图片下载到本地===
-                String avator = fileRepo.getRoot() + FileStorePathConstants.AVADIR + FileRepoImpl.getAvaPath(u.getId(), 100);
+                String avator = fileRepo.getRoot() + FileStorePathConstants.AVADIR + FileRepoImpl.getAvaPath(user.getId(), 100);
                 ImageUtils.download(openOauth.getAvatar(), avator);
-                userInfoService.updateAvatar(u.getUsername(), avator);
-
-                thirdToken = new UserOpenOauthInfo();
-                BeanUtils.copyProperties(openOauth, thirdToken);
-                thirdToken.setUser_id(u.getId());
-                openOauthService.saveOauthToken(thirdToken);
-            } else {
-                username = user.getUsername();
+                userInfoService.updateAvatar(user.getUsername(), avator);
             }
+            thirdToken = new UserOpenOauthInfo();
+            BeanUtils.copyProperties(openOauth, thirdToken);
+            thirdToken.setUser_id(user.getId());
+            openOauthService.saveOauthToken(thirdToken);
         }
-        return doLogin(request, username, thirdToken.getAccess_token());
+        return doLogin(request, username, access_token);
     }
 
     private UserInfo wrapUser(UserOpenOauthInfo openOauth) {

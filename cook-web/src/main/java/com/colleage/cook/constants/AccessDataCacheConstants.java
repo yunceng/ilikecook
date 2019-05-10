@@ -14,6 +14,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class AccessDataCacheConstants {
 
+    private AccessDataCacheConstants(){}
+
     /**
      * 系统信息存放，只加载一次
      */

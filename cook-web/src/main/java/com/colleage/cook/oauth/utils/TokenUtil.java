@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 
 import java.util.regex.Matcher;
 
+import static com.colleage.cook.constants.HeaderConstants.ACCESS_TOKEN;
+
 /**
  * @Classname TokenUtil
  * @Description Token处理工具
@@ -19,7 +21,7 @@ public class TokenUtil {
         try {
             JSONObject json = JSONObject.parseObject(string);
             if (json != null) {
-                accessToken = json.getString("access_token");
+                accessToken = json.getString(ACCESS_TOKEN);
             }
         } catch (Exception e) {
             Matcher m = java.util.regex.Pattern.compile("^access_token=(\\w+)&expires_in=(\\w+)&refresh_token=(\\w+)$").matcher(string);
@@ -52,6 +54,6 @@ public class TokenUtil {
     }
 
     public static String randomState() {
-        return org.apache.commons.lang.RandomStringUtils.random(24, "abcdefghijklmnopqrstuvwxyz0123456789");
+        return org.apache.commons.lang.RandomStringUtils.random(24, STR_S);
     }
 }

@@ -1,7 +1,7 @@
 package com.colleage.cook.manager.handler;
 
-import com.colleage.cook.constants.CharacterConst;
-import com.colleage.cook.constants.HeaderConst;
+import com.colleage.cook.constants.CharacterConstants;
+import com.colleage.cook.constants.HeaderConstants;
 import com.colleage.cook.vo.WebResponseData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,6 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -43,9 +42,9 @@ public class SimpleLoginFailureHandler implements AuthenticationFailureHandler {
      */
     private void returnJson(HttpServletResponse response,
                             AuthenticationException exception) throws IOException {
-        response.setCharacterEncoding(HeaderConst.UTF8);
-        response.setContentType(HeaderConst.CONTENT_TYPE);
-        response.setHeader(HeaderConst.ACCESS_CONTROL_ALLOW_ORIGIN, CharacterConst.CHARACTER_ARBITRARILY);
+        response.setCharacterEncoding(HeaderConstants.UTF8);
+        response.setContentType(HeaderConstants.CONTENT_TYPE);
+        response.setHeader(HeaderConstants.ACCESS_CONTROL_ALLOW_ORIGIN, CharacterConstants.CHARACTER_ARBITRARILY);
         PrintWriter out = response.getWriter();
         WebResponseData responseData = new WebResponseData(WebResponseData.Code.LOGIN_ERROR);
         if (exception instanceof UsernameNotFoundException || exception instanceof BadCredentialsException) {

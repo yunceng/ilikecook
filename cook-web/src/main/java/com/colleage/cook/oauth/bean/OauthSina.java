@@ -16,6 +16,8 @@ import java.security.NoSuchProviderException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.colleage.cook.constants.HeaderConstants.ACCESS_TOKEN;
+
 /**
  * @Classname OauthSina
  * @Description 新浪认证
@@ -75,7 +77,7 @@ public class OauthSina extends AbstractOauth {
 
     public String getTokenInfo(String accessToken) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
         Map params = new HashMap();
-        params.put("access_token", accessToken);
+        params.put(ACCESS_TOKEN, accessToken);
         String openid = TokenUtil.getUid(super.doPost(TOKEN_INFO_URL, params));
         LOGGER.debug(openid);
         return openid;
@@ -85,7 +87,7 @@ public class OauthSina extends AbstractOauth {
     public String getUserInfo(String accessToken, String uid) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
         Map params = new HashMap();
         params.put("uid", uid);
-        params.put("access_token", accessToken);
+        params.put(ACCESS_TOKEN, accessToken);
         String userInfo = super.doGet(USER_INFO_URL, params);
         LOGGER.debug(userInfo);
         return userInfo;
@@ -102,7 +104,7 @@ public class OauthSina extends AbstractOauth {
             return null;
         }
         JSONObject dataMap = JSON.parseObject(getUserInfo(accessToken, uid));
-        dataMap.put("access_token", accessToken);
+        dataMap.put(ACCESS_TOKEN, accessToken);
         LOGGER.debug(dataMap);
         return dataMap;
     }
@@ -114,7 +116,7 @@ public class OauthSina extends AbstractOauth {
         JSONObject userInfo = getOauthInstance().getUserInfoByCode(code);
 
         String openid = userInfo.getString("id");
-        String accessToken = userInfo.getString("access_token");
+        String accessToken = userInfo.getString(ACCESS_TOKEN);
         String nickname = userInfo.getString("screen_name");
         String photoUrl = userInfo.getString("profile_image_url");
 

@@ -62,7 +62,7 @@ public class SimpleX509TrustManager extends X509TrustManagerAdaptor {
         }
     }
 
-    @Order
+    @Override
     public X509Certificate[] getAcceptedIssuers() {
         return sunJSSEX509TrustManager.getAcceptedIssuers();
     }

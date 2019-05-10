@@ -21,6 +21,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import static com.colleage.cook.constants.CharacterConstants.CHARACTER_LINE;
+import static com.colleage.cook.constants.CharacterConstants.CHARACTER_SPOT;
+import static com.colleage.cook.constants.CharacterConstants.CHARACTER_UNDERLINE;
+
 /**
  * @Classname FileOperationController
  * @Description 文件操作访问接口
@@ -53,12 +57,12 @@ public class FileOperationController {
     public WebResponseData uploadMenuImg(@RequestParam(value = "img") MultipartFile file) {
         String name = file.getOriginalFilename();
         String suffix;
-        if (name.indexOf("_") > 0 && name.indexOf("_") < name.lastIndexOf(".")) {
-            suffix = name.substring(name.indexOf("_"));
+        if (name.indexOf(CHARACTER_UNDERLINE) > 0 && name.indexOf(CHARACTER_UNDERLINE) < name.lastIndexOf(CHARACTER_SPOT)) {
+            suffix = name.substring(name.indexOf(CHARACTER_UNDERLINE));
         } else {
-            suffix = name.substring(name.indexOf("."));
+            suffix = name.substring(name.indexOf(CHARACTER_SPOT));
         }
-        String savePath = FileStorePathConstants.APP_CONTEXT_IMG + File.separator + UUID.randomUUID().toString().replace("-", "") + suffix;
+        String savePath = FileStorePathConstants.APP_CONTEXT_IMG + File.separator + UUID.randomUUID().toString().replace(CHARACTER_LINE, "") + suffix;
         return doUpload(file, savePath);
     }
 

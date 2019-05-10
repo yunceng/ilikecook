@@ -16,6 +16,8 @@ import java.security.NoSuchProviderException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.colleage.cook.constants.HeaderConstants.ACCESS_TOKEN;
+
 /**
  * @Classname OauthDouban
  * @Description 豆瓣认证
@@ -56,7 +58,7 @@ public class OauthDouban extends AbstractOauth {
         if (StringUtils.isNotBlank(state)) {
             params.put("state", state);
         }
-        return super.getAuthorizeUrl("https://www.douban.com/service/auth2/auth", params);
+        return super.getAuthorizeUrl(AUTH_URL, params);
     }
 
     @Override
@@ -67,7 +69,7 @@ public class OauthDouban extends AbstractOauth {
         params.put("client_secret", getClientSecret());
         params.put("grant_type", "authorization_code");
         params.put("redirect_uri", getRedirectUri());
-        String token = TokenUtil.getAccessToken(super.doPost("https://www.douban.com/service/auth2/token", params));
+        String token = TokenUtil.getAccessToken(super.doPost(TOKEN_URL, params));
         LOGGER.debug(token);
         return token;
     }
@@ -76,7 +78,7 @@ public class OauthDouban extends AbstractOauth {
     public String getUserInfo(String accessToken, String uid) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
         Map params = new HashMap();
         params.put("Authorization", "Bearer " + accessToken);
-        String userInfo = super.doGetWithHeaders("https://api.douban.com/v2/user/~me", params);
+        String userInfo = super.doGetWithHeaders(USER_INFO_URL, params);
         JSONObject dataMap = JSON.parseObject(userInfo);
         LOGGER.debug(dataMap.toJSONString());
         return dataMap.toJSONString();
@@ -89,7 +91,7 @@ public class OauthDouban extends AbstractOauth {
             return null;
         }
         JSONObject dataMap = JSONObject.parseObject(getUserInfo(accessToken, null));
-        dataMap.put("access_token", accessToken);
+        dataMap.put(ACCESS_TOKEN, accessToken);
         LOGGER.debug(dataMap);
         return dataMap;
     }
@@ -100,7 +102,7 @@ public class OauthDouban extends AbstractOauth {
         JSONObject userInfo = getOauthInstance().getUserInfoByCode(code);
 
         String openid = userInfo.getString("uid");
-        String accessToken = userInfo.getString("access_token");
+        String accessToken = userInfo.getString(ACCESS_TOKEN);
         String nickname = userInfo.getString("name");
         String photoUrl = userInfo.getString("large_avatar");
 

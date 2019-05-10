@@ -10,12 +10,18 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import static com.colleage.cook.constants.CharacterConstants.CHARACETE_AND;
+import static com.colleage.cook.constants.CharacterConstants.CHARACTER_EQULA;
+import static com.colleage.cook.constants.CharacterConstants.CHARACTER_QUESTION_MARK;
 
 /**
  * @Classname HttpUtils
@@ -24,7 +30,7 @@ import java.util.Map.Entry;
  * @Created by David
  */
 public class HttpUtils {
-    private static final String DEFAULT_CHARSET = "UTF-8";
+    private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
     private static final String _GET = "GET";
     private static final String _POST = "POST";
 
@@ -147,7 +153,7 @@ public class HttpUtils {
             out.close();
 
             in = http.getInputStream();
-            BufferedReader read = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+            BufferedReader read = new BufferedReader(new InputStreamReader(in, DEFAULT_CHARSET));
 
             while ((valueString = read.readLine()) != null) {
                 bufferRes.append(valueString);
@@ -175,8 +181,8 @@ public class HttpUtils {
             return url;
         }
         StringBuilder sb = new StringBuilder(url);
-        if (url.indexOf("?") == -1) {
-            sb.append("?");
+        if (url.indexOf(CHARACTER_QUESTION_MARK) == -1) {
+            sb.append(CHARACTER_QUESTION_MARK);
         }
         sb.append(map2Url(params));
         return sb.toString();
@@ -192,12 +198,12 @@ public class HttpUtils {
             if (isfist) {
                 isfist = false;
             } else {
-                url.append("&");
+                url.append(CHARACETE_AND);
             }
-            url.append((String) entry.getKey()).append("=");
+            url.append((String) entry.getKey()).append(CHARACTER_EQULA);
             String value = (String) entry.getValue();
             if (StringUtils.isNotEmpty(value)) {
-                url.append(URLEncoder.encode(value, "UTF-8"));
+                url.append(URLEncoder.encode(value, DEFAULT_CHARSET.name()));
             }
         }
         return url.toString();

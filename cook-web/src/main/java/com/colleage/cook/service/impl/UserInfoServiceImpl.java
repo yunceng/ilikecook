@@ -80,7 +80,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo register(UserInfo userInfo) {
         userInfoMapper.register(userInfo);
-        return userInfo;
+        return userInfoMapper.getUserInfoByUsername(userInfo.getUsername());
     }
 
     @Override

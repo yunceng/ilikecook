@@ -1,6 +1,6 @@
 package com.colleage.cook.handler;
 
-import com.colleage.cook.constants.HeaderConst;
+import com.colleage.cook.constants.HeaderConstants;
 import com.colleage.cook.vo.WebResponseData;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -23,8 +23,8 @@ public class SimpleAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
-        httpServletResponse.setCharacterEncoding(HeaderConst.UTF8);
-        httpServletResponse.setContentType(HeaderConst.CONTENT_TYPE);
+        httpServletResponse.setCharacterEncoding(HeaderConstants.UTF8);
+        httpServletResponse.setContentType(HeaderConstants.CONTENT_TYPE);
         httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
         PrintWriter writer = httpServletResponse.getWriter();
         WebResponseData webResponseData = WebResponseData.noPrivilege();

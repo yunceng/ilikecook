@@ -8,6 +8,8 @@ package com.colleage.cook.constants;
  */
 public class ViewConstants {
 
+    private ViewConstants(){}
+
     public static final String INDEX_VIEW = "index";
 
     public static final String INDEX_REQUEST = "/index.html";

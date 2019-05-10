@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.colleage.cook.constants.CharacterConstants.CHARACTER_SPOT;
+
 /**
  * @Classname FileUtils
  * @Description 文件工具类
@@ -50,7 +52,7 @@ public class FileUtils {
      * @return
      */
     public static String getSuffix(String filename) {
-        int pos = filename.lastIndexOf(".");
+        int pos = filename.lastIndexOf(CHARACTER_SPOT);
         return filename.substring(pos + 1);
     }
 

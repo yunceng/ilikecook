@@ -8,6 +8,8 @@ package com.colleage.cook.utils.constants;
  */
 public class FileStorePathConstants {
 
+    private FileStorePathConstants(){}
+
     /**
      * 文件存储-根目录
      */

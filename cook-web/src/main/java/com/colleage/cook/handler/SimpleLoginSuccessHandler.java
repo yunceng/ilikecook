@@ -1,7 +1,7 @@
 package com.colleage.cook.handler;
 
-import com.colleage.cook.constants.CharacterConst;
-import com.colleage.cook.constants.HeaderConst;
+import com.colleage.cook.constants.CharacterConstants;
+import com.colleage.cook.constants.HeaderConstants;
 import com.colleage.cook.vo.SimpleUserInfo;
 import com.colleage.cook.vo.UserInfo;
 import com.colleage.cook.vo.WebResponseData;
@@ -29,10 +29,10 @@ public class SimpleLoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
 
-        httpServletResponse.setContentType(HeaderConst.CONTENT_TYPE);
-        httpServletResponse.setHeader(HeaderConst.ACCESS_CONTROL_ALLOW_ORIGIN, CharacterConst.CHARACTER_ARBITRARILY);
-        httpServletResponse.setHeader(HeaderConst.ACCESS_CONTROL_EXPOSE_HEADERS, HeaderConst.AUTHORIZATION);
-        httpServletResponse.setHeader(HeaderConst.AUTHORIZATION, httpServletRequest.getSession().getId());
+        httpServletResponse.setContentType(HeaderConstants.CONTENT_TYPE);
+        httpServletResponse.setHeader(HeaderConstants.ACCESS_CONTROL_ALLOW_ORIGIN, CharacterConstants.CHARACTER_ARBITRARILY);
+        httpServletResponse.setHeader(HeaderConstants.ACCESS_CONTROL_EXPOSE_HEADERS, HeaderConstants.AUTHORIZATION);
+        httpServletResponse.setHeader(HeaderConstants.AUTHORIZATION, httpServletRequest.getSession().getId());
 
         com.colleage.cook.domain.UserInfo user = ((UserInfo) authentication.getPrincipal()).getUser();
         SimpleUserInfo userInfo = new SimpleUserInfo(user.getId(), user.getUsername(), user.getNickname(), user.getAvatar());

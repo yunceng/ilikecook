@@ -1,5 +1,7 @@
 package com.colleage.cook.constants;
 
+import com.colleage.cook.domain.SystemInfo;
+
 import java.util.Map;
 
 /**
@@ -9,6 +11,8 @@ import java.util.Map;
  * @Created by David
  */
 public class SystemInfoConstants {
+
+    private SystemInfoConstants(){}
 
     /**
      * 系统信息存放，只加载一次
