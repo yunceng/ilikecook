@@ -17,4 +17,9 @@ public class SessionAttributeKeyConstants {
      * 用户信息
      */
     public static final String SESSION_USER = "_SESSION_USER_";
+
+    /**
+     * 保存用户验证后的上下文
+     */
+    public static final String SESSION_CONTEXT = "SPRING_SECURITY_CONTEXT";
 }

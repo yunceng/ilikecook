@@ -13,8 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.colleage.cook.constants.ViewConstants.LOGIN_VIEW;
-import static com.colleage.cook.constants.ViewConstants.REDIRECT_INDEX_REQUEST;
+import static com.colleage.cook.constants.SessionAttributeKeyConstants.SESSION_CONTEXT;
 
 /**
  * @Classname BaseLoginController
@@ -33,6 +32,13 @@ public class BaseLoginController {
     @Autowired
     protected AuthenticationManager authenticationManager;
 
+    /**
+     * 登录操作
+     * @param request
+     * @param username
+     * @param password
+     * @return
+     */
     protected WebResponseData doLogin(HttpServletRequest request, String username, String password) {
         WebResponseData responseData = new WebResponseData();
         if (StringUtils.isNullOrEmpty(username) || StringUtils.isNullOrEmpty(password)) {
@@ -44,7 +50,7 @@ public class BaseLoginController {
         try {
             Authentication authenticate = authenticationManager.authenticate(authRequest);
             SecurityContextHolder.getContext().setAuthentication(authenticate);
-            request.getSession().setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+            request.getSession().setAttribute(SESSION_CONTEXT, SecurityContextHolder.getContext());
             responseData = WebResponseData.success();
         } catch (AuthenticationException e) {
             responseData.setCode(WebResponseData.Code.LOGIN_ERROR);

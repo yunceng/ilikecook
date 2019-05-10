@@ -35,6 +35,7 @@ import javax.swing.text.View;
 import java.io.File;
 import java.io.IOException;
 
+import static com.colleage.cook.constants.SessionAttributeKeyConstants.SESSION_CONTEXT;
 import static com.colleage.cook.manager.constants.ViewConstants.*;
 
 /**
@@ -78,7 +79,7 @@ public class LoginController {
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, password);
         Authentication authenticate = authenticationManager.authenticate(authentication);
         SecurityContextHolder.getContext().setAuthentication(authenticate);
-        request.getSession().setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+        request.getSession().setAttribute(SESSION_CONTEXT, SecurityContextHolder.getContext());
 
         //跳转到用户之前制定的页面或者默认页面
         SavedRequest savedRequest = requestCache.getRequest(request, response);

@@ -57,7 +57,7 @@ public class UserController {
                     @ApiImplicitParam(name = "message", value = "评论内容", paramType = "form", dataType = "string", required = true),
                     @ApiImplicitParam(name = "parent_commentId", value = "第一次评论者ID", paramType = "form", dataType = "int")
             })
-    @RequestMapping("commentMenu.do")
+    @PostMapping("commentMenu.do")
     @ResponseBody
     public WebResponseData commentMenu(HttpServletRequest request, String uuid, String message,
                                        @RequestParam(required = false) Integer commentUserId,
