@@ -1,7 +1,9 @@
 package com.colleage.cook.controller;
 
 import com.colleage.cook.constants.SessionAttributeKeyConstants;
+import com.colleage.cook.domain.MenuFoodCommentInfo;
 import com.colleage.cook.domain.UserInfo;
+import com.colleage.cook.service.FoodMenuCommentInfoService;
 import com.colleage.cook.service.FoodMenuInfoService;
 import com.colleage.cook.service.UserInfoService;
 import com.colleage.cook.utils.page.PageConstants;
@@ -43,6 +45,37 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private FoodMenuCommentInfoService foodMenuCommentInfoService;
+
+    @ApiImplicitParams(
+            value = {
+                    @ApiImplicitParam(name = "uuid", value = "菜谱的唯一标识", paramType = "form", dataType = "string", required = true),
+                    @ApiImplicitParam(name = "commentUserId", value = "评论者ID", paramType = "form", dataType = "int"),
+                    @ApiImplicitParam(name = "commentNickname", value = "评论者昵称", paramType = "form", dataType = "string"),
+                    @ApiImplicitParam(name = "message", value = "评论内容", paramType = "form", dataType = "string", required = true),
+                    @ApiImplicitParam(name = "parent_commentId", value = "第一次评论者ID", paramType = "form", dataType = "int")
+            })
+    @RequestMapping("commentMenu.do")
+    @ResponseBody
+    public WebResponseData commentMenu(HttpServletRequest request, String uuid, String message,
+                                       @RequestParam(required = false) Integer commentUserId,
+                                       @RequestParam(required = false) String commentNickname,
+                                       @RequestParam(required = false) Integer parent_commentId){
+        if(StringUtils.isBlank(uuid) || StringUtils.isBlank(message)){
+            return WebResponseData.paramIsNull();
+        }
+        SimpleUserInfo userInfo = (SimpleUserInfo)request.getSession().getAttribute(SessionAttributeKeyConstants.SESSION_USER);
+
+        try {
+            MenuFoodCommentInfo info = new MenuFoodCommentInfo(uuid, commentUserId, commentNickname, userInfo.getId(), userInfo.getNickname(), message);
+            foodMenuCommentInfoService.insertComment(info, parent_commentId);
+            return WebResponseData.success();
+        }catch (Exception e){
+            return WebResponseData.error();
+        }
+    }
 
     @ApiImplicitParams(
             value = {

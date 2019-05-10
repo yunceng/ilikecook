@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.colleage.cook.mapper.FoodMenuCommentInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.colleage.cook.vo.AllMenuFoodCommentInfo">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="menuId" property="menuId" jdbcType="VARCHAR"/>
+        <result column="commentUserId" property="commentUserId" jdbcType="INTEGER"/>
+        <result column="commentNickname" property="commentNickname" jdbcType="VARCHAR"/>
+        <result column="replyUserId" property="replyUserId" jdbcType="INTEGER"/>
+        <result column="replyNickname" property="replyNickname" jdbcType="VARCHAR"/>
+        <result column="message" property="message" jdbcType="VARCHAR"/>
+        <result column="createTime" property="createTime" jdbcType="VARCHAR"/>
+        <collection property="replys" column="replys" ofType="com.colleage.cook.domain.MenuFoodCommentInfo">
+            <id column="c_id" property="id" jdbcType="INTEGER" />
+            <result column="c_menuId" property="menuId" jdbcType="VARCHAR"/>
+            <result column="c_commentUserId" property="commentUserId" jdbcType="INTEGER"/>
+            <result column="c_commentNickname" property="commentNickname" jdbcType="VARCHAR"/>
+            <result column="c_replyUserId" property="replyUserId" jdbcType="INTEGER"/>
+            <result column="c_replyNickname" property="replyNickname" jdbcType="VARCHAR"/>
+            <result column="c_message" property="message" jdbcType="VARCHAR"/>
+            <result column="c_createTime" property="createTime" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Column_List">
+           id, menuId, commentUserId, commentNickname, replyUserId, replyNickname, message, createTime
+    </sql>
+
+    <insert id="insertComment">
+        insert into menu_comment(menuId
+        <if test="info.commentUserId != null and info.commentUserId != 0">
+            , commentUserId, commentNickname
+        </if>
+        , replyUserId, replyNickname, message, createTime
+        <if test="parent_commentId != null and parent_commentId != 0">, parent_commentId</if>
+        )
+        values(#{info.menuId}
+        <if test="info.commentUserId != null and info.commentUserId != 0">
+            , #{info.commentUserId}, #{info.commentNickname}
+        </if>
+        , #{info.replyUserId}, #{info.replyNickname}, #{info.message}, now()
+        <if test="parent_commentId != null and parent_commentId != 0">, #{parent_commentId}</if>
+        )
+    </insert>
+
+    <select id="selectCommentsByMenuId" resultMap="BaseResultMap">
+        select m.id, m.menuId, m.commentUserId, m.commentNickname, m.replyUserId, m.replyNickname, m.message,
+        c.id c_id, c.menuId c_menuId, c.commentUserId c_commentUserId, c.commentNickname c_commentNickname,
+        c.replyUserId c_replyUserId, c.replyNickname c_replyNickname, c.message c_message
+        FROM menu_comment m, menu_comment c
+        WHERE m.id = c.parent_commentId
+        ORDER BY c.createTime asc
+    </select>
+</mapper>

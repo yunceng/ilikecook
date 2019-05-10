@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import static com.colleage.cook.constants.SessionAttributeKeyConstants.SESSION_USER;
+
 /**
  * @Classname SimpleLogoutSuccessHandler
  * @Description 登出处理
@@ -24,6 +26,7 @@ public class SimpleLogoutSuccessHandler implements LogoutSuccessHandler {
 
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+        httpServletRequest.getSession().removeAttribute(SESSION_USER);
         httpServletResponse.setContentType(HeaderConst.CONTENT_TYPE);
         httpServletResponse.setHeader(HeaderConst.ACCESS_CONTROL_ALLOW_ORIGIN, CharacterConst.CHARACTER_ARBITRARILY);
         PrintWriter out = httpServletResponse.getWriter();

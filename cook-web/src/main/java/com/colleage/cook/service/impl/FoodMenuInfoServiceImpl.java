@@ -7,8 +7,10 @@ import com.colleage.cook.domain.TinyFoodClassificationInfo;
 import com.colleage.cook.mapper.FoodClassificationInfoMapper;
 import com.colleage.cook.mapper.FoodMenuInfoMapper;
 import com.colleage.cook.mapper.UserInfoMapper;
+import com.colleage.cook.service.FoodMenuCommentInfoService;
 import com.colleage.cook.service.FoodMenuInfoService;
 import com.colleage.cook.utils.page.PageInfo;
+import com.colleage.cook.vo.AllMenuFoodCommentInfo;
 import com.colleage.cook.vo.DetailMenuInfo;
 import com.colleage.cook.vo.SimpleMenuInfo;
 import com.colleage.cook.vo.SimpleUserInfo;
@@ -41,6 +43,8 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
     @Autowired
     private FoodClassificationInfoMapper foodClassificationInfoMapper;
 
+    @Autowired
+    private FoodMenuCommentInfoService foodMenuCommentInfoService;
 
 
     @Override
@@ -137,7 +141,8 @@ public class FoodMenuInfoServiceImpl implements FoodMenuInfoService {
         List<MenuFoodInfo> menuFoodInfos = foodMenuInfoMapper.getMenuFoodInfos(uuid);
         List<MenuStepInfo> menuStepInfos = foodMenuInfoMapper.getMenuStepInfos(uuid);
         SimpleUserInfo userInfo = userInfoMapper.findUserInfoByUserId(menuSummaryInfo.getUserId());
-        return new DetailMenuInfo(userInfo, menuSummaryInfo, categorys, menuFoodInfos, menuStepInfos);
+        List<AllMenuFoodCommentInfo> allMenuFoodCommentInfos = foodMenuCommentInfoService.selectCommentsByMenuId(uuid);
+        return new DetailMenuInfo(userInfo, menuSummaryInfo, categorys, menuFoodInfos, menuStepInfos, allMenuFoodCommentInfos);
     }
 
     @Override

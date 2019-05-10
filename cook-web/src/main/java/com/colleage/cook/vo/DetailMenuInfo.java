@@ -19,12 +19,14 @@ public class DetailMenuInfo implements Serializable {
     }
 
     public DetailMenuInfo(SimpleUserInfo user, MenuSummaryInfo summaryInfo, List categorys,
-                          List<MenuFoodInfo> menuFoodInfoList, List<MenuStepInfo> menuStepInfoList) {
+                          List<MenuFoodInfo> menuFoodInfoList, List<MenuStepInfo> menuStepInfoList,
+                          List<AllMenuFoodCommentInfo> comments) {
         this.user = user;
         this.summaryInfo = summaryInfo;
         this.categorys = categorys;
         this.menuFoodInfoList = menuFoodInfoList;
         this.menuStepInfoList = menuStepInfoList;
+        this.comments = comments;
     }
 
     /**
@@ -51,6 +53,11 @@ public class DetailMenuInfo implements Serializable {
      * 菜单步骤
      */
     private List<MenuStepInfo> menuStepInfoList;
+
+    /**
+     * 菜谱评论
+     */
+    private List<AllMenuFoodCommentInfo> comments;
 
     public SimpleUserInfo getUser() {
         return user;
@@ -90,5 +97,13 @@ public class DetailMenuInfo implements Serializable {
 
     public void setMenuStepInfoList(List<MenuStepInfo> menuStepInfoList) {
         this.menuStepInfoList = menuStepInfoList;
+    }
+
+    public List<AllMenuFoodCommentInfo> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<AllMenuFoodCommentInfo> comments) {
+        this.comments = comments;
     }
 }
