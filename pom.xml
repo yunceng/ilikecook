@@ -35,6 +35,7 @@
         <thymeleaf.spring.version>3.0.9.RELEASE</thymeleaf.spring.version>
         <thymeleaf-layout-dialect.version>2.2.1</thymeleaf-layout-dialect.version>
         <swagger.version>2.2.2</swagger.version>
+        <fastjson-bind.version>2.8.8.1</fastjson-bind.version>
 
 
         <cook.common.version>1.0-SNAPSHOT</cook.common.version>
@@ -61,6 +62,12 @@
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis-spring-boot}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${fastjson-bind.version}</version>
             </dependency>
 
             <!-- Druid 数据连接池依赖 -->
