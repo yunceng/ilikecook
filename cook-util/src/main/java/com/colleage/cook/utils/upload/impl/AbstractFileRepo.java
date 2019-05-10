@@ -16,7 +16,6 @@ import com.colleage.cook.utils.FileNameUtils;
 import com.colleage.cook.utils.ImageUtils;
 import com.colleage.cook.utils.upload.FileRepo;
 import org.apache.log4j.Logger;
-import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
