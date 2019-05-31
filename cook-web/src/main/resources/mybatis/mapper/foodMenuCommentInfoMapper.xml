@@ -3,23 +3,16 @@
 <mapper namespace="com.colleage.cook.mapper.FoodMenuCommentInfoMapper">
 
     <resultMap id="BaseResultMap" type="com.colleage.cook.vo.AllMenuFoodCommentInfo">
-        <id column="id" property="id" jdbcType="INTEGER" />
-        <result column="menuId" property="menuId" jdbcType="VARCHAR"/>
-        <result column="commentUserId" property="commentUserId" jdbcType="INTEGER"/>
-        <result column="commentNickname" property="commentNickname" jdbcType="VARCHAR"/>
-        <result column="replyUserId" property="replyUserId" jdbcType="INTEGER"/>
-        <result column="replyNickname" property="replyNickname" jdbcType="VARCHAR"/>
-        <result column="message" property="message" jdbcType="VARCHAR"/>
-        <result column="createTime" property="createTime" jdbcType="VARCHAR"/>
+        <id column="pid" property="pid" jdbcType="INTEGER" />
         <collection property="replys" column="replys" ofType="com.colleage.cook.domain.MenuFoodCommentInfo">
-            <id column="c_id" property="id" jdbcType="INTEGER" />
-            <result column="c_menuId" property="menuId" jdbcType="VARCHAR"/>
-            <result column="c_commentUserId" property="commentUserId" jdbcType="INTEGER"/>
-            <result column="c_commentNickname" property="commentNickname" jdbcType="VARCHAR"/>
-            <result column="c_replyUserId" property="replyUserId" jdbcType="INTEGER"/>
-            <result column="c_replyNickname" property="replyNickname" jdbcType="VARCHAR"/>
-            <result column="c_message" property="message" jdbcType="VARCHAR"/>
-            <result column="c_createTime" property="createTime" jdbcType="VARCHAR"/>
+            <id column="id" property="id" jdbcType="INTEGER" />
+            <result column="menuId" property="menuId" jdbcType="VARCHAR"/>
+            <result column="commentUserId" property="commentUserId" jdbcType="INTEGER"/>
+            <result column="commentNickname" property="commentNickname" jdbcType="VARCHAR"/>
+            <result column="replyUserId" property="replyUserId" jdbcType="INTEGER"/>
+            <result column="replyNickname" property="replyNickname" jdbcType="VARCHAR"/>
+            <result column="message" property="message" jdbcType="VARCHAR"/>
+            <result column="createTime" property="createTime" jdbcType="VARCHAR"/>
         </collection>
     </resultMap>
 
@@ -45,11 +38,12 @@
     </insert>
 
     <select id="selectCommentsByMenuId" resultMap="BaseResultMap">
-        select m.id, m.menuId, m.commentUserId, m.commentNickname, m.replyUserId, m.replyNickname, m.message,
-        c.id c_id, c.menuId c_menuId, c.commentUserId c_commentUserId, c.commentNickname c_commentNickname,
-        c.replyUserId c_replyUserId, c.replyNickname c_replyNickname, c.message c_message
+        SELECT m.id pid,c.id id,c.menuId menuId,c.commentUserId commentUserId,c.commentNickname commentNickname,
+        c.replyUserId replyUserId,c.replyNickname replyNickname,c.message message
         FROM menu_comment m, menu_comment c
-        WHERE m.id = c.parent_commentId
-        ORDER BY c.createTime asc
+        WHERE
+	    m.id = c.parent_commentId or m.parent_commentId is null
+        ORDER BY
+	    c.createTime ASC
     </select>
 </mapper>
