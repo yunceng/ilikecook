@@ -3,15 +3,15 @@
 
  Source Server         : 192.168.20.30
  Source Server Type    : MySQL
- Source Server Version : 50725
+ Source Server Version : 50644
  Source Host           : 192.168.20.30:3306
  Source Schema         : ilikecook
 
  Target Server Type    : MySQL
- Target Server Version : 50725
+ Target Server Version : 50644
  File Encoding         : 65001
 
- Date: 10/05/2019 12:02:42
+ Date: 31/05/2019 11:50:57
 */
 
 SET NAMES utf8mb4;
@@ -37,7 +37,7 @@ CREATE TABLE `admin_info`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_role`(`role_id`) USING BTREE,
   CONSTRAINT `fk_admin_role` FOREIGN KEY (`role_id`) REFERENCES `role_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员信息表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of admin_info
@@ -56,7 +56,7 @@ CREATE TABLE `big_category`  (
   `status` int(11) NOT NULL DEFAULT 0 COMMENT '状态（0：可用，1：不可用）',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `category`(`category`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜谱大分类' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜谱大分类' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of big_category
@@ -84,7 +84,7 @@ CREATE TABLE `category_menu_rel`  (
   INDEX `fk_menu`(`menu_id`) USING BTREE,
   CONSTRAINT `fk_category_tiny` FOREIGN KEY (`category_id`) REFERENCES `tiny_category` (`category`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_menu` FOREIGN KEY (`menu_id`) REFERENCES `menu_summary` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of category_menu_rel
@@ -108,6 +108,7 @@ INSERT INTO `category_menu_rel` VALUES (34, 10056, 'f40bbb0165b84a5e9899e77e9277
 INSERT INTO `category_menu_rel` VALUES (35, 10025, 'f40bbb0165b84a5e9899e77e92777ecf');
 INSERT INTO `category_menu_rel` VALUES (36, 10299, 'faf83bb0232f48548e478314ddf75542');
 INSERT INTO `category_menu_rel` VALUES (37, 10026, 'f78570a328e64ca6924c260bd92b84a6');
+INSERT INTO `category_menu_rel` VALUES (42, 10001, 'a63360c61b5c4a3fa13d34c3933525e7');
 
 -- ----------------------------
 -- Table structure for menu_comment
@@ -130,24 +131,19 @@ CREATE TABLE `menu_comment`  (
   INDEX `fk_menu_comment_reply_userId`(`replyUserId`) USING BTREE,
   INDEX `fk_menu_comment_reply_nickname`(`replyNickname`) USING BTREE,
   INDEX `fk_menu_comment_parent_id`(`parent_commentId`) USING BTREE,
-  CONSTRAINT `fk_menu_comment_menuId` FOREIGN KEY (`menuId`) REFERENCES `menu_summary` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_menu_comment_comment_nickname` FOREIGN KEY (`commentNickname`) REFERENCES `user_info` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_menu_comment_comment_userId` FOREIGN KEY (`commentUserId`) REFERENCES `user_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_menu_comment_reply_nickname` FOREIGN KEY (`replyNickname`) REFERENCES `user_info` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_menu_comment_menuId` FOREIGN KEY (`menuId`) REFERENCES `menu_summary` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_menu_comment_parent_id` FOREIGN KEY (`parent_commentId`) REFERENCES `menu_comment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_menu_comment_reply_userId` FOREIGN KEY (`replyUserId`) REFERENCES `user_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_menu_comment_parent_id` FOREIGN KEY (`parent_commentId`) REFERENCES `menu_comment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  CONSTRAINT `fk_menu_comment_comment_nickname` FOREIGN KEY (`commentNickname`) REFERENCES `user_info` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_menu_comment_reply_nickname` FOREIGN KEY (`replyNickname`) REFERENCES `user_info` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of menu_comment
 -- ----------------------------
-INSERT INTO `menu_comment` VALUES (1, '0714066b25c64ebbbe18a4cf3d62c8bc', NULL, NULL, 5, 'bobbob', '这个才非常好吃', '2019-05-10 01:09:32', NULL);
-INSERT INTO `menu_comment` VALUES (2, '0714066b25c64ebbbe18a4cf3d62c8bc', 5, 'bobbob', 6, 'test22', '非常赞同', '2019-05-10 01:10:22', 1);
-INSERT INTO `menu_comment` VALUES (3, '0714066b25c64ebbbe18a4cf3d62c8bc', 6, 'test22', 5, 'bobbob', '英雄所见略同', '2019-05-10 01:11:05', 1);
-INSERT INTO `menu_comment` VALUES (4, '0714066b25c64ebbbe18a4cf3d62c8bc', 5, 'bobbob', 6, 'test22', '加油', '2019-05-10 01:12:13', 1);
-INSERT INTO `menu_comment` VALUES (5, '0714066b25c64ebbbe18a4cf3d62c8bc', NULL, NULL, 8, 'shagua', '你那里的', '2019-05-10 01:13:17', NULL);
-INSERT INTO `menu_comment` VALUES (6, '0714066b25c64ebbbe18a4cf3d62c8bc', 8, 'shagua', 2, 'alanwang', '北京的', '2019-05-10 01:13:52', 5);
-INSERT INTO `menu_comment` VALUES (7, '0714066b25c64ebbbe18a4cf3d62c8bc', 2, 'alanwang', 8, 'shagua', '我也是', '2019-05-10 01:14:15', 5);
+INSERT INTO `menu_comment` VALUES (1, 'd011da5fdca64b328463984ddb132b3a', 2, '皮皮不皮', 6, '你就是王八蛋', 'erere', '2019-05-31 18:34:38', NULL);
+INSERT INTO `menu_comment` VALUES (2, 'd011da5fdca64b328463984ddb132b3a', 2, '皮皮不皮', 6, '你就是王八蛋', '你是王八蛋', '2019-05-31 18:35:17', NULL);
 
 -- ----------------------------
 -- Table structure for menu_food
@@ -161,7 +157,7 @@ CREATE TABLE `menu_food`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_menu_summary_food`(`menu_id`) USING BTREE,
   CONSTRAINT `fk_menu_summary_food` FOREIGN KEY (`menu_id`) REFERENCES `menu_summary` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 477 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 492 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of menu_food
@@ -610,16 +606,9 @@ INSERT INTO `menu_food` VALUES (463, 'f78570a328e64ca6924c260bd92b84a6', '葱', 
 INSERT INTO `menu_food` VALUES (464, 'f78570a328e64ca6924c260bd92b84a6', '海天味极鲜酱油', '适量');
 INSERT INTO `menu_food` VALUES (465, 'f78570a328e64ca6924c260bd92b84a6', '啤酒', '适量');
 INSERT INTO `menu_food` VALUES (466, 'f78570a328e64ca6924c260bd92b84a6', '盐', '少量');
-INSERT INTO `menu_food` VALUES (467, '943f7f4d1f204758893a64c59e2d0178', '鸡琵琶腿', '8个');
-INSERT INTO `menu_food` VALUES (468, '943f7f4d1f204758893a64c59e2d0178', '蚝油', '20g');
-INSERT INTO `menu_food` VALUES (469, '943f7f4d1f204758893a64c59e2d0178', '生抽', '30ml');
-INSERT INTO `menu_food` VALUES (470, '943f7f4d1f204758893a64c59e2d0178', '姜', '5-6片');
-INSERT INTO `menu_food` VALUES (471, '943f7f4d1f204758893a64c59e2d0178', '蒜', '4瓣');
-INSERT INTO `menu_food` VALUES (472, '943f7f4d1f204758893a64c59e2d0178', '盐', '5g');
-INSERT INTO `menu_food` VALUES (473, '943f7f4d1f204758893a64c59e2d0178', '花椒', '2g');
-INSERT INTO `menu_food` VALUES (474, '943f7f4d1f204758893a64c59e2d0178', '面粉', '200g');
-INSERT INTO `menu_food` VALUES (475, '943f7f4d1f204758893a64c59e2d0178', '水', '500ml');
-INSERT INTO `menu_food` VALUES (476, '943f7f4d1f204758893a64c59e2d0178', '油', '半锅');
+INSERT INTO `menu_food` VALUES (489, 'a63360c61b5c4a3fa13d34c3933525e7', ' 木耳	', '1把');
+INSERT INTO `menu_food` VALUES (490, 'a63360c61b5c4a3fa13d34c3933525e7', '', '');
+INSERT INTO `menu_food` VALUES (491, 'a63360c61b5c4a3fa13d34c3933525e7', '', '');
 
 -- ----------------------------
 -- Table structure for menu_info
@@ -641,7 +630,7 @@ CREATE TABLE `menu_info`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `FK_CODE`(`code`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of menu_info
@@ -679,7 +668,7 @@ CREATE TABLE `menu_other_user_rel`  (
   INDEX `fk_menu_user_user_id`(`user_id`) USING BTREE,
   CONSTRAINT `fk_menu_user_menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menu_summary` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_menu_user_user_id` FOREIGN KEY (`user_id`) REFERENCES `user_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of menu_other_user_rel
@@ -701,7 +690,7 @@ CREATE TABLE `menu_rotation_info`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_menu_rotation`(`menu_id`) USING BTREE,
   CONSTRAINT `fk_menu_rotation` FOREIGN KEY (`menu_id`) REFERENCES `menu_summary` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of menu_rotation_info
@@ -724,7 +713,7 @@ CREATE TABLE `menu_step`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_menu_summary_step`(`menu_id`) USING BTREE,
   CONSTRAINT `fk_menu_summary_step` FOREIGN KEY (`menu_id`) REFERENCES `menu_summary` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 504 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 519 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of menu_step
@@ -1198,9 +1187,9 @@ INSERT INTO `menu_step` VALUES (497, 'f78570a328e64ca6924c260bd92b84a6', '放入
 INSERT INTO `menu_step` VALUES (498, 'f78570a328e64ca6924c260bd92b84a6', '倒入少量啤酒、美味鲜酱油、老抽、冰糖，盖上锅盖，小火收汁到一半，把肉拨到锅的四周，中间留出汁水，放入茄子块，盖上锅盖，大火炖5分钟左右。', '/static/images/app/70aa6d25d39c474481389b0020be2e61_5184w_3456h.jpg', 3);
 INSERT INTO `menu_step` VALUES (499, 'f78570a328e64ca6924c260bd92b84a6', '倒入少许醋、一点点红糖、洒一些盐调味，小火收汁到汤汁上有一层薄薄的浮油即可', '/static/images/app/f1ea89dd6ba748c89a1e670f28c70cec_5184w_3456h.jpg', 4);
 INSERT INTO `menu_step` VALUES (500, 'f78570a328e64ca6924c260bd92b84a6', '把汤汁全部倒入餐盘中，大火煸炒肉末茄子一小会，出盘，撒上葱花', '/static/images/app/8c1508d392414fc1a4d4f78c5dfd8f02_5184w_3456h.jpg', 5);
-INSERT INTO `menu_step` VALUES (501, '943f7f4d1f204758893a64c59e2d0178', '鸡腿洗净擦干，倒入4瓣蒜、5片姜、30ml生抽、20g蚝油、2g花椒、5g盐，冷藏腌制3小时以上，最好能过夜', '/static/images/app/9c498a5372b54d7d8f02344c154a0e87_1920w_1920h.jpg', 1);
-INSERT INTO `menu_step` VALUES (502, '943f7f4d1f204758893a64c59e2d0178', '腌好的鸡腿蘸干面粉，然后过一遍水，再蘸一遍干面粉。', '/static/images/app/657740d2b9ad4b3388a1643b0ac4e81d_1920w_1920h.jpg', 2);
-INSERT INTO `menu_step` VALUES (503, '943f7f4d1f204758893a64c59e2d0178', '锅里热油，将鸡腿放入油锅小火炸约15分钟，表面金黄。\r\n小贴士：如何检查油温：筷子放进去起小泡泡的程度即可', '/static/images/app/1915da163fd0483ea6b7e11abeaddf0c_1920w_1920h.jpg', 3);
+INSERT INTO `menu_step` VALUES (516, 'a63360c61b5c4a3fa13d34c3933525e7', '肉切片备用！', '', 0);
+INSERT INTO `menu_step` VALUES (517, 'a63360c61b5c4a3fa13d34c3933525e7', '', '', 1);
+INSERT INTO `menu_step` VALUES (518, 'a63360c61b5c4a3fa13d34c3933525e7', '', '', 2);
 
 -- ----------------------------
 -- Table structure for menu_summary
@@ -1222,7 +1211,7 @@ CREATE TABLE `menu_summary`  (
   INDEX `uuid`(`uuid`) USING BTREE,
   INDEX `fk_user`(`userId`) USING BTREE,
   CONSTRAINT `fk_user` FOREIGN KEY (`userId`) REFERENCES `user_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 61 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 66 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of menu_summary
@@ -1278,7 +1267,7 @@ INSERT INTO `menu_summary` VALUES (52, 'b36ffdff96264f53be7285e18cf699ef', '鱼�
 INSERT INTO `menu_summary` VALUES (57, 'f40bbb0165b84a5e9899e77e92777ecf', '柠檬鱼', '/static/images/app/3dede55a8a9a11e6b87c0242ac110003_812w_1080h.jpg', 6, '', '2019-04-28 22:37:58', 7.8, 782, 58, 3.9);
 INSERT INTO `menu_summary` VALUES (58, 'faf83bb0232f48548e478314ddf75542', '私家烧鸡腿肉', '/static/images/app/4a737210872811e6b87c0242ac110003_426w_640h.jpg', 6, '之前朋友送了我一瓶秘制红烧汁，用那个做出来的肉肉很好吃。 ', '2019-04-28 22:47:05', 8.1, 785, 40, 4.1);
 INSERT INTO `menu_summary` VALUES (59, 'f78570a328e64ca6924c260bd92b84a6', '肉末茄子', '/static/images/app/8dbc593612194d278d8ca9b8a0959338_5184w_3456h.jpg', 6, '一道超级超级下饭菜', '2019-04-29 20:04:32', 7.0, 25, 23, 4.0);
-INSERT INTO `menu_summary` VALUES (60, '943f7f4d1f204758893a64c59e2d0178', '0失败炸鸡腿', '/static/images/app/f1aec67ce5c143d1a9b8bf10b167b9e8_1080w_1920h.jpg', 5, NULL, '2019-04-30 16:06:33', 8.1, 22, 15, 4.4);
+INSERT INTO `menu_summary` VALUES (65, 'a63360c61b5c4a3fa13d34c3933525e7', '木须肉', '/static/images/app\\98b191a954104942823f15555b09e97e_918w_1224h.jpg', 6, '小时候最喜欢的一道菜！荤素蛋全齐！', '2019-05-31 17:27:57', 5.0, 0, 0, 0.0);
 
 -- ----------------------------
 -- Table structure for persistent_logins
@@ -1290,7 +1279,7 @@ CREATE TABLE `persistent_logins`  (
   `token` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `last_used` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`series`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of persistent_logins
@@ -1320,7 +1309,7 @@ CREATE TABLE `privilege_info`  (
   `menu_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`role_id`, `menu_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of privilege_info
@@ -1358,7 +1347,7 @@ CREATE TABLE `role_info`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of role_info
@@ -1376,7 +1365,7 @@ CREATE TABLE `search_word`  (
   `creat_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '搜索时间',
   `query_num` int(11) NULL DEFAULT 1 COMMENT '搜索次数',
   PRIMARY KEY (`word`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of search_word
@@ -1400,7 +1389,7 @@ CREATE TABLE `small_category`  (
   INDEX `fk_bigs`(`big_id`) USING BTREE,
   INDEX `category`(`category`) USING BTREE,
   CONSTRAINT `fk_bigs` FOREIGN KEY (`big_id`) REFERENCES `big_category` (`category`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜谱小分类' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜谱小分类' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of small_category
@@ -1472,7 +1461,7 @@ CREATE TABLE `system_info`  (
   `status` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0' COMMENT '是否可用（0：可用，1：不可用）',
   `desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统配置信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统配置信息表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of system_info
@@ -1507,7 +1496,7 @@ CREATE TABLE `tiny_category`  (
   INDEX `fk_small`(`small_id`) USING BTREE,
   INDEX `category`(`category`) USING BTREE,
   CONSTRAINT `fk_small` FOREIGN KEY (`small_id`) REFERENCES `small_category` (`category`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 494 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜谱的具体分类' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 494 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '菜谱的具体分类' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of tiny_category
@@ -2032,8 +2021,10 @@ CREATE TABLE `user_info`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_role`(`role_id`) USING BTREE,
   INDEX `username`(`username`) USING BTREE,
+  INDEX `username_2`(`username`, `nickname`) USING BTREE,
+  INDEX `nickname`(`nickname`) USING BTREE,
   CONSTRAINT `fk_role` FOREIGN KEY (`role_id`) REFERENCES `role_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户信息表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of user_info
@@ -2042,7 +2033,7 @@ INSERT INTO `user_info` VALUES (1, 'admin', '$2a$10$p8momL8581LuXYWaBPH9peeWXsHd
 INSERT INTO `user_info` VALUES (2, 'alanwang', '$2a$10$p8momL8581LuXYWaBPH9peeWXsHdyPNqvBiEIog7.iBzkRxXxh7nK', '/static/images/default_user_avator.png', '2019-04-30 17:16:24', NULL, '2019-04-11 16:13:05', NULL, 0, '皮皮不皮', 0, 0, 0, NULL, 0, 0, 3, 0);
 INSERT INTO `user_info` VALUES (4, 'peter2', '$2a$10$fjjukZYN4wUfkglAVCD0TucKSofyVl79.mRHziYKNys7/CiaiaaAu', '/static/images/default_user_avator.png', '2019-04-30 17:16:28', 'vungle@yeah.net', '2019-04-14 07:48:14', NULL, 0, '厨房闺娘', 1, 0, 0, NULL, 0, 0, 1, 0);
 INSERT INTO `user_info` VALUES (5, 'bobbob', '$2a$10$Zp9Nqczs.3U5ok8neJEFkOCCNSb2kylk7G4HvaTbor84d9DeljrRW', '/static/images/default_user_avator.png', '2019-04-25 02:24:54', 'plm2019@yeah.net', '2019-04-14 07:54:52', NULL, 0, '萌萌的猫团子', 1, 0, 0, NULL, 0, 0, 1, 0);
-INSERT INTO `user_info` VALUES (6, 'test22', '$2a$10$nQDN3lbVZN2PBK5eY7KxU.AUA0PwNAqDXsVBPH2s9bSOuzC8C8Vca', '/static/images/default_user_avator.png', '2019-05-05 17:58:41', 'qze2019@yeah.net', '2019-04-14 08:00:04', NULL, 0, '潇洒侠', 1, 0, 0, NULL, 0, 0, 1, 0);
+INSERT INTO `user_info` VALUES (6, 'test22', '$2a$10$nQDN3lbVZN2PBK5eY7KxU.AUA0PwNAqDXsVBPH2s9bSOuzC8C8Vca', '/static/images/default_user_avator.png', '2019-05-31 17:13:37', 'qze2019@yeah.net', '2019-04-14 08:00:04', NULL, 0, '你就是王八蛋', 1, 0, 0, NULL, 0, 0, 1, 0);
 INSERT INTO `user_info` VALUES (7, 'country', '$2a$10$pbIPSQqQK7Q5D9KdcthlFOtul07su7uof18t.x4.DCi2WWeCoQhXW', '/static/images/default_user_avator.png', '2019-04-25 02:25:18', 'erobinette9721@gmail.com', '2019-04-17 20:47:46', NULL, 0, '活脱脱是个宝', 1, 0, 0, NULL, 0, 0, 1, 0);
 INSERT INTO `user_info` VALUES (8, 'shagua', '$2a$10$QgwFWjmk8IvF1qm6lbBDLesEp/sp.NA2b3zgCw73wAeN.n4v0qzFa', '/static/images/default_user_avator.png', '2019-04-27 00:51:11', '175695632@qq.com', '2019-04-27 00:51:11', NULL, 0, '傻瓜屁', 1, 0, 0, NULL, 0, 0, 1, 0);
 INSERT INTO `user_info` VALUES (9, 'ershazi', '$2a$10$bD8VnKeAgdcttDp4xyYz1ercKb8xUgu0UBSKCiYP8KqCajRnwfjNq', '/static/images/default_user_avator.png', '2019-04-27 00:52:44', '175695632@qq.com', '2019-04-27 00:52:44', NULL, 0, '傻瓜屁', 1, 0, 0, NULL, 0, 0, 1, 0);
@@ -2053,6 +2044,7 @@ INSERT INTO `user_info` VALUES (13, 'wangbadan2', '$2a$10$88u0hWzK7a1bt25VGpe3ke
 INSERT INTO `user_info` VALUES (14, 'shabi', '$2a$10$nayMoMqs.wTKM2xBU8SjruhbQWJqkvxth/z7tB9gsNyVjZFxnNCBK', '/static/images/ava/default_user_avator.png', '2019-05-06 00:15:33', 'admin@qq.com', '2019-05-06 00:15:33', NULL, 0, '傻逼是最可爱的', 1, 0, 0, NULL, 0, 0, 1, 0);
 INSERT INTO `user_info` VALUES (15, 'dididi', '$2a$10$ynpEYwDPz1ITmGGpBnGei.xuNaeXvW1Z8ZmNnttUUktrRX98qx2m.', '/static/images/ava/default_user_avator.png', '2019-05-06 15:30:49', 'admin@qq.com', '2019-05-06 15:30:49', NULL, 0, '滴滴滴', 1, 0, 0, NULL, 0, 0, 1, 0);
 INSERT INTO `user_info` VALUES (16, 'nijiushigepi', '$2a$10$LuXY/pcQRC0L.4AoAkotb.sqc./MIwPxGwAICrNbJNywvv/UhTMJ6', '/static/images/ava/default_user_avator.png', '2019-05-06 17:21:59', 'pipi@qq.com', '2019-05-06 17:21:59', NULL, 0, '你就是个屁', 1, 0, 0, NULL, 0, 0, 1, 0);
+INSERT INTO `user_info` VALUES (17, 'heli', '$2a$10$X3e7FQNEx4OZfRLhB0cZauj15QEhsTaZ/5uBtdY65PFaX6d4/waUe', '/static/images/ava/default_user_avator.png', '2019-05-28 18:48:02', 'heli@qq.com', '2019-05-28 18:48:02', NULL, 0, 'heli', 1, 0, 0, NULL, 0, 0, 1, 0);
 
 -- ----------------------------
 -- Table structure for user_open_oauth
@@ -2068,7 +2060,7 @@ CREATE TABLE `user_open_oauth`  (
   `refresh_token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `user_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for user_relation
@@ -2084,6 +2076,6 @@ CREATE TABLE `user_relation`  (
   INDEX `fk_user_releation_two`(`two_user_id`) USING BTREE,
   CONSTRAINT `fk_user_releation_one` FOREIGN KEY (`one_user_id`) REFERENCES `user_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_user_releation_two` FOREIGN KEY (`two_user_id`) REFERENCES `user_info` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户关系表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户关系表' ROW_FORMAT = Compact;
 
 SET FOREIGN_KEY_CHECKS = 1;
