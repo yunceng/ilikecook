@@ -172,13 +172,19 @@ public class UserController {
             })
     @ApiOperation(value = "更新用户信息", httpMethod = "POST")
     @PostMapping("updateUserInfo.do")
-    public WebResponseData updateUserInfo(String username, String nickname, Integer gender, String avatar, String email, String mobile) {
+    public WebResponseData updateUserInfo(HttpServletRequest request, @RequestBody UserInfo userInfo) {
+        SimpleUserInfo simpleUserInfo = ((SimpleUserInfo) request.getSession().getAttribute(SessionAttributeKeyConstants.SESSION_USER));
         try {
-            if (StringUtils.isBlank(username) || gender == null) {
-                throw new NullPointerException();
+            if(userInfoService.updateUserInfo(simpleUserInfo.getUsername(), userInfo.getNickname(), userInfo.getGender(),
+                    userInfo.getAvatar(), userInfo.getEmail(), userInfo.getMobile()+"")){
+                simpleUserInfo.setNickname(userInfo.getNickname());
+                simpleUserInfo.setAvatar(userInfo.getAvatar());
+                request.getSession().setAttribute(SessionAttributeKeyConstants.SESSION_USER, simpleUserInfo);
+                WebResponseData responseData = WebResponseData.success();
+                responseData.setData(simpleUserInfo);
+                return responseData;
             }
-            userInfoService.updateUserInfo(username, nickname, gender, avatar, email, mobile);
-            return WebResponseData.success();
+            return WebResponseData.error();
         } catch (Exception e) {
            return WebResponseData.error();
         }
